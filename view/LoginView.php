@@ -9,10 +9,9 @@ class LoginView {
 	private static $cookiePassword = 'LoginView::CookiePassword';
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
-	private $controllerLogin;
 	
-	public function __construct($controllerLogin) {
-        $this->controllerLogin = $controllerLogin;
+	public function __construct() {
+        $this->
     }
 	
 	/**

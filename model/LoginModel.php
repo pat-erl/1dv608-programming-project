@@ -2,7 +2,7 @@
 
 namespace model;
 
-class Login {
+class LoginModel {
     
     private $userName;
     private $userPassword;

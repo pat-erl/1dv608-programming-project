@@ -4,9 +4,9 @@
 require_once('view/LoginView.php');
 require_once('view/DateTimeView.php');
 require_once('view/LayoutView.php');
-require_once('model/User.php');
-require_once('model/Login.php');
-require_once('controller/Login.php');
+require_once('model/UserModel.php');
+require_once('model/LoginModel.php');
+require_once('controller/LoginController.php');
 
 //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
 error_reporting(E_ALL);
@@ -14,24 +14,18 @@ ini_set('display_errors', 'On');
 
 
 //Creates an object of user.
-//$modelUser = new model\User('Patrik', 'Losenord');
+$userModel = new model\UserModel('Patrik', 'Losenord');
 
 //Creates an object of login.
-$modelLogin = new model\Login();
+$loginModel = new model\LoginModel();
 
 //Creates an object of controller.
-$controllerLogin = new controller\Login($modelLogin);
+$loginController = new controller\LoginController();
 
 //CREATE OBJECTS OF THE VIEWS
-$v = new LoginView($controllerLogin);
-$dtv = new DateTimeView();
-$lv = new LayoutView();
+$loginView = new LoginView();
+$dateTimeView = new DateTimeView();
+$layoutView = new LayoutView();
 
 
-
-
-
-
-
-
-$lv->render(false, $v, $dtv);
+$layoutView->render(false, $loginView, $dateTimeView);

@@ -2,7 +2,7 @@
 
 namespace controller;
 
-class Login {
+class LoginController {
     
     private $login;
     
