@@ -2,22 +2,21 @@
 
 namespace model;
 
-
 class User {
     
-    private $userName;
+    private $name;
     private $password;
     
-    public function __construct($userName, $password) {
-        $this->userName = $userName;
+    public function __construct($name, $password) {
+        $this->name = $name;
         $this->password = $password;
     }
     
-    public function getuserName() {
-        return $this->userName;
+    public function getName() {
+        return $this->name;
     }
     
-    public function getpassword() {
+    public function getPassword() {
         return $this->password;
     }
 }

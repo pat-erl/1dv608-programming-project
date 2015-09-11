@@ -9,9 +9,12 @@ class LoginView {
 	private static $cookiePassword = 'LoginView::CookiePassword';
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
-
+	private $controllerLogin;
 	
-
+	public function __construct($controllerLogin) {
+        $this->controllerLogin = $controllerLogin;
+    }
+	
 	/**
 	 * Create HTTP response
 	 *
@@ -20,10 +23,52 @@ class LoginView {
 	 * @return  void BUT writes to standard output and cookies!
 	 */
 	public function response() {
+		
 		$message = '';
 		
-		$response = $this->generateLoginFormHTML($message);
-		//$response .= $this->generateLogoutButtonHTML($message);
+		if(isset($_POST[self::$login])) {
+			
+			$test = false;
+			
+			$test = $this->controllerLogin->compareLogin(self::$name, self::$password);
+			
+			if($test == true) {
+				$message = 'Success!';
+			$response = $this->generateLogoutButtonHTML($message);
+			}
+			else {
+				$message = 'Wrong username and password!';
+			$response = $this->generateLoginFormHTML($message);
+			}
+			
+
+			
+			
+			
+
+			
+			/*
+			if(isset($_POST[self::$name])){
+				$message = 'Username can not be empty!';
+				$response = $this->generateLoginFormHTML($message);
+			}
+			else {
+			*/	
+				
+				
+				
+			
+			/*
+			if(!isset($_POST[self::$password])){
+				$message = 'Password can not be empty!';
+				return $response = $this->generateLoginFormHTML($message);
+			}
+			*/
+			
+		}
+		else {
+			$response = $this->generateLoginFormHTML($message);
+		}
 		return $response;
 	}
 
