@@ -10,8 +10,10 @@ class LoginView {
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 	
-	public function __construct() {
-        $this->
+	private $loginController;
+	
+	public function __construct($loginController) {
+        $this->loginController = $loginController;
     }
 	
 	/**
@@ -24,13 +26,16 @@ class LoginView {
 	public function response() {
 		
 		$message = '';
+		$response = '';
 		
+		var_dump(self::$name);
 		if(isset($_POST[self::$login])) {
-			
+			var_dump(self::$name);
 			$test = false;
 			
-			$test = $this->controllerLogin->compareLogin(self::$name, self::$password);
+			$test = $this->loginController->isTheUserAllowedToLogin('Patrik', 'Losenord');
 			
+			var_dump($test);
 			if($test == true) {
 				$message = 'Success!';
 			$response = $this->generateLogoutButtonHTML($message);

@@ -12,20 +12,15 @@ require_once('controller/LoginController.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-
-//Creates an object of user.
-$userModel = new model\UserModel('Patrik', 'Losenord');
-
-//Creates an object of login.
+//Creates an object of loginmodel.
 $loginModel = new model\LoginModel();
 
-//Creates an object of controller.
-$loginController = new controller\LoginController();
+//Creates an object of logincontroller.
+$loginController = new controller\LoginController($loginModel);
 
 //CREATE OBJECTS OF THE VIEWS
-$loginView = new LoginView();
+$loginView = new LoginView($loginController);
 $dateTimeView = new DateTimeView();
 $layoutView = new LayoutView();
-
 
 $layoutView->render(false, $loginView, $dateTimeView);
