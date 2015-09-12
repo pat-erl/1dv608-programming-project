@@ -13,14 +13,16 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
 //Creates an object of loginmodel.
-$loginModel = new model\LoginModel();
-
-//Creates an object of logincontroller.
-$loginController = new controller\LoginController($loginModel);
+$loginModel = new model\LoginModel('Patrik', 'Losenord');
 
 //CREATE OBJECTS OF THE VIEWS
-$loginView = new LoginView($loginController);
+$loginView = new LoginView($loginModel);
 $dateTimeView = new DateTimeView();
 $layoutView = new LayoutView();
 
-$layoutView->render(false, $loginView, $dateTimeView);
+//Creates an object of logincontroller.
+$loginController = new controller\LoginController($loginModel, $loginView);
+
+$isLoggedIn = $loginController->isLoggedIn();
+
+$layoutView->render($isLoggedIn, $loginView, $dateTimeView);

@@ -10,10 +10,10 @@ class LoginView {
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 	
-	private $loginController;
+	private $loginModel;
 	
-	public function __construct($loginController) {
-        $this->loginController = $loginController;
+	public function __construct($loginModel) {
+        $this->loginModel = $loginModel;
     }
 	
 	/**
@@ -23,56 +23,20 @@ class LoginView {
 	 *
 	 * @return  void BUT writes to standard output and cookies!
 	 */
-	public function response() {
+	public function response($isLoggedIn) {
 		
 		$message = '';
 		$response = '';
 		
-		var_dump(self::$name);
-		if(isset($_POST[self::$login])) {
-			var_dump(self::$name);
-			$test = false;
-			
-			$test = $this->loginController->isTheUserAllowedToLogin('Patrik', 'Losenord');
-			
-			var_dump($test);
-			if($test == true) {
-				$message = 'Success!';
-			$response = $this->generateLogoutButtonHTML($message);
-			}
-			else {
-				$message = 'Wrong username and password!';
-			$response = $this->generateLoginFormHTML($message);
-			}
-			
-
-			
-			
-			
-
-			
-			/*
-			if(isset($_POST[self::$name])){
-				$message = 'Username can not be empty!';
-				$response = $this->generateLoginFormHTML($message);
-			}
-			else {
-			*/	
-				
-				
-				
-			
-			/*
-			if(!isset($_POST[self::$password])){
-				$message = 'Password can not be empty!';
-				return $response = $this->generateLoginFormHTML($message);
-			}
-			*/
-			
+		if($isLoggedIn) {
+			$message = 'Welcome!';
+			$response = $this->generateLogoutButtonHTML($message); 
 		}
 		else {
+			$message = 'Bye Bye!';
 			$response = $this->generateLoginFormHTML($message);
 		}
+		
 		return $response;
 	}
 

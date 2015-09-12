@@ -7,9 +7,9 @@ class LoginModel {
     private $userName;
     private $userPassword;
     
-    public function __construct() {
-        $this->userName = 'Patrik';
-        $this->userPassword = 'Losenord';
+    public function __construct($userName, $userPassword) {
+        $this->userName = $userName;
+        $this->userPassword = $userPassword;
     }
     
     public function getUserName() {

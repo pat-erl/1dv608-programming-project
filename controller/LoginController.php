@@ -5,32 +5,18 @@ namespace controller;
 class LoginController {
     
     private $loginModel;
+    private $loginView;
     
-    public function __construct($loginModel) {
+    public function __construct($loginModel, $loginView) {
         $this->loginModel = $loginModel;
+        $this->loginVIew = $loginView;
     }
     
-    public function doesTheUserWantToLogin() {
+    public function doLogin() {
         
     }
     
-    public function isTheUserAllowedToLogin($userName, $userPassword) {
-        $testUser = false;
-        $testPass = false;
-        $testUser = $this->loginModel->getUserName();
-        $testPass = $this->loginModel->getUserPassword();
+    public function isLoggedIn() {
         
-        if($testUser === $userName && $testPass === $userPassword) {
-            return true;
-        }
-        else if($testUser === $userName && $testPass !== $userPassword) {
-            return false;
-        }
-        else if($testUser !== $userName && $testPass === $userPassword) {
-            return false;
-        }
-        else {
-            return false;
-        }
     }
 }
