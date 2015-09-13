@@ -15,6 +15,6 @@ class LoginController {
     }
     
     public function isLoggedIn() {
-        return false;
+        return true;
     }
 }
