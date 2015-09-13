@@ -33,7 +33,6 @@ class LoginView {
 			$response = $this->generateLogoutButtonHTML($message); 
 		}
 		else {
-			$message = 'Bye Bye!';
 			$response = $this->generateLoginFormHTML($message);
 		}
 		
