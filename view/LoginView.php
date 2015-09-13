@@ -29,12 +29,12 @@ class LoginView {
 		$response;
 		
 		if($isLoggedIn) {
-			$message = 'Welcome!';
+			$message = $this->getRequestMessageId();
 			$response = $this->generateLogoutButtonHTML($message); 
 		}
 		else {
+			$message = $this->getRequestMessageId();
 			$response = $this->generateLoginFormHTML($message);
-			
 		}
 		
 		return $response;
@@ -82,6 +82,19 @@ class LoginView {
 	}
 	
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
+	public function getRequestLogin() {
+		if(isset($_POST[self::$login])) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
+	
+	
+	
 	public function getRequestUserName() {
 		if(isset($_POST[self::$name])) {
 			return $_POST[self::$name];
@@ -100,12 +113,19 @@ class LoginView {
 		}
 	}
 	
-	public function getRequestLogin() {
-		if(isset($_POST[self::$login])) {
-			return true;
+	
+	
+	
+	public function getRequestMessageId() {
+		if(isset($_POST[self::$messageId])) {
+			return $_POST[self::$messageId];
 		}
 		else {
-			return false;
+			return null;
 		}
+	}
+	
+	public function setRequestMessageId($message) {
+		$_POST[self::$messageId] = $message;
 	}
 }

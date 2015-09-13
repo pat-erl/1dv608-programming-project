@@ -13,7 +13,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
 //Creates an object of loginmodel.
-$loginModel = new LoginModel("Patrik", "Losenord");
+$loginModel = new LoginModel('Patrik', 'Losenord');
 
 //CREATE OBJECTS OF THE VIEWS
 $loginView = new LoginView($loginModel);
