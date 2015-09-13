@@ -34,11 +34,12 @@ class LoginView {
 		}
 		else {
 			$response = $this->generateLoginFormHTML($message);
+			
 		}
 		
 		return $response;
 	}
-
+	
 	/**
 	* Generate HTML code on the output buffer for the logout button
 	* @param $message, String output message
@@ -81,8 +82,30 @@ class LoginView {
 	}
 	
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
-	private function getRequestUserName() {
-		return isset($_POST[self::$name]);
+	public function getRequestUserName() {
+		if(isset($_POST[self::$name])) {
+			return $_POST[self::$name];
+		}
+		else {
+			return null;
+		}
 	}
 	
+	public function getRequestPassword() {
+		if(isset($_POST[self::$password])) {
+			return $_POST[self::$password];
+		}
+		else {
+			return null;
+		}
+	}
+	
+	public function getRequestLogin() {
+		if(isset($_POST[self::$login])) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }

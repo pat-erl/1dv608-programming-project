@@ -23,6 +23,8 @@ $layoutView = new LayoutView();
 //Creates an object of logincontroller.
 $loginController = new LoginController($loginModel, $loginView);
 
+$loginController->checkIfLogin();
+
 $isLoggedIn = $loginController->isLoggedIn();
 
 $layoutView->render($isLoggedIn, $loginView, $dateTimeView);
