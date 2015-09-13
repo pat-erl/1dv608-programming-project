@@ -19,32 +19,41 @@ class LoginController {
         if($this->loginView->getRequestLogin()) {
 		    $userName = $this->loginView->getRequestUserName();
 			$userPassword = $this->loginView->getRequestPassword();
-			$this->compareLogin($userName, $userPassword);
+			
+			if(empty($userName) && empty($userPassword)) {
+			    $this->loginView->setRequestMessageId('Username and password are missing');
+			}
+			else {
+			    if(empty($userName)) {
+			        $this->loginView->setRequestMessageId('Username is missing');
+    			}
+    			else if(empty($userPassword)) {
+    			    $this->loginView->setRequestMessageId('Password is missing');
+    			}
+    			else {
+    			    $this->compareLogin($userName, $userPassword);
+    			}
+			}
 		}
     }
     
     public function compareLogin($userName, $userPassword) {
         
         if($userName === $this->loginModel->getUserName()) {
-            echo("användarnamn stämde");
             $this->userOk = true;
         }
         else {
-            echo("användarnamn stämde inte!");
             $this->loginView->setRequestMessageId('Wrong username');
             $this->userOk = false;
         }
         
 		if($userPassword === $this->loginModel->getUserPassword()) {
-		    echo("lösenord stämde");
 		    $this->passOk = true;
 		}
 		else {
-		    echo("lösenord stämde inte!");
 		    $this->loginView->setRequestMessageId('Wrong password');
 		    $this->passOk = false;
 		}
-		
 		$this->IsLoggedIn();
     }
     
