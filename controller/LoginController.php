@@ -1,7 +1,5 @@
 <?php
 
-namespace controller;
-
 class LoginController {
     
     private $loginModel;
@@ -17,6 +15,6 @@ class LoginController {
     }
     
     public function isLoggedIn() {
-        
+        return false;
     }
 }

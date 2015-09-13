@@ -26,7 +26,7 @@ class LoginView {
 	public function response($isLoggedIn) {
 		
 		$message = '';
-		$response = '';
+		$response;
 		
 		if($isLoggedIn) {
 			$message = 'Welcome!';
@@ -83,7 +83,7 @@ class LoginView {
 	
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function getRequestUserName() {
-		//RETURN REQUEST VARIABLE: USERNAME
+		return isset($_POST[self::$name]);
 	}
 	
 }

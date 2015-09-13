@@ -1,6 +1,5 @@
 <?php
 
-
 class LayoutView {
   
   public function render($isLoggedIn, LoginView $loginView, DateTimeView $dateTimeView) {
