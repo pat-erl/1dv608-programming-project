@@ -8,6 +8,7 @@ class LoginModel {
     private $userPasswordEmpty;
     private $userNameOk;
     private $userPasswordOk;
+    private $isLoggedOut;
     
     public function __construct($user) {
         $this->userName = $user->getName();
@@ -15,7 +16,6 @@ class LoginModel {
     }
 		
     public function compareLogin($userName, $userPassword) {
-        
         if($this->checkIfEmptyUserName($userName)) {
             $this->userNameEmpty = true;
         }
@@ -41,49 +41,23 @@ class LoginModel {
     }
     
     public function checkIfEmptyUserName($userName) {
-        if(empty($userName)) {
-            return true;
-		}
-		else {
-		    return false;
-        }
+        return empty($userName);
     }
     
     public function checkIfEmptyUserPassword($userPassword) {
-        if(empty($userPassword)) {
-            return true;
-		}
-		else {
-		    return false;
-        }
+        return empty($userPassword);
     }
     
     public function compareUserName($userName) {
-        if($userName === $this->userName) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return $userName === $this->userName;
     }
         
     public function compareUserPassword($userPassword) {
-        
-		if($userPassword === $this->userPassword) {
-		    return true;
-		}
-		else {
-		    return false;
-		}
+        return $userPassword === $this->userPassword;
     }
     
     public function isLoggedIn() {
-        if($this->userNameOk && $this->userPasswordOk) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return $this->userNameOk && $this->userPasswordOk;
     }
     
     public function getUserNameEmpty() {
@@ -100,5 +74,13 @@ class LoginModel {
     
     public function getUserPasswordOk() {
         return $this->userPasswordOk;
+    }
+    
+    public function getIsLoggedOut() {
+        return $this->isLoggedOut;
+    }
+    
+    public function setIsLoggedOut($state) {
+        $this->isLoggedOut = $state;
     }
 }

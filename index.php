@@ -23,11 +23,12 @@ $loginView = new LoginView($loginModel);
 $dateTimeView = new DateTimeView();
 $layoutView = new LayoutView();
 
+$loginView->setRequestMessageId('');
+
 //Creates an object of logincontroller.
 $loginController = new LoginController($loginModel, $loginView);
-
-$loginView->setRequestMessageId('');
 $loginController->checkIfLogin();
+$loginController->checkIfLogout();
 
 $isLoggedIn = $loginModel->isLoggedIn();
 

@@ -26,4 +26,11 @@ class LoginController {
         $this->loginModel->compareLogin($userNameToVerify, $userPasswordToVerify);
         $this->loginView->getCurrentState();
     }
+    
+    public function checkIfLogout() {
+        if($this->loginView->getRequestLogout()) {
+            $this->loginModel->setIsLoggedOut(true);
+            $this->loginView->getCurrentState();
+        }
+    }
 }
