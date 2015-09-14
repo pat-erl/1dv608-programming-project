@@ -4,8 +4,8 @@ class LoginController {
     
     private $loginModel;
     private $loginView;
-    private $userOk;
-    private $passOk;
+    private $userName;
+    private $userPassword;
     
     public function __construct($loginModel, $loginView) {
         $this->loginModel = $loginModel;
@@ -13,57 +13,16 @@ class LoginController {
     }
     
     public function checkIfLogin() {
-        $userName = '';
-        $userPassword = '';
-        
         if($this->loginView->getRequestLogin()) {
-		    $userName = $this->loginView->getRequestUserName();
-			$userPassword = $this->loginView->getRequestPassword();
-			
-			if(empty($userName) && empty($userPassword)) {
-			    $this->loginView->setRequestMessageId('Username and password are missing');
-			}
-			else {
-			    if(empty($userName)) {
-			        $this->loginView->setRequestMessageId('Username is missing');
-    			}
-    			else if(empty($userPassword)) {
-    			    $this->loginView->setRequestMessageId('Password is missing');
-    			}
-    			else {
-    			    $this->compareLogin($userName, $userPassword);
-    			}
-			}
-		}
+		    $this->userName = $this->loginView->getRequestUserName();
+			$this->userPassword = $this->loginView->getRequestPassword();
+			$this->authenticateLogin();
+        }
     }
     
-    public function compareLogin($userName, $userPassword) {
-        
-        if($userName === $this->loginModel->getUserName()) {
-            $this->userOk = true;
-        }
-        else {
-            $this->loginView->setRequestMessageId('Wrong username');
-            $this->userOk = false;
-        }
-        
-		if($userPassword === $this->loginModel->getUserPassword()) {
-		    $this->passOk = true;
-		}
-		else {
-		    $this->loginView->setRequestMessageId('Wrong password');
-		    $this->passOk = false;
-		}
-		$this->IsLoggedIn();
-    }
-    
-    public function isLoggedIn() {
-        if($this->userOk && $this->passOk) {
-            $this->loginView->setRequestMessageId('Welcome');
-            return true;
-        }
-        else {
-            return false;
-        }
+    public function verifyLogin() {
+        $userNameToVerify = $this->userName;
+        $userPasswordToVerify = $this->userPassword;
+        $this->loginModel->compareLogin($userNameToVerify, $userPasswordToVerify);
     }
 }

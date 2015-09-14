@@ -91,38 +91,16 @@ class LoginView {
 		}
 	}
 	
-	
-	
-	
-	
 	public function getRequestUserName() {
-		if(isset($_POST[self::$name])) {
-			return $_POST[self::$name];
-		}
-		else {
-			return null;
-		}
+		return $_POST[self::$name];
 	}
 	
 	public function getRequestPassword() {
-		if(isset($_POST[self::$password])) {
-			return $_POST[self::$password];
-		}
-		else {
-			return null;
-		}
+		return $_POST[self::$password];
 	}
 	
-	
-	
-	
 	public function getRequestMessageId() {
-		if(isset($_POST[self::$messageId])) {
-			return $_POST[self::$messageId];
-		}
-		else {
-			return null;
-		}
+		return $_POST[self::$messageId];
 	}
 	
 	public function setRequestMessageId($message) {
