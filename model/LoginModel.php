@@ -9,14 +9,14 @@ class LoginModel {
     private $userNameOk;
     private $userPasswordOk;
     
-    public function __construct($userName, $userPassword) {
-        $this->userName = $userName;
-        $this->userPassword = $userPassword;
+    public function __construct($user) {
+        $this->userName = $user->getName();
+        $this->userPassword = $user->getPassword();
     }
 		
-    public function verifyLogin($userName, $userPassword) {
+    public function compareLogin($userName, $userPassword) {
         
-        if($this->checkIfEmptyUser($userName)) {
+        if($this->checkIfEmptyUserName($userName)) {
             $this->userNameEmpty = true;
         }
         else {
@@ -78,7 +78,12 @@ class LoginModel {
     }
     
     public function isLoggedIn() {
-        
+        if($this->userNameOk && $this->userPasswordOk) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     
     public function getUserNameEmpty() {

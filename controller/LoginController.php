@@ -16,7 +16,7 @@ class LoginController {
         if($this->loginView->getRequestLogin()) {
 		    $this->userName = $this->loginView->getRequestUserName();
 			$this->userPassword = $this->loginView->getRequestPassword();
-			$this->authenticateLogin();
+			$this->verifyLogin();
         }
     }
     
@@ -24,5 +24,6 @@ class LoginController {
         $userNameToVerify = $this->userName;
         $userPasswordToVerify = $this->userPassword;
         $this->loginModel->compareLogin($userNameToVerify, $userPasswordToVerify);
+        $this->loginView->getCurrentState();
     }
 }

@@ -81,6 +81,26 @@ class LoginView {
 		';
 	}
 	
+	public function getCurrentState() {
+		if($this->loginModel->getUserNameEmpty()) {
+			$this->setRequestMessageId('Username is missing');
+		}
+		else if ($this->loginModel->getUserPasswordEmpty()) {
+			$this->setRequestMessageId('Password is missing');
+		}
+		else if($this->loginModel->getUserNameOk()) {
+			if($this->loginModel->getUserPasswordOk()) {
+				$this->setRequestMessageId('Success!');
+			}
+			else {
+				$this->setRequestMessageId('Wrong password');
+			}
+		}
+		else {
+			$this->setRequestMessageId('Wrong username');
+		}
+	}
+	
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	public function getRequestLogin() {
 		if(isset($_POST[self::$login])) {

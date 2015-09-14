@@ -12,8 +12,11 @@ require_once('controller/LoginController.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
+//Creates an object of User.
+$userModel = new UserModel('Patrik', 'Losenord');
+
 //Creates an object of loginmodel.
-$loginModel = new LoginModel('Patrik', 'Losenord');
+$loginModel = new LoginModel($userModel);
 
 //CREATE OBJECTS OF THE VIEWS
 $loginView = new LoginView($loginModel);
@@ -23,8 +26,9 @@ $layoutView = new LayoutView();
 //Creates an object of logincontroller.
 $loginController = new LoginController($loginModel, $loginView);
 
+$loginView->setRequestMessageId('');
 $loginController->checkIfLogin();
 
-$isLoggedIn = $loginController->isLoggedIn();
+$isLoggedIn = $loginModel->isLoggedIn();
 
 $layoutView->render($isLoggedIn, $loginView, $dateTimeView);
