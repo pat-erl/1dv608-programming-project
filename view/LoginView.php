@@ -90,14 +90,14 @@ class LoginView {
 		}
 		else if($this->loginModel->getUserNameOk()) {
 			if($this->loginModel->getUserPasswordOk()) {
-				$this->setRequestMessageId('Success!');
+				$this->setRequestMessageId('Welcome');
 			}
 			else {
-				$this->setRequestMessageId('Wrong password');
+				$this->setRequestMessageId('Wrong name or password');
 			}
 		}
 		else {
-			$this->setRequestMessageId('Wrong username');
+			$this->setRequestMessageId('Wrong name or password');
 		}
 	}
 	
