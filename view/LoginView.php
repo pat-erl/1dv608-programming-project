@@ -38,7 +38,6 @@ class LoginView {
 			$message = $this->getRequestMessageId();
 			$response = $this->generateLoginFormHTML($message);
 		}
-		
 		return $response;
 	}
 	
@@ -101,7 +100,6 @@ class LoginView {
 		else {
 			$this->setRequestMessageId('Wrong name or password');
 		}
-		
 		if($this->loginModel->getIsLoggedOut()) {
 			$this->setRequestMessageId('Bye bye!');
 		}
@@ -116,12 +114,16 @@ class LoginView {
 		return isset($_POST[self::$logout]);
 	}
 	
-	public function getRequestUserName() {
+	public function getRequestName() {
 		return $_POST[self::$name];
 	}
 	
 	public function getRequestPassword() {
 		return $_POST[self::$password];
+	}
+	
+	public function getRequestKeep() {
+		return isset($_POST[self::$keep]);
 	}
 	
 	public function getRequestMessageId() {

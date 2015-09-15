@@ -14,7 +14,10 @@ class LoginController {
     
     public function checkIfLogin() {
         if($this->loginView->getRequestLogin()) {
-		    $this->userName = $this->loginView->getRequestUserName();
+            if($this->loginView->getRequestKeep()) {
+                echo('Test: Körs om användaren tryckt på keep innan login!');
+            }
+		    $this->userName = $this->loginView->getRequestName();
 			$this->userPassword = $this->loginView->getRequestPassword();
 			$this->verifyLogin();
         }

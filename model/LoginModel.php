@@ -16,44 +16,24 @@ class LoginModel {
     }
 		
     public function compareLogin($userName, $userPassword) {
-        if($this->checkIfEmptyUserName($userName)) {
+        if(empty($userName)) {
             $this->userNameEmpty = true;
         }
-        else {
-            if($this->checkIfEmptyUserPassword($userPassword)) {
-                $this->userPasswordEmpty = true;
-            }
-            else {
-                if($this->compareUserName($userName)) {
-                    $this->userNameOk = true;
-                    if($this->compareUserPassword($userPassword)) {
-                        $this->userPasswordOk = true;
-                    }
-                    else {
-                        $this->userPasswordOk = false;
-                    }
-                }
-                else {
-                    $this->userNameOk = false;
-                }
-            }
+        if(empty($userPassword)) {
+            $this->userPasswordEmpty = true;
         }
-    }
-    
-    public function checkIfEmptyUserName($userName) {
-        return empty($userName);
-    }
-    
-    public function checkIfEmptyUserPassword($userPassword) {
-        return empty($userPassword);
-    }
-    
-    public function compareUserName($userName) {
-        return $userName === $this->userName;
-    }
-        
-    public function compareUserPassword($userPassword) {
-        return $userPassword === $this->userPassword;
+        if($userName === $this->userName) {
+            $this->userNameOk = true;
+        }
+        else {
+            $this->userNameOk = false;
+        }
+        if($userPassword === $this->userPassword) {
+            $this->userPasswordOk = true;
+        }
+        else {
+            $this->userPasswordOk = false;
+        }
     }
     
     public function isLoggedIn() {
