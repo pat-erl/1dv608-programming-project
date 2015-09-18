@@ -80,15 +80,22 @@ class LoginView {
 		';
 	}
 	
+	//Reads the current state from the LoginModel.
 	public function getCurrentState() {
-		if($this->loginModel->getIsLoggedIn()) {
+		if($this->loginModel->getUserNameEmpty()) {
+			$this->setRequestMessageId('Username is missing');
+		}
+		else if($this->loginModel->getUserPasswordEmpty()) {
+			$this->setRequestMessageId('Password is missing');
+		}
+		else if($this->loginModel->getIsLoggedIn()) {
 			$this->setRequestMessageId('Welcome');
 		}
 		else if($this->loginModel->getIsLoggedOut()) {
 			$this->setRequestMessageId('Bye bye!');
 		}
 		else {
-			$this->setRequestMessageId('');
+			$this->setRequestMessageId('Wrong username or password');
 		}
 	}
 	

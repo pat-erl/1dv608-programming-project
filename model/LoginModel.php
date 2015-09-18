@@ -4,6 +4,8 @@ class LoginModel {
     
     private $userName;
     private $userPassword;
+    private $userNameEmpty;
+    private $userPasswordEmpty;
     private $sessionModel;
     private $isLoggedIn;
     private $isLoggedOut;
@@ -52,5 +54,21 @@ class LoginModel {
     
     public function setIsLoggedOut($state) {
         $this->isLoggedOut = $state;
+    }
+    
+    public function getUserNameEmpty() {
+        return $this->userNameEmpty;
+    }
+    
+    public function setUserNameEmpty($state) {
+        $this->userNameEmpty = $state;
+    }
+    
+    public function getUserPasswordEmpty() {
+        return $this->userPasswordEmpty;
+    }
+    
+    public function setUserPasswordEmpty($state) {
+        $this->userPasswordEmpty = $state;
     }
 }
