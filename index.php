@@ -24,16 +24,18 @@ $loginModel = new LoginModel($currentUserModel, $sessionModel);
 
 //CREATE OBJECTS OF THE VIEWS
 $loginView = new LoginView($loginModel);
-$dateTimeView = new DateTimeView();
 $layoutView = new LayoutView();
-
-$loginView->setRequestMessageId('');
+$dateTimeView = new DateTimeView();
 
 //Creates an object of loginController.
 $loginController = new LoginController($loginModel, $loginView, $sessionModel);
+
+//Calls the methods that will handle the userinput.
 $loginController->checkIfLogin();
 $loginController->checkIfLogout();
 
+//Creates a variable with the current login-state.
 $isLoggedIn = $loginModel->getIsLoggedIn();
 
+//Calls the method that handles the rendering to the client.
 $layoutView->render($isLoggedIn, $loginView, $dateTimeView);

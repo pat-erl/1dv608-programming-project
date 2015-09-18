@@ -5,10 +5,6 @@ class LoginModel {
     private $userName;
     private $userPassword;
     private $sessionModel;
-    private $userNameEmpty;
-    private $userPasswordEmpty;
-    private $userNameOk;
-    private $userPasswordOk;
     private $isLoggedIn;
     private $isLoggedOut;
     
@@ -17,44 +13,29 @@ class LoginModel {
         $this->userPassword = $user->getPassword();
         $this->sessionModel = $sessionModel;
     }
-		
-    public function compareLogin($userName, $userPassword) {
-        if(empty($userName)) {
-            $this->userNameEmpty = true;
-        }
-        if(empty($userPassword)) {
-            $this->userPasswordEmpty = true;
-        }
-        if($userName === $this->userName) {
-            $this->userNameOk = true;
-        }
-        else {
-            $this->userNameOk = false;
-        }
-        if($userPassword === $this->userPassword) {
-            $this->userPasswordOk = true;
-        }
-        else {
-            $this->userPasswordOk = false;
-        }
-        
-        return $this->userNameOk && $this->userPasswordOk;
+	
+	public function isEmptyName($userName) {
+	    return empty($userName);
+	}	
+	
+	public function isEmptyPassword($userPassword) {
+	    return empty($userPassword);
+	}
+	
+    public function isCorrectName($userName) {
+        return $this->userName == $userName;
     }
     
-    public function getUserNameEmpty() {
-        return $this->userNameEmpty;
+    public function isCorrectPassword($userPassword) {
+        return $this->userPassword == $userPassword;
     }
     
-    public function getUserPasswordEmpty() {
-        return $this->userPasswordEmpty;
+    public function getSessionModel() {
+        return $this->sessionModel;
     }
     
-    public function getUserNameOk() {
-        return $this->userNameOk;
-    }
-    
-    public function getUserPasswordOk() {
-        return $this->userPasswordOk;
+    public function setSessionModel($state) {
+        $this->sessionModel = $state;
     }
     
     public function getIsLoggedIn() {

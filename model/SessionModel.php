@@ -6,7 +6,7 @@ class SessionModel {
     private static $passID = 'Pass';
     
     public function __construct() {
-      session_start();
+      //session_start();
     }
     
     public function getSession() {

@@ -26,19 +26,17 @@ class LoginView {
 	public function response($isLoggedIn) {
 		
 		$message = '';
-		$response;
 		
 		if($isLoggedIn) {
+			
 			$message = $this->getRequestMessageId();
-			$response = $this->generateLogoutButtonHTML($message); 
+			return $this->generateLogoutButtonHTML($message); 
 		}
 		else {
-			//Här kanske kolla om det är första gången sidan visas eller en utloggning??( tomt eller bye bye mao.
-			//Och då initiera messageId så det slipper göras i index??
+			
 			$message = $this->getRequestMessageId();
-			$response = $this->generateLoginFormHTML($message);
+			return $this->generateLoginFormHTML($message);
 		}
-		return $response;
 	}
 	
 	/**
@@ -83,29 +81,17 @@ class LoginView {
 	}
 	
 	public function getCurrentState() {
-		
-		if($this->loginModel->getUserNameEmpty()) {
-			$this->setRequestMessageId('Username is missing');
+		if($this->loginModel->getIsLoggedIn()) {
+			$this->setRequestMessageId('Welcome');
 		}
-		else if ($this->loginModel->getUserPasswordEmpty()) {
-			$this->setRequestMessageId('Password is missing');
-		}
-		else if($this->loginModel->getUserNameOk()) {
-			if($this->loginModel->getUserPasswordOk()) {
-				$this->setRequestMessageId('Welcome');
-			}
-			else {
-				$this->setRequestMessageId('Wrong name or password');
-			}
-		}
-		else {
-			$this->setRequestMessageId('Wrong name or password');
-		}
-		if($this->loginModel->getIsLoggedOut()) {
+		else if($this->loginModel->getIsLoggedOut()) {
 			$this->setRequestMessageId('Bye bye!');
 		}
+		else {
+			$this->setRequestMessageId('');
+		}
 	}
-
+	
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	public function getRequestLogin() {
 		return isset($_POST[self::$login]);
@@ -128,6 +114,9 @@ class LoginView {
 	}
 	
 	public function getRequestMessageId() {
+		if(!isset($_POST[self::$messageId])) {
+			$this->setRequestMessageId('');	
+		}
 		return $_POST[self::$messageId];
 	}
 	
