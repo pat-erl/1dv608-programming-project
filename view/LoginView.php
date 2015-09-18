@@ -95,7 +95,7 @@ class LoginView {
 			$this->setRequestMessageId('Bye bye!');
 		}
 		else {
-			$this->setRequestMessageId('Wrong username or password');
+			$this->setRequestMessageId('Wrong name or password');
 		}
 	}
 	

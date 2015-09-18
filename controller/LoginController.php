@@ -47,8 +47,8 @@ class LoginController {
     }
     
     public function checkIfLogout() {
-        
         if($this->loginView->getRequestLogout()) {
+            $this->loginModel->setIsLoggedIn(false);
             $this->loginModel->setIsLoggedOut(true);
             $this->loginView->getCurrentState();
         }
