@@ -4,15 +4,18 @@ class LoginModel {
     
     private $userName;
     private $userPassword;
+    private $sessionModel;
     private $userNameEmpty;
     private $userPasswordEmpty;
     private $userNameOk;
     private $userPasswordOk;
+    private $isLoggedIn;
     private $isLoggedOut;
     
-    public function __construct($user) {
+    public function __construct($user, $sessionModel) {
         $this->userName = $user->getName();
         $this->userPassword = $user->getPassword();
+        $this->sessionModel = $sessionModel;
     }
 		
     public function compareLogin($userName, $userPassword) {
@@ -34,9 +37,7 @@ class LoginModel {
         else {
             $this->userPasswordOk = false;
         }
-    }
-    
-    public function isLoggedIn() {
+        
         return $this->userNameOk && $this->userPasswordOk;
     }
     
@@ -54,6 +55,14 @@ class LoginModel {
     
     public function getUserPasswordOk() {
         return $this->userPasswordOk;
+    }
+    
+    public function getIsLoggedIn() {
+        return $this->isLoggedIn;
+    }
+    
+    public function setIsLoggedIn($state) {
+        $this->isLoggedIn = $state;
     }
     
     public function getIsLoggedOut() {

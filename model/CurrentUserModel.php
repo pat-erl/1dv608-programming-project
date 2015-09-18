@@ -1,6 +1,6 @@
 <?php
 
-class UserModel{
+class CurrentUserModel {
     
     private $name;
     private $password;
