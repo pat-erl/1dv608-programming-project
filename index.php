@@ -20,7 +20,7 @@ $currentUserModel = new CurrentUserModel('Patrik', 'Losenord');
 $loginModel = new LoginModel($currentUserModel);
 
 //Creates an object of SessionModel.
-$sessionModel = new SessionModel($loginModel);
+$sessionModel = new SessionModel();
 
 //CREATE OBJECTS OF THE VIEWS
 $loginView = new LoginView($loginModel, $sessionModel);
@@ -30,9 +30,8 @@ $dateTimeView = new DateTimeView();
 //Creates an object of loginController.
 $loginController = new LoginController($loginModel, $sessionModel, $loginView);
 
-//Calls the methods that will handle the userinput.
-$loginController->checkIfLogin();
-$loginController->checkIfLogout();
+//Calls the method that will check for active session.
+$loginController->checkIfSession();
 
 //Creates a variable with the current login-state.
 $isLoggedIn = $loginModel->getIsLoggedIn();
