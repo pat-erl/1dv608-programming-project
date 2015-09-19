@@ -15,6 +15,8 @@ class LoginModel {
         $this->userPassword = $user->getPassword();
     }
 	
+	//Methods for validating the input.
+	
 	public function isEmptyName($userName) {
 	    return empty($userName);
 	}	
@@ -30,6 +32,8 @@ class LoginModel {
     public function isCorrectPassword($userPassword) {
         return $this->userPassword == $userPassword;
     }
+    
+    //Getters and setters for the private membervariables.
     
     public function getIsLoggedIn() {
         if($this->isAlreadyLoggedIn) {

@@ -2,6 +2,7 @@
 
 class LayoutView {
   
+  //Handles the rendering to the client.
   public function render($isLoggedIn, LoginView $loginView, DateTimeView $dateTimeView) {
     echo '<!DOCTYPE html>
       <html>

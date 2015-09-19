@@ -12,6 +12,8 @@ class LoginController {
         $this->loginView = $loginView;
     }
     
+    //Checks for active session.
+    //If it exists it sets the current state in the Model and tells the View to get the current state.
     public function checkIfSession() {
         if($this->sessionModel->existingSession()) {
             $this->loginModel->setUserNameEmpty(false);
@@ -27,7 +29,7 @@ class LoginController {
     }
 
     //1. Gets the userinput and sends it to the Model for comparison.
-    //2. Uses the response from the Model to set the current states in the Model.
+    //2. Uses the response from the Model to set the current state in the Model.
     //3. Tells the View to get the current state.
     public function checkIfLogin() {
         if($this->loginView->getRequestLogin()) {
@@ -64,6 +66,7 @@ class LoginController {
         }
     }
     
+    //Gets the userinput and sets the current state in the Model.
     public function checkIfLogout() {
         if($this->loginView->getRequestLogout()) {
             $this->loginModel->setIsLoggedOut(true);

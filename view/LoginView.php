@@ -11,11 +11,9 @@ class LoginView {
 	private static $messageId = 'LoginView::Message';
 	
 	private $loginModel;
-	private $sessionModel;
 	
-	public function __construct($loginModel, $sessionModel) {
+	public function __construct($loginModel) {
         $this->loginModel = $loginModel;
-        $this->sessionModel = $sessionModel;
     }
 	
 	/**
@@ -77,7 +75,7 @@ class LoginView {
 		';
 	}
 	
-	//Reads the current state from the LoginModel.
+	//Reads the current state from the LoginModel and sets the appropriate message.
 	public function getCurrentState() {
 		if($this->loginModel->getUserNameEmpty()) {
 			$this->setRequestMessageId('Username is missing');
@@ -99,7 +97,8 @@ class LoginView {
 		}
 	}
 	
-	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
+	//Getters and setters for the private membervariables.
+	
 	public function getRequestLogin() {
 		return isset($_POST[self::$login]);
 	}

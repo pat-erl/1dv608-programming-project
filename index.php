@@ -23,7 +23,7 @@ $loginModel = new LoginModel($currentUserModel);
 $sessionModel = new SessionModel();
 
 //CREATE OBJECTS OF THE VIEWS
-$loginView = new LoginView($loginModel, $sessionModel);
+$loginView = new LoginView($loginModel);
 $layoutView = new LayoutView();
 $dateTimeView = new DateTimeView();
 
