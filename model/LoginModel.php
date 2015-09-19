@@ -8,6 +8,7 @@ class LoginModel {
     private $userPasswordEmpty;
     private $isLoggedIn;
     private $isLoggedOut;
+    private $isAlreadyLoggedIn;
     
     public function __construct($user) {
         $this->userName = $user->getName();
@@ -31,11 +32,24 @@ class LoginModel {
     }
     
     public function getIsLoggedIn() {
-        return $this->isLoggedIn;
+        if($this->isAlreadyLoggedIn) {
+            return true;
+        }
+        else {
+            return $this->isLoggedIn;
+        }
     }
     
     public function setIsLoggedIn($state) {
         $this->isLoggedIn = $state;
+    }
+    
+    public function getIsAlreadyLoggedIn() {
+        return $this->isAlreadyLoggedIn;
+    }
+    
+    public function setIsAlreadyLoggedIn($state) {
+        $this->isAlreadyLoggedIn = $state;
     }
     
     public function getIsLoggedOut() {

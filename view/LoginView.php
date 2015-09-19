@@ -85,6 +85,9 @@ class LoginView {
 		else if($this->loginModel->getUserPasswordEmpty()) {
 			$this->setRequestMessageId('Password is missing');
 		}
+		else if($this->loginModel->getIsAlreadyLoggedIn()) {
+			$this->setRequestMessageId('');
+		}
 		else if($this->loginModel->getIsLoggedIn()) {
 			$this->setRequestMessageId('Welcome');
 		}

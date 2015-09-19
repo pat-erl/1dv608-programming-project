@@ -16,7 +16,8 @@ class LoginController {
         if($this->sessionModel->existingSession()) {
             $this->loginModel->setUserNameEmpty(false);
             $this->loginModel->setUserPasswordEmpty(false);
-			$this->loginModel->setIsLoggedIn(true);
+			$this->loginModel->setIsAlreadyLoggedIn(true);
+			$this->loginModel->setIsLoggedOut(false);
 			$this->loginView->getCurrentState();
             $this->checkIfLogout();
         }
@@ -46,6 +47,7 @@ class LoginController {
 			    if($this->loginModel->isCorrectPassword($userPassword)) {
 			        $this->loginModel->setUserPasswordEmpty(false);
 			        $this->loginModel->setIsLoggedIn(true);
+			        $this->loginModel->setIsLoggedOut(false);
 			        $this->sessionModel->setSession($userName, $userPassword);
 			        $this->checkIfLogout();
 			    }
@@ -66,6 +68,7 @@ class LoginController {
         if($this->loginView->getRequestLogout()) {
             $this->loginModel->setIsLoggedOut(true);
             $this->loginModel->setIsLoggedIn(false);
+            $this->loginModel->setIsAlreadyLoggedIn(false);
             $this->sessionModel->destroySession();
             $this->loginView->getCurrentState();
         }
