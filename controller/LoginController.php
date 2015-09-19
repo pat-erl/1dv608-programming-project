@@ -3,18 +3,19 @@
 class LoginController {
     
     private $loginModel;
-    private $loginView;
     private $sessionModel;
+    private $loginView;
     
-    public function __construct($loginModel, $loginView, $sessionModel) {
-        
+    public function __construct($loginModel, $sessionModel, $loginView) {
         $this->loginModel = $loginModel;
-        $this->loginView = $loginView;
         $this->sessionModel = $sessionModel;
+        $this->loginView = $loginView;
     }
     
+    //1. Gets the userinput and sends it to the Model for comparison.
+    //2. Uses the response from the Model to set the current states in the Model.
+    //3. Tells the View to get the current state.
     public function checkIfLogin() {
-        
         if($this->loginView->getRequestLogin()) {
 		    $userName = $this->loginView->getRequestName();
 			$userPassword = $this->loginView->getRequestPassword();
@@ -48,8 +49,8 @@ class LoginController {
     
     public function checkIfLogout() {
         if($this->loginView->getRequestLogout()) {
-            $this->loginModel->setIsLoggedIn(false);
             $this->loginModel->setIsLoggedOut(true);
+            $this->loginModel->setIsLoggedIn(false);
             $this->loginView->getCurrentState();
         }
     }

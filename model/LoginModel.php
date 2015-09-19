@@ -6,14 +6,12 @@ class LoginModel {
     private $userPassword;
     private $userNameEmpty;
     private $userPasswordEmpty;
-    private $sessionModel;
     private $isLoggedIn;
     private $isLoggedOut;
     
-    public function __construct($user, $sessionModel) {
+    public function __construct($user) {
         $this->userName = $user->getName();
         $this->userPassword = $user->getPassword();
-        $this->sessionModel = $sessionModel;
     }
 	
 	public function isEmptyName($userName) {
@@ -30,14 +28,6 @@ class LoginModel {
     
     public function isCorrectPassword($userPassword) {
         return $this->userPassword == $userPassword;
-    }
-    
-    public function getSessionModel() {
-        return $this->sessionModel;
-    }
-    
-    public function setSessionModel($state) {
-        $this->sessionModel = $state;
     }
     
     public function getIsLoggedIn() {

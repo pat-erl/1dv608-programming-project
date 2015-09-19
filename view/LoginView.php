@@ -11,9 +11,11 @@ class LoginView {
 	private static $messageId = 'LoginView::Message';
 	
 	private $loginModel;
+	private $sessionModel;
 	
-	public function __construct($loginModel) {
+	public function __construct($loginModel, $sessionModel) {
         $this->loginModel = $loginModel;
+        $this->sessionModel = $sessionModel;
     }
 	
 	/**
@@ -24,16 +26,11 @@ class LoginView {
 	 * @return  void BUT writes to standard output and cookies!
 	 */
 	public function response($isLoggedIn) {
-		
-		$message = '';
-		
 		if($isLoggedIn) {
-			
 			$message = $this->getRequestMessageId();
 			return $this->generateLogoutButtonHTML($message); 
 		}
 		else {
-			
 			$message = $this->getRequestMessageId();
 			return $this->generateLoginFormHTML($message);
 		}
