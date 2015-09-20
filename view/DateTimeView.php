@@ -7,8 +7,8 @@ class DateTimeView {
 	//Sets the current date and time.
 	public function show() {
 
-		$timeString = date('l') . ', the ' . date('j') . 'th of ' . date('F') .
-		' ' . date('o') . ', The time is ' . date('H:i');
+		$timeString = date('l') . ', the ' . date('jS') . ' of ' . date('F') .
+		' ' . date('o') . ', The time is ' . date('H:i:s');
 
 		return '<p>' . $timeString . '</p>';
 	}
