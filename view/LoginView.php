@@ -61,7 +61,7 @@ class LoginView {
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
@@ -108,15 +108,18 @@ class LoginView {
 	}
 	
 	public function getRequestName() {
+		if(!isset($_POST[self::$name])) {
+			$this->setRequestName('');	
+		}
 		return $_POST[self::$name];
+	}
+	
+	public function setRequestName($name) {
+		$_POST[self::$name] = $name;
 	}
 	
 	public function getRequestPassword() {
 		return $_POST[self::$password];
-	}
-	
-	public function getRequestKeep() {
-		return isset($_POST[self::$keep]);
 	}
 	
 	public function getRequestMessageId() {
