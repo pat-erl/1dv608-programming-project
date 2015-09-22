@@ -4,7 +4,7 @@ date_default_timezone_set('Europe/Stockholm');
 
 class DateTimeView {
 
-	//Sets the current date and time.
+	//Displays the current date and time.
 	public function show() {
 
 		$timeString = date('l') . ', the ' . date('jS') . ' of ' . date('F') .

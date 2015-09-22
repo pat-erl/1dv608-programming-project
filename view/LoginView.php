@@ -13,6 +13,8 @@ class LoginView {
 	private $loginModel;
 	
 	public function __construct($loginModel) {
+		assert($loginModel instanceof LoginModel, 'First argument was not an instance of LoginModel');
+		
         $this->loginModel = $loginModel;
     }
 	
@@ -24,6 +26,10 @@ class LoginView {
 	 * @return  void BUT writes to standard output and cookies!
 	 */
 	public function response($isLoggedIn) {
+		assert(is_bool($isLoggedIn), 'First argument was not a boolean value');
+		
+		$message = '';
+		
 		if($isLoggedIn) {
 			$message = $this->getRequestMessageId();
 			return $this->generateLogoutButtonHTML($message); 
@@ -40,6 +46,8 @@ class LoginView {
 	* @return  void, BUT writes to standard output!
 	*/
 	private function generateLogoutButtonHTML($message) {
+		assert(is_string($message), 'First argument was not a string');
+		
 		return '
 			<form  method="post" >
 				<p id="' . self::$messageId . '">' . $message .'</p>
@@ -54,6 +62,8 @@ class LoginView {
 	* @return  void, BUT writes to standard output!
 	*/
 	private function generateLoginFormHTML($message) {
+		assert(is_string($message), 'First argument was not a string');
+		
 		return '
 			<form method="post" > 
 				<fieldset>
@@ -115,11 +125,22 @@ class LoginView {
 	}
 	
 	public function setRequestName($name) {
+		assert(is_string($name), 'First argument was not a string');
+		
 		$_POST[self::$name] = $name;
 	}
 	
 	public function getRequestPassword() {
+		if(!isset($_POST[self::$password])) {
+			$this->setRequestPassword('');
+		}
 		return $_POST[self::$password];
+	}
+	
+	public function setRequestPassword($password) {
+		assert(is_string($password), 'First argument was not a string');
+		
+		$_POST[self::$password] = $password;
 	}
 	
 	public function getRequestMessageId() {
@@ -130,6 +151,8 @@ class LoginView {
 	}
 	
 	public function setRequestMessageId($message) {
+		assert(is_string($message), 'First argument was not a string');
+		
 		$_POST[self::$messageId] = $message;
 	}
 }

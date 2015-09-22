@@ -4,32 +4,42 @@ class LoginModel {
     
     private $userName;
     private $userPassword;
-    private $userNameEmpty;
-    private $userPasswordEmpty;
-    private $isLoggedIn;
-    private $isLoggedOut;
-    private $isAlreadyLoggedIn;
+    private $userNameEmpty = false;
+    private $userPasswordEmpty = false;
+    private $isLoggedIn = false;
+    private $isLoggedOut = false;
+    private $isAlreadyLoggedIn = false;
     
-    public function __construct($user) {
-        $this->userName = $user->getName();
-        $this->userPassword = $user->getPassword();
+    public function __construct($currentUserModel) {
+        assert($currentUserModel instanceof CurrentUserModel, 'First argument was not an instance of CurrentUserModel');
+        
+        $this->userName = $currentUserModel->getName();
+        $this->userPassword = $currentUserModel->getPassword();
     }
 	
 	//Methods for validating the input.
 	
 	public function isEmptyName($userName) {
+	    assert(is_string($userName), 'First argument was not a string');
+	    
 	    return empty($userName);
 	}	
 	
 	public function isEmptyPassword($userPassword) {
+	    assert(is_string($userPassword), 'First argument was not a string');
+	    
 	    return empty($userPassword);
 	}
 	
     public function isCorrectName($userName) {
+        assert(is_string($userName), 'First argument was not a string');
+        
         return $this->userName == $userName;
     }
     
     public function isCorrectPassword($userPassword) {
+        assert(is_string($userPassword), 'First argument was not a string');
+        
         return $this->userPassword == $userPassword;
     }
     
@@ -45,6 +55,8 @@ class LoginModel {
     }
     
     public function setIsLoggedIn($state) {
+        assert(is_bool($state), 'First argument was not a boolean value');
+        
         $this->isLoggedIn = $state;
     }
     
@@ -53,6 +65,8 @@ class LoginModel {
     }
     
     public function setIsAlreadyLoggedIn($state) {
+        assert(is_bool($state), 'First argument was not a boolean value');
+        
         $this->isAlreadyLoggedIn = $state;
     }
     
@@ -61,6 +75,8 @@ class LoginModel {
     }
     
     public function setIsLoggedOut($state) {
+        assert(is_bool($state), 'First argument was not a boolean value');
+        
         $this->isLoggedOut = $state;
     }
     
@@ -69,6 +85,8 @@ class LoginModel {
     }
     
     public function setUserNameEmpty($state) {
+        assert(is_bool($state), 'First argument was not a boolean value');
+        
         $this->userNameEmpty = $state;
     }
     
@@ -77,6 +95,8 @@ class LoginModel {
     }
     
     public function setUserPasswordEmpty($state) {
+        assert(is_bool($state), 'First argument was not a boolean value');
+        
         $this->userPasswordEmpty = $state;
     }
 }

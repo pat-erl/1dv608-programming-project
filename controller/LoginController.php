@@ -7,6 +7,10 @@ class LoginController {
     private $loginView;
     
     public function __construct($loginModel, $sessionModel, $loginView) {
+        assert($loginModel instanceof LoginModel, 'First argument was not an instance of LoginModel');
+        assert($sessionModel instanceof SessionModel, 'Second argument was not an instance of SessionModel');
+        assert($loginView instanceof LoginView, 'Third argument was not an instance of LoginView');
+        
         $this->loginModel = $loginModel;
         $this->sessionModel = $sessionModel;
         $this->loginView = $loginView;
@@ -28,7 +32,7 @@ class LoginController {
         }
     }
 
-    //1. Gets the userinput and sends it to the Model for comparison.
+    //1. Gets the userinput for login and sends it to the Model for comparison.
     //2. Uses the response from the Model to set the current state in the Model.
     //3. Tells the View to get the current state.
     public function checkIfLogin() {
@@ -66,7 +70,7 @@ class LoginController {
         }
     }
     
-    //Gets the userinput and sets the current state in the Model.
+    //Gets the userinput for logout and sets the current state in the Model.
     public function checkIfLogout() {
         if($this->loginView->getRequestLogout()) {
             $this->loginModel->setIsLoggedOut(true);
