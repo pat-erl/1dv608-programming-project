@@ -7,7 +7,7 @@ class CurrentUserModel {
     
     public function __construct($name, $password) {
         assert(is_string($name), 'First argument was not a string');
-        assert(is_string($password), 'Second argument was not a string');
+        //assert(is_string($password), 'Second argument was not a string');
         
         $this->name = $name;
         $this->password = $password;

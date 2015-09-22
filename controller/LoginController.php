@@ -7,9 +7,9 @@ class LoginController {
     private $loginView;
     
     public function __construct($loginModel, $sessionModel, $loginView) {
-        assert($loginModel instanceof LoginModel, 'First argument was not an instance of LoginModel');
-        assert($sessionModel instanceof SessionModel, 'Second argument was not an instance of SessionModel');
-        assert($loginView instanceof LoginView, 'Third argument was not an instance of LoginView');
+        //assert($loginModel instanceof LoginModel, 'First argument was not an instance of LoginModel');
+        //assert($sessionModel instanceof SessionModel, 'Second argument was not an instance of SessionModel');
+        //assert($loginView instanceof LoginView, 'Third argument was not an instance of LoginView');
         
         $this->loginModel = $loginModel;
         $this->sessionModel = $sessionModel;
