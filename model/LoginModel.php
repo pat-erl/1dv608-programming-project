@@ -11,7 +11,7 @@ class LoginModel {
     private $isAlreadyLoggedIn = false;
     
     public function __construct($currentUserModel) {
-        //assert($currentUserModel instanceof CurrentUserModel, 'First argument was not an instance of CurrentUserModel');
+        assert($currentUserModel instanceof CurrentUserModel, 'First argument was not an instance of CurrentUserModel');
         
         $this->userName = $currentUserModel->getName();
         $this->userPassword = $currentUserModel->getPassword();
