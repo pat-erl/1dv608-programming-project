@@ -4,9 +4,9 @@ class LayoutView {
     
     //Handles the rendering to the client.
     public function render($isLoggedIn, $loginView, $dateTimeView) {
-        //assert(is_bool($isLoggedIn), 'First argument was not a boolean value');
-        //assert($loginView instanceof LoginView, 'Second argument was not an instance of LoginView');
-        //assert($dateTimeView instanceof DateTimeView, 'Third argument was not an instance of DateTimeView');
+        assert(is_bool($isLoggedIn), 'First argument was not a boolean value');
+        assert($loginView instanceof LoginView, 'Second argument was not an instance of LoginView');
+        assert($dateTimeView instanceof DateTimeView, 'Third argument was not an instance of DateTimeView');
       
         echo '<!DOCTYPE html>
             <html>
@@ -29,7 +29,7 @@ class LayoutView {
     }
     
     private function renderIsLoggedIn($isLoggedIn) {
-        //assert(is_bool($isLoggedIn), 'First argument was not a boolean value');
+        assert(is_bool($isLoggedIn), 'First argument was not a boolean value');
         
         if($isLoggedIn) {
             return '<h2>Logged in</h2>';
