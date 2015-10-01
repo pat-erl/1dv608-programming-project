@@ -8,6 +8,7 @@ require_once('view/LoginView.php');
 require_once('view/LayoutView.php');
 require_once('view/DateTimeView.php');
 require_once('controller/LoginController.php');
+require_once('view/RegistrationView.php');
 
 //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
 error_reporting(E_ALL);
@@ -26,6 +27,7 @@ $sessionModel = new SessionModel();
 $loginView = new LoginView($loginModel);
 $layoutView = new LayoutView();
 $dateTimeView = new DateTimeView();
+$registrationView = new RegistrationView($loginModel);
 
 //Creates an object of loginController.
 $loginController = new LoginController($loginModel, $sessionModel, $loginView);
@@ -37,4 +39,4 @@ $loginController->checkIfSession();
 $isLoggedIn = $loginModel->getIsLoggedIn();
 
 //Calls the method that handles the rendering to the client.
-$layoutView->render($isLoggedIn, $loginView, $dateTimeView);
+$layoutView->render($isLoggedIn, $loginView, $dateTimeView, $registrationView);
