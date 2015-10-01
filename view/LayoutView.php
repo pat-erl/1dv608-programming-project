@@ -3,11 +3,12 @@
 class LayoutView {
     
     //Handles the rendering to the client.
-    public function render($isLoggedIn, $loginView, $dateTimeView, $registrationView) {
+    public function render($isLoggedIn, $loginView, $dateTimeView, $hasClickedRegLink, $registrationView) {
         assert(is_bool($isLoggedIn), 'First argument was not a boolean value');
         assert($loginView instanceof LoginView, 'Second argument was not an instance of LoginView');
         assert($dateTimeView instanceof DateTimeView, 'Third argument was not an instance of DateTimeView');
-        assert($registrationView instanceof RegistrationView, 'Fourth argument was not an instance of RegistrationView');
+        assert(is_bool($hasClickedRegLink), 'Fourth argument was not a boolean value');
+        assert($registrationView instanceof RegistrationView, 'Fifth argument was not an instance of RegistrationView');
         
         echo '<!DOCTYPE html>
             <html>
@@ -17,18 +18,14 @@ class LayoutView {
               </head>
               <body>
                 <h1>Assignment 2</h1>
+                ' . $this->generateLink($hasClickedRegLink) . '
+                
                 ' . $this->renderIsLoggedIn($isLoggedIn) . '
                 
                 <div class="container">
+                ' . $this->decideWhatToRender($hasClickedRegLink, $registrationView, $loginView, $isLoggedIn) . '
                 
-                //Typ om användaren har tryckt på register, visa register, annars
-                //visa login.
-                
-                    ' . $registrationView->response() . '
-                    
-                    ' . $loginView->response($isLoggedIn) . '
-                    
-                    ' . $dateTimeView->show() . '
+                ' . $dateTimeView->show() . '
                 </div>
                </body>
             </html>
@@ -43,6 +40,22 @@ class LayoutView {
         }
         else {
             return '<h2>Not logged in</h2>';
+        }
+    }
+    
+    private function decideWhatToRender($hasClickedRegLink, $registrationView, $loginView, $isLoggedIn) {
+        
+        if($hasClickedRegLink) {
+            return $registrationView->response();
+        }
+        else {
+            return $loginView->response($isLoggedIn);
+        }
+    }
+    
+    private function generateLink($hasClickedRegLink) {
+        if(!$hasClickedRegLink) {
+            return '<a href="?register">Register a new user</a>';
         }
     }
 }

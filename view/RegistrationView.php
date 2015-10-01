@@ -7,18 +7,18 @@ class RegistrationView {
     private static $passwordRepeat = 'RegistrationView::PasswordRepeat';
     private static $register = 'RegistrationView::Register';
     
+    private $registrationModel;
     
-    public function __construct($loginModel) {
-		assert($loginModel instanceof LoginModel, 'First argument was not an instance of LoginModel');
+    public function __construct($registrationModel) {
+		assert($registrationModel instanceof RegistrationModel, 'First argument was not an instance of RegistrationModel');
 		
-        $this->loginModel = $loginModel;
+        $this->registrationModel = $registrationModel;
     }
     
     public function response() {
         $message = 'Hej!';
         return $this->generateRegistrationFormHTML($message);
 	}
-	
 	
 	private function generateRegistrationFormHTML($message) {
 		return '
@@ -39,5 +39,36 @@ class RegistrationView {
 				</fieldset>
 			</form>
 		';
+	}
+	
+	//Getters and setters for the private membervariables.
+	
+	public function getRequestMessageId() {
+		if(!isset($_POST[self::$messageId])) {
+			$this->setRequestMessageId('');	
+		}
+		return $_POST[self::$messageId];
+	}
+	
+	public function setRequestMessageId($message) {
+		assert(is_string($message), 'First argument was not a string');
+		
+		$_POST[self::$messageId] = $message;
+	}
+	
+	public function setRequestName($name) {
+		assert(is_string($name), 'First argument was not a string');
+		
+		$_POST[self::$name] = $name;
+	}
+	
+	public function setRequestPassword($password) {
+		assert(is_string($password), 'First argument was not a string');
+		
+		$_POST[self::$password] = $password;
+	}
+	
+	public function getRequestRegister() {
+		return isset($_POST[self::$register]);
 	}
 }
