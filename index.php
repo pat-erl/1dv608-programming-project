@@ -41,9 +41,9 @@ $loginController = new LoginController($loginModel, $sessionModel, $loginView);
 $loginController->checkIfSession();
 
 //Creates an object of RegistrationController.
-$registrationController = new RegistrationController($registrationModel, $registrationView);
+$registrationController = new RegistrationController($registrationModel, $registrationView, $layoutView);
 
-$registrationController->checkIfWantsToRegister();
+$registrationController->hasClickedRegLink();
 
 //Creates a variable with the current login-state.
 $isLoggedIn = $loginModel->getIsLoggedIn();

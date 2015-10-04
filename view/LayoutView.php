@@ -2,6 +2,8 @@
 
 class LayoutView {
     
+    private $link;
+    
     //Handles the rendering to the client.
     public function render($isLoggedIn, $loginView, $dateTimeView, $hasClickedRegLink, $registrationView) {
         assert(is_bool($isLoggedIn), 'First argument was not a boolean value');
@@ -54,8 +56,17 @@ class LayoutView {
     }
     
     private function generateLink($hasClickedRegLink) {
-        if(!$hasClickedRegLink) {
-            return '<a href="?register">Register a new user</a>';
+        if($hasClickedRegLink) {
+            $this->link = '<a href="?">Back to login</a>';
+            return $this->link;
         }
+        else {
+            $this->link = '<a href="?register=new">Register a new user</a>';
+            return $this->link;
+        }
+    }
+    
+    public function getLink() {
+        return isset($this->link);
     }
 }
