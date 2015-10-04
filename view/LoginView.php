@@ -9,6 +9,7 @@ class LoginView {
 	private static $cookiePassword = 'LoginView::CookiePassword';
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
+	private static $register = 'LoginView::Register';
 	
 	private $loginModel;
 	
@@ -17,6 +18,10 @@ class LoginView {
 		
         $this->loginModel = $loginModel;
     }
+	
+	public function showLink() {
+		return '<a href="?register=new">Register a new user</a>';
+	}
 	
 	/**
 	 * Create HTTP response

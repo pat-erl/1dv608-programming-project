@@ -15,8 +15,15 @@ class RegistrationView {
         $this->registrationModel = $registrationModel;
     }
     
+	public function showLink() {
+		return '<a href="?">Back to login</a>';
+	}
+	
     public function response() {
-        $message = 'Hej!';
+        
+        $message = '';
+        
+        $message = $this->getRequestMessageId();
         return $this->generateRegistrationFormHTML($message);
 	}
 	

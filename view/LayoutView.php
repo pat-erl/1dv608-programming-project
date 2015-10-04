@@ -5,27 +5,26 @@ class LayoutView {
     private $link;
     
     //Handles the rendering to the client.
-    public function render($isLoggedIn, $loginView, $dateTimeView, $hasClickedRegLink, $registrationView) {
+    public function render($isLoggedIn, $loginView, $dateTimeView, $registrationView) {
         assert(is_bool($isLoggedIn), 'First argument was not a boolean value');
         assert($loginView instanceof LoginView, 'Second argument was not an instance of LoginView');
         assert($dateTimeView instanceof DateTimeView, 'Third argument was not an instance of DateTimeView');
-        assert(is_bool($hasClickedRegLink), 'Fourth argument was not a boolean value');
-        assert($registrationView instanceof RegistrationView, 'Fifth argument was not an instance of RegistrationView');
+        assert($registrationView instanceof RegistrationView, 'Fourth argument was not an instance of RegistrationView');
         
         echo '<!DOCTYPE html>
             <html>
               <head>
                 <meta charset="utf-8">
-                <title>Assignment 2</title>
+                <title>Assignment 4</title>
               </head>
               <body>
-                <h1>Assignment 2</h1>
-                ' . $this->generateLink($hasClickedRegLink) . '
+                <h1>Assignment 4</h1>
+                ' . $this->whatLinkToShow($registrationView, $loginView) . '
                 
                 ' . $this->renderIsLoggedIn($isLoggedIn) . '
                 
                 <div class="container">
-                ' . $this->decideWhatToRender($hasClickedRegLink, $registrationView, $loginView, $isLoggedIn) . '
+                ' . $this->whatResponseToShow($registrationView, $loginView, $isLoggedIn) . '
                 
                 ' . $dateTimeView->show() . '
                 </div>
@@ -45,28 +44,25 @@ class LayoutView {
         }
     }
     
-    private function decideWhatToRender($hasClickedRegLink, $registrationView, $loginView, $isLoggedIn) {
+    private function whatLinkToShow($registrationView, $loginView) {
         
-        if($hasClickedRegLink) {
-            return $registrationView->response();
+        if($_GET['register'] == 'new') {
+			
+			return $registrationView->showLink();
         }
         else {
-            return $loginView->response($isLoggedIn);
+			return $loginView->showLink();
         }
     }
     
-    private function generateLink($hasClickedRegLink) {
-        if($hasClickedRegLink) {
-            $this->link = '<a href="?">Back to login</a>';
-            return $this->link;
+    private function whatResponseToShow($registrationView, $loginView, $isLoggedIn) {
+        
+        if($_GET['register'] == 'new') {
+			
+			return $registrationView->response();
         }
         else {
-            $this->link = '<a href="?register=new">Register a new user</a>';
-            return $this->link;
+			return $loginView->response($isLoggedIn);
         }
-    }
-    
-    public function getLink() {
-        return isset($this->link);
     }
 }
