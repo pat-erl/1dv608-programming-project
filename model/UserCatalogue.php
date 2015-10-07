@@ -20,11 +20,8 @@ class UserCatalogue {
         $this->DAL = $DAL;
     }
     
-    public function addUser($name, $password) {
-        
-        //try catch här som fåmgar exceptions från usermodel???
-        $user = new UserModel($name, $password);
-        
+    public function addUser($user) {
+        //Kolla här om användaren redan finns???
         $this->users[] = $user;
         $this->DAL->saveUsers($this->users);
     }

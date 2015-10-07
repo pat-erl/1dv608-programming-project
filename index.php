@@ -15,13 +15,7 @@ require_once('controller/RegisterController.php');
 
 //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
 error_reporting(E_ALL);
-ini_set('display_errors', 'Off');
-
-//Creates an object of CurrentUserModel.
-$userModel = new UserModel('Admin', 'Password');
-
-//Creates an object of loginModel.
-$loginModel = new LoginModel($userModel);
+ini_set('display_errors', 'On');
 
 //Creates an object of SessionModel.
 $sessionModel = new SessionModel();
@@ -29,21 +23,23 @@ $sessionModel = new SessionModel();
 $userCatalogue = new UserCatalogue();
 
 //CREATE OBJECTS OF THE VIEWS
-$loginView = new LoginView($loginModel);
+$loginView = new LoginView($userCatalogue);
+$registerView = new RegisterView();
 $layoutView = new LayoutView();
 $dateTimeView = new DateTimeView();
-$registerView = new RegisterView($userCatalogue);
+
+$mainController = new MainController($sessionModel, $loginModel, $loginView, $loginController);
 
 //Creates an object of loginController.
-$loginController = new LoginController($loginModel, $sessionModel, $loginView);
-
-//Calls the method that will check for active session.
-$loginController->checkIfSession();
+$loginController = new LoginController($loginModel, $loginView);
 
 //Creates an object of RegistrationController.
 $registerController = new RegisterController($userCatalogue, $registerView);
 
-$registerController->checkIfRegister();
+
+
+
+
 
 //Creates a variable with the current login-state.
 $isLoggedIn = $loginModel->getIsLoggedIn();

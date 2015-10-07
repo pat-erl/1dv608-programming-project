@@ -7,12 +7,10 @@ class RegisterView {
     private static $passwordRepeat = 'RegisterView::PasswordRepeat';
     private static $register = 'RegisterView::Register';
     
-    private $userCatalogue;
+    private $userModel;
     
-    public function __construct($userCatalogue) {
-		assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
-		
-        $this->userCatalogue = $userCatalogue;
+    public function __construct() {
+
     }
     
 	public function showLink() {
@@ -36,7 +34,7 @@ class RegisterView {
 					<legend>Register a new user - Write username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
                     <br />
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
@@ -48,6 +46,38 @@ class RegisterView {
 				</fieldset>
 			</form>
 		';
+	}
+	
+	//Reads the current state from the UserModel and sets the appropriate message.
+	public function getCurrentState($user) {
+		
+		if(empty($user)) {
+			$this->setRequestMessageId('blaj daj');
+		}
+		else if($user->getUserNameEmpty()) {
+			$this->setRequestMessageId('Username has too few characters, at least 3 characters. 
+			<br />Password has too few characters, at least 6 characters.');
+			echo "första";
+		}
+		else if(($user->getUserNameEmpty() == false && $user->getUserNameShort() == false) && $user->getUserPasswordEmpty()) {
+			$this->setRequestMessageId('Password has too few characters, at least 6 characters.');
+			echo "andra";
+		}
+		else if(($user->getUserPasswordEmpty() == false && $user->getUserPasswordShort() == false) && $user->getUserNameEmpty()) {
+			$this->setRequestMessageId('Username has too few characters, at least 3 characters.');
+			echo "tredje";
+		}
+		else if($user->getUserNameShort() && ($user->getUserPasswordEmpty() == false || $user->getUserPasswordShort() == false)) {
+			$this->setRequestMessageId('Username has too few characters, at least 3 characters.');
+			echo "fjärde";
+		}
+		else if($user->getUserPasswordShort() && ($user->getUserNameEmpty() == false || $user->getUserNameShort() == false)) {
+			$this->setRequestMessageId('Password has too few characters, at least 6 characters.');
+			echo "femte";
+		}
+		else {
+			$this->setRequestMessageId('blaj');
+		}
 	}
 	
 	//Getters and setters for the private membervariables.

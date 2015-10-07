@@ -17,9 +17,15 @@ class RegisterController {
 		if($this->registerView->getRequestRegister()) {
 			$name = $this->registerView->getRequestName();
 			$password = $this->registerView->getRequestPassword();
-			$this->userCatalogue->addUser($name, $password);
-			
-			header('location: ?');
+		
+		    $user = new UserModel($name, $password);
+		    
+		    if($user->checkIfValid()) {
+		        
+		        $this->userCatalogue->addUser($user);
+		    }
+		   
+		    $this->registerView->getCurrentState($e);
 		}
 	}
 }
