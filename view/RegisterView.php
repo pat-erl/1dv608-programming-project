@@ -1,13 +1,13 @@
 <?php
 
-class RegistrationView {
-    private static $messageId = 'RegistrationView::Message';
-    private static $name = 'RegistrationView::UserName';
-    private static $password = 'RegistrationView::Password';
-    private static $passwordRepeat = 'RegistrationView::PasswordRepeat';
-    private static $register = 'RegistrationView::Register';
+class RegisterView {
+    private static $messageId = 'RegisterView::Message';
+    private static $name = 'RegisterView::UserName';
+    private static $password = 'RegisterView::Password';
+    private static $passwordRepeat = 'RegisterView::PasswordRepeat';
+    private static $register = 'RegisterView::Register';
     
-    private $registrationModel;
+    private $userCatalogue;
     
     public function __construct($userCatalogue) {
 		assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
