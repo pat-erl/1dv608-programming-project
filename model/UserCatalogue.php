@@ -20,8 +20,12 @@ class UserCatalogue {
         $this->DAL = $DAL;
     }
     
+    public function getUsers() {
+        return $this->users;
+    }
+    
     public function addUser($user) {
-        //Kolla här om användaren redan finns???
+        //Kolla här om användaren redan finns?? med get user då på nåt sätt..
         $this->users[] = $user;
         $this->DAL->saveUsers($this->users);
     }

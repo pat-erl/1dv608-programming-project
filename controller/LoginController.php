@@ -2,13 +2,16 @@
 
 class LoginController {
     
+    private $sessionModel;
     private $loginModel;
     private $loginView;
     
-    public function __construct($loginModel, $loginView) {
-        assert($loginModel instanceof LoginModel, 'First argument was not an instance of LoginModel');
-        assert($loginView instanceof LoginView, 'Second argument was not an instance of LoginView');
+    public function __construct($sessionModel, $loginModel, $loginView) {
+    	assert($sessionModel instanceof SessionModel, 'First argument was not an instance of SessionModel');
+        assert($loginModel instanceof LoginModel, 'Second argument was not an instance of LoginModel');
+        assert($loginView instanceof LoginView, 'Third argument was not an instance of LoginView');
         
+        $this->sessionModel = $sessionModel;
         $this->loginModel = $loginModel;
         $this->loginView = $loginView;
     }
@@ -21,32 +24,7 @@ class LoginController {
 		    $userName = $this->loginView->getRequestName();
 			$userPassword = $this->loginView->getRequestPassword();
 			
-			if($this->loginModel->isEmptyName($userName)) {
-			    $this->loginModel->setUserNameEmpty(true);
-			    $this->loginModel->setIsLoggedIn(false);
-			}
-			else if($this->loginModel->isEmptyPassword($userPassword)){
-			    $this->loginModel->setUserPasswordEmpty(true);
-			    $this->loginModel->setIsLoggedIn(false);
-			}
-			else if($this->loginModel->isCorrectName($userName)) {
-			    $this->loginModel->setUserNameEmpty(false);
-			    if($this->loginModel->isCorrectPassword($userPassword)) {
-			        $this->loginModel->setUserPasswordEmpty(false);
-			        $this->loginModel->setIsLoggedIn(true);
-			        $this->loginModel->setIsLoggedOut(false);
-			        $this->sessionModel->setSession($userName, $userPassword);
-			        $this->checkIfLogout();
-			    }
-			    else {
-			        $this->loginModel->setUserPasswordEmpty(false);
-			        $this->loginModel->setIsLoggedIn(false);
-			    }
-			}
-			else {
-			    $this->loginModel->setUserNameEmpty(false);
-			    $this->loginModel->setIsLoggedIn(false);
-			}
+			$this->loginModel->doTryToLogin($userName, $userPassword);
 			$this->loginView->getCurrentState();
         }
     }
@@ -54,9 +32,7 @@ class LoginController {
     //Gets the userinput for logout and sets the current state in the Model.
     public function checkIfLogout() {
         if($this->loginView->getRequestLogout()) {
-            $this->loginModel->setIsLoggedOut(true);
-            $this->loginModel->setIsLoggedIn(false);
-            $this->loginModel->setIsAlreadyLoggedIn(false);
+            $this->loginModel->doLogout();
             $this->sessionModel->destroySession();
             $this->loginView->getCurrentState();
         }

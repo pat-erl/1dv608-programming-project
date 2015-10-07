@@ -2,30 +2,24 @@
 
 class RegisterController {
     
-    private $userCatalogue;
+    private $registerModel;
     private $registerView;
     
-    public function __construct($userCatalogue, $registerView) {
-        assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
+    public function __construct($registerModel, $registerView) {
+        assert($registerModel instanceof RegisterModel, 'First argument was not an instance of RegisterModel');
         assert($registerView instanceof RegisterView, 'Third argument was not an instance of RegisterView');
         
-        $this->userCatalogue = $userCatalogue;
+        $this->registerModel = $registerModel;
         $this->registerView = $registerView;
     }
     
 	public function checkIfRegister() {
 		if($this->registerView->getRequestRegister()) {
-			$name = $this->registerView->getRequestName();
-			$password = $this->registerView->getRequestPassword();
+			$userName = $this->registerView->getRequestName();
+			$userPassword = $this->registerView->getRequestPassword();
 		
-		    $user = new UserModel($name, $password);
-		    
-		    if($user->checkIfValid()) {
-		        
-		        $this->userCatalogue->addUser($user);
-		    }
-		   
-		    $this->registerView->getCurrentState($e);
+		    $this->registerModel->doTryToRegister($userName, $userPassword);
+		    $this->registerView->getCurrentState();
 		}
 	}
 }

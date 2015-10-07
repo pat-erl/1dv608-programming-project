@@ -1,15 +1,17 @@
 <?php
 
 //INCLUDE THE FILES NEEDED...
-require_once('model/UserModel.php');
-require_once('model/LoginModel.php');
 require_once('model/SessionModel.php');
 require_once('model/UserCatalogue.php');
+require_once('model/LoginModel.php');
+require_once('model/RegisterModel.php');
+require_once('model/UserModel.php');
 require_once('model/DAL/UsersDAL.php');
 require_once('view/LoginView.php');
 require_once('view/LayoutView.php');
 require_once('view/DateTimeView.php');
 require_once('view/RegisterView.php');
+require_once('controller/MainController.php');
 require_once('controller/LoginController.php');
 require_once('controller/RegisterController.php');
 
@@ -20,26 +22,24 @@ ini_set('display_errors', 'On');
 //Creates an object of SessionModel.
 $sessionModel = new SessionModel();
 
+//Creates an object of UserCatalogue.
 $userCatalogue = new UserCatalogue();
 
+//Creates an object of LoginModel.
+$loginModel = new LoginModel($userCatalogue);
+
+//Creates an object of RegisterModel.
+$registerModel = new RegisterModel($userCatalogue);
+
 //CREATE OBJECTS OF THE VIEWS
-$loginView = new LoginView($userCatalogue);
-$registerView = new RegisterView();
+$loginView = new LoginView($loginModel);
+$registerView = new RegisterView($registerModel);
 $layoutView = new LayoutView();
 $dateTimeView = new DateTimeView();
 
-$mainController = new MainController($sessionModel, $loginModel, $loginView, $loginController);
+$mainController = new MainController($sessionModel, $loginModel, $loginView, $registerModel, $registerView);
 
-//Creates an object of loginController.
-$loginController = new LoginController($loginModel, $loginView);
-
-//Creates an object of RegistrationController.
-$registerController = new RegisterController($userCatalogue, $registerView);
-
-
-
-
-
+$mainController->startApplication();
 
 //Creates a variable with the current login-state.
 $isLoggedIn = $loginModel->getIsLoggedIn();

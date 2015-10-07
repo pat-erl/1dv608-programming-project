@@ -1,21 +1,19 @@
 <?php
 
-class LoginModel {
+class RegisterModel {
     
     private $userCatalogue;
     private $userNameEmpty = false;
     private $userPasswordEmpty = false;
-    private $isLoggedIn = false;
-    private $isLoggedOut = false;
-    private $isAlreadyLoggedIn = false;
+    private $isSuccessfulReg = false;
     
     public function __construct($userCatalogue) {
         assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
         
         $this->userCatalogue = $userCatalogue;
     }
-	
-	public function doTryToLogin($userName, $userPassword) {
+    
+    public function doTryToRegister($userName, $userPassword) {
 	    assert(is_string($userName), 'First argument was not a string');
 	    assert(is_string($userPassword), 'Second argument was not a string');
 	    
@@ -27,20 +25,12 @@ class LoginModel {
 	    }
 	    else if($this->checkIfCorrectName($userName)) {
 	        if($this->checkIfCorrectPassword($userPassword)) {
-	            $this->isLoggedIn = true;
+	            $this->isSuccessfulReg = true;
 	        }
 	    }
 	}
-	
-	public function doLogout() {
-        $this->isLoggedOut = true;
-        $this->isLoggedIn = false;
-        $this->isAlreadyLoggedIn = false;
-	}
-	
-	//Methods for validating the input.
-	
-	public function checkIfEmptyName($userName) {
+    
+    public function checkIfEmptyName($userName) {
 	    return empty($userName);
 	}	
 	
@@ -49,13 +39,11 @@ class LoginModel {
 	}
 	
     public function checkIfCorrectName($userName) {
-        $users = $this->userCatalogue->getUsers();
-        return in_array($userName, $users);
+        return strlen($userName) >= 3;
     }
     
     public function checkIfCorrectPassword($userPassword) {
-        $users = $this->userCatalogue->getUsers();
-        return in_array($userPassword, $users);
+        return strlen($userPassword) >= 6;
     }
     
     //Getters and setters for the private membervariables.
@@ -68,20 +56,11 @@ class LoginModel {
         return $this->userPasswordEmpty;
     }
     
-    public function getIsLoggedIn() {
-        if($this->isAlreadyLoggedIn) {
-            return true;
-        }
-        else {
-            return $this->isLoggedIn;
-        }
+    public function getUserNameShort() {
+        return $this->userNameShort;
     }
     
-    public function getIsAlreadyLoggedIn() {
-        return $this->isAlreadyLoggedIn;
-    }
-    
-    public function getIsLoggedOut() {
-        return $this->isLoggedOut;
+    public function getUserPasswordShort() {
+        return $this->userPasswordShort;
     }
 }

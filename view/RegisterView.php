@@ -7,10 +7,12 @@ class RegisterView {
     private static $passwordRepeat = 'RegisterView::PasswordRepeat';
     private static $register = 'RegisterView::Register';
     
-    private $userModel;
+    private $registerModel;
     
-    public function __construct() {
-
+    public function __construct($registerModel) {
+		assert($registerModel instanceof RegisterModel, 'First argument was not an instance of RegisterModel');
+		
+        $this->registerModel = $registerModel;
     }
     
 	public function showLink() {
@@ -49,12 +51,9 @@ class RegisterView {
 	}
 	
 	//Reads the current state from the UserModel and sets the appropriate message.
-	public function getCurrentState($user) {
+	public function getCurrentState() {
 		
-		if(empty($user)) {
-			$this->setRequestMessageId('blaj daj');
-		}
-		else if($user->getUserNameEmpty()) {
+		if($user->getUserNameEmpty()) {
 			$this->setRequestMessageId('Username has too few characters, at least 3 characters. 
 			<br />Password has too few characters, at least 6 characters.');
 			echo "första";
