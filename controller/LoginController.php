@@ -24,7 +24,9 @@ class LoginController {
 		    $userName = $this->loginView->getRequestName();
 			$userPassword = $this->loginView->getRequestPassword();
 			
-			$this->loginModel->doTryToLogin($userName, $userPassword);
+			if($this->loginModel->doTryToLogin($userName, $userPassword)) {
+				$this->sessionModel->setSession($userName, $userPassword);
+			}
 			$this->loginView->getCurrentState();
         }
     }

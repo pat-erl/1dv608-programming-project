@@ -53,29 +53,26 @@ class RegisterView {
 	//Reads the current state from the UserModel and sets the appropriate message.
 	public function getCurrentState() {
 		
-		if($user->getUserNameEmpty()) {
-			$this->setRequestMessageId('Username has too few characters, at least 3 characters. 
-			<br />Password has too few characters, at least 6 characters.');
-			echo "första";
-		}
-		else if(($user->getUserNameEmpty() == false && $user->getUserNameShort() == false) && $user->getUserPasswordEmpty()) {
-			$this->setRequestMessageId('Password has too few characters, at least 6 characters.');
-			echo "andra";
-		}
-		else if(($user->getUserPasswordEmpty() == false && $user->getUserPasswordShort() == false) && $user->getUserNameEmpty()) {
+		if($this->registerModel->getUserNameEmpty()) {
 			$this->setRequestMessageId('Username has too few characters, at least 3 characters.');
-			echo "tredje";
 		}
-		else if($user->getUserNameShort() && ($user->getUserPasswordEmpty() == false || $user->getUserPasswordShort() == false)) {
-			$this->setRequestMessageId('Username has too few characters, at least 3 characters.');
-			echo "fjärde";
-		}
-		else if($user->getUserPasswordShort() && ($user->getUserNameEmpty() == false || $user->getUserNameShort() == false)) {
+		else if($this->registerModel->getUserPasswordEmpty()) {
 			$this->setRequestMessageId('Password has too few characters, at least 6 characters.');
-			echo "femte";
+		}
+		else if($this->registerModel->getUserNameShort()) {
+			$this->setRequestMessageId('Username has too few characters, at least 3 characters.');
+		}
+		else if($this->registerModel->getUserPasswordShort()) {
+			$this->setRequestMessageId('Password has too few characters, at least 6 characters.');
+		}
+		else if($this->registerModel->getUserAlreadyExists()) {
+			$this->setRequestMessageId('User exists, pick another username.');
+		}
+		else if($this->registerModel->getIsSuccessfulReg()) {
+			$this->setRequestMessageId('Registered new user.');
 		}
 		else {
-			$this->setRequestMessageId('blaj');
+			$this->setRequestMessageId('Username has too few characters, at least 3 characters.');
 		}
 	}
 	

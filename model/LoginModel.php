@@ -28,6 +28,7 @@ class LoginModel {
 	    else if($this->checkIfCorrectName($userName)) {
 	        if($this->checkIfCorrectPassword($userPassword)) {
 	            $this->isLoggedIn = true;
+	            return true;
 	        }
 	    }
 	}
@@ -36,6 +37,13 @@ class LoginModel {
         $this->isLoggedOut = true;
         $this->isLoggedIn = false;
         $this->isAlreadyLoggedIn = false;
+	}
+	
+	public function alreadyLoggedIn() {
+	    $this->userNameEmpty = false;
+        $this->userPasswordEmpty = false;
+		$this->isAlreadyLoggedIn = true;
+		$this->isLoggedOut = false;
 	}
 	
 	//Methods for validating the input.
@@ -50,12 +58,24 @@ class LoginModel {
 	
     public function checkIfCorrectName($userName) {
         $users = $this->userCatalogue->getUsers();
-        return in_array($userName, $users);
+        $correct = false;
+        foreach($users as $user) {
+            if($userName == $user->getName()) {
+                $correct = true;
+            }
+        }
+        return $correct;
     }
     
     public function checkIfCorrectPassword($userPassword) {
         $users = $this->userCatalogue->getUsers();
-        return in_array($userPassword, $users);
+        $correct = false;
+        foreach($users as $user) {
+            if($userPassword == $user->getPassword()) {
+                $correct = true;
+            }
+        }
+        return $correct;
     }
     
     //Getters and setters for the private membervariables.

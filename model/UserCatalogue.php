@@ -10,11 +10,11 @@ class UserCatalogue {
         $DAL = new UsersDAL();
         $users = $DAL->getUsers();
         
-        if($users === null) {
-            $this->users = array();
+        if($users !== null) {
+            $this->users = $users;
         }
         else {
-            $this->users = $users;
+            $this->users = array();
         }
         
         $this->DAL = $DAL;
@@ -24,9 +24,27 @@ class UserCatalogue {
         return $this->users;
     }
     
-    public function addUser($user) {
-        //Kolla här om användaren redan finns?? med get user då på nåt sätt..
-        $this->users[] = $user;
-        $this->DAL->saveUsers($this->users);
+    public function addUser($userName, $userPassword) {
+        
+        $exist = false;
+        
+        foreach($this->users as $user) {
+            if($userName == $user->getName()) {
+                $exist = true;
+            }
+        }
+        
+        if($exist) {
+            
+            return false;
+        }
+        else {
+            $newUser = new UserModel($userName, $userPassword);
+            $this->users[] = $newUser;
+            $this->DAL->saveUsers($this->users);
+            var_dump($this->users);
+            //Kanske fixa med try ctach etc steg för steg här och bakåt??
+            return true;
+        }
     }
 }

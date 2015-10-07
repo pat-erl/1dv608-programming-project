@@ -5,7 +5,10 @@ class RegisterModel {
     private $userCatalogue;
     private $userNameEmpty = false;
     private $userPasswordEmpty = false;
+    private $userNameShort = false;
+    private $userPasswordShort = false;
     private $isSuccessfulReg = false;
+    private $userAlreadyExists = false;
     
     public function __construct($userCatalogue) {
         assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
@@ -25,8 +28,19 @@ class RegisterModel {
 	    }
 	    else if($this->checkIfCorrectName($userName)) {
 	        if($this->checkIfCorrectPassword($userPassword)) {
-	            $this->isSuccessfulReg = true;
+	            if($this->userCatalogue->addUser($userName, $userPassword)) {
+	                $this->isSuccessfulReg = true;   
+	            }
+	            else {
+	                $this->userAlreadyExists = true;
+	            }
 	        }
+	        else {
+	            $userPasswordShort = true;
+	        }
+	    }
+	    else {
+	        $userNameShort = true;
 	    }
 	}
     
@@ -62,5 +76,13 @@ class RegisterModel {
     
     public function getUserPasswordShort() {
         return $this->userPasswordShort;
+    }
+    
+    public function getIsSuccessfulReg() {
+        return $this->isSuccessfulReg;
+    }
+    
+    public function getUserAlreadyExists() {
+        return $this->userAlreadyExists;
     }
 }

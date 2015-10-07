@@ -28,12 +28,7 @@ class MainController {
     
     public function startApplication() {
         if($this->sessionModel->existingSession()) {
-            
-            //Detta måste fixa inuti loginmodel sedan!!
-            $this->loginModel->setUserNameEmpty(false);
-            $this->loginModel->setUserPasswordEmpty(false);
-			$this->loginModel->setIsAlreadyLoggedIn(true);
-			$this->loginModel->setIsLoggedOut(false);
+            $this->loginModel->alreadyLoggedIn();
 			$this->loginView->getCurrentState();
             $this->loginController->checkIfLogout();
         }
