@@ -35,14 +35,12 @@ class UserCatalogue {
         }
         
         if($exist) {
-            
             return false;
         }
         else {
             $newUser = new UserModel($userName, $userPassword);
             $this->users[] = $newUser;
             $this->DAL->saveUsers($this->users);
-            var_dump($this->users);
             //Kanske fixa med try ctach etc steg för steg här och bakåt??
             return true;
         }

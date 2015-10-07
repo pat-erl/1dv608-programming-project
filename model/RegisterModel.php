@@ -36,11 +36,11 @@ class RegisterModel {
 	            }
 	        }
 	        else {
-	            $userPasswordShort = true;
+	            $this->userPasswordShort = true;
 	        }
 	    }
 	    else {
-	        $userNameShort = true;
+	        $this->userNameShort = true;
 	    }
 	}
     

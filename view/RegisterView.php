@@ -54,7 +54,8 @@ class RegisterView {
 	public function getCurrentState() {
 		
 		if($this->registerModel->getUserNameEmpty()) {
-			$this->setRequestMessageId('Username has too few characters, at least 3 characters.');
+			$this->setRequestMessageId('Username has too few characters, at least 3 characters.
+			<br /> Password has too few characters, at least 6 characters.');
 		}
 		else if($this->registerModel->getUserPasswordEmpty()) {
 			$this->setRequestMessageId('Password has too few characters, at least 6 characters.');
@@ -72,7 +73,7 @@ class RegisterView {
 			$this->setRequestMessageId('Registered new user.');
 		}
 		else {
-			$this->setRequestMessageId('Username has too few characters, at least 3 characters.');
+			$this->setRequestMessageId('Some other error!');
 		}
 	}
 	
