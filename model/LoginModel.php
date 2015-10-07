@@ -10,11 +10,11 @@ class LoginModel {
     private $isLoggedOut = false;
     private $isAlreadyLoggedIn = false;
     
-    public function __construct($currentUserModel) {
-        assert($currentUserModel instanceof CurrentUserModel, 'First argument was not an instance of CurrentUserModel');
+    public function __construct($userModel) {
+        assert($userModel instanceof UserModel, 'First argument was not an instance of UserModel');
         
-        $this->userName = $currentUserModel->getName();
-        $this->userPassword = $currentUserModel->getPassword();
+        $this->userName = $userModel->getName();
+        $this->userPassword = $userModel->getPassword();
     }
 	
 	//Methods for validating the input.

@@ -2,20 +2,24 @@
 
 class RegistrationController {
     
-    private $registrationModel;
+    private $userCatalogue;
     private $registrationView;
     
-    public function __construct($registrationModel, $registrationView) {
-        assert($registrationModel instanceof RegistrationModel, 'First argument was not an instance of RegistrationModel');
+    public function __construct($userCatalogue, $registrationView) {
+        assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
         assert($registrationView instanceof RegistrationView, 'Third argument was not an instance of RegistrationView');
         
-        $this->registrationModel = $registrationModel;
+        $this->userCatalogue = $userCatalogue;
         $this->registrationView = $registrationView;
     }
     
 	public function checkIfRegister() {
 		if($this->registrationView->getRequestRegister()) {
-			echo "test";
+			$name = $this->registrationView->getRequestName();
+			$password = $this->registrationView->getRequestPassword();
+			$this->userCatalogue->addUser($name, $password);
+			
+			//header('location: ?');
 		}
 	}
 }

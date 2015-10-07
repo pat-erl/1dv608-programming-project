@@ -20,7 +20,9 @@ class LoginView {
     }
 	
 	public function showLink() {
-		return '<a href="?register=new">Register a new user</a>';
+		$link = '<a href="?register">Register a new user</a>';
+		
+		return $link;
 	}
 	
 	/**

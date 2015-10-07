@@ -9,14 +9,16 @@ class RegistrationView {
     
     private $registrationModel;
     
-    public function __construct($registrationModel) {
-		assert($registrationModel instanceof RegistrationModel, 'First argument was not an instance of RegistrationModel');
+    public function __construct($userCatalogue) {
+		assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
 		
-        $this->registrationModel = $registrationModel;
+        $this->userCatalogue = $userCatalogue;
     }
     
 	public function showLink() {
-		return '<a href="?">Back to login</a>';
+		$link = '<a href="?">Back to login</a>';
+		
+		return $link;
 	}
 	
     public function response() {
@@ -63,10 +65,24 @@ class RegistrationView {
 		$_POST[self::$messageId] = $message;
 	}
 	
+	public function getRequestName() {
+		if(!isset($_POST[self::$name])) {
+			$this->setRequestName('');	
+		}
+		return $_POST[self::$name];
+	}
+	
 	public function setRequestName($name) {
 		assert(is_string($name), 'First argument was not a string');
 		
 		$_POST[self::$name] = $name;
+	}
+	
+	public function getRequestPassword() {
+		if(!isset($_POST[self::$password])) {
+			$this->setRequestPassword('');
+		}
+		return $_POST[self::$password];
 	}
 	
 	public function setRequestPassword($password) {

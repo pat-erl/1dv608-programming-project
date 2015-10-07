@@ -1,10 +1,11 @@
 <?php
 
 //INCLUDE THE FILES NEEDED...
-require_once('model/CurrentUserModel.php');
+require_once('model/UserModel.php');
 require_once('model/LoginModel.php');
 require_once('model/SessionModel.php');
-require_once('model/RegistrationModel.php');
+require_once('model/UserCatalogue.php');
+require_once('model/DAL/UsersDAL.php');
 require_once('view/LoginView.php');
 require_once('view/LayoutView.php');
 require_once('view/DateTimeView.php');
@@ -14,25 +15,24 @@ require_once('controller/RegistrationController.php');
 
 //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
 error_reporting(E_ALL);
-ini_set('display_errors', 'Off');
+ini_set('display_errors', 'On');
 
 //Creates an object of CurrentUserModel.
-$currentUserModel = new CurrentUserModel('Patrik', 'Losenord');
+$userModel = new UserModel('Admin', 'Password');
 
 //Creates an object of loginModel.
-$loginModel = new LoginModel($currentUserModel);
-
-//Creates an object of RegistrationModel.
-$registrationModel = new RegistrationModel();
+$loginModel = new LoginModel($userModel);
 
 //Creates an object of SessionModel.
 $sessionModel = new SessionModel();
+
+$userCatalogue = new UserCatalogue();
 
 //CREATE OBJECTS OF THE VIEWS
 $loginView = new LoginView($loginModel);
 $layoutView = new LayoutView();
 $dateTimeView = new DateTimeView();
-$registrationView = new RegistrationView($registrationModel);
+$registrationView = new RegistrationView($userCatalogue);
 
 //Creates an object of loginController.
 $loginController = new LoginController($loginModel, $sessionModel, $loginView);
@@ -41,7 +41,7 @@ $loginController = new LoginController($loginModel, $sessionModel, $loginView);
 $loginController->checkIfSession();
 
 //Creates an object of RegistrationController.
-$registrationController = new RegistrationController($registrationModel, $registrationView);
+$registrationController = new RegistrationController($userCatalogue, $registrationView);
 
 $registrationController->checkIfRegister();
 

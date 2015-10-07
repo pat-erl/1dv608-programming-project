@@ -46,7 +46,7 @@ class LayoutView {
     
     private function whatLinkToShow($registrationView, $loginView) {
         
-        if($_GET['register'] == 'new') {
+        if(isset($_GET['register'])) {
 			
 			return $registrationView->showLink();
         }
@@ -57,7 +57,7 @@ class LayoutView {
     
     private function whatResponseToShow($registrationView, $loginView, $isLoggedIn) {
         
-        if($_GET['register'] == 'new') {
+        if(isset($_GET['register'])) {
 			
 			return $registrationView->response();
         }
