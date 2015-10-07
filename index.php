@@ -15,7 +15,7 @@ require_once('controller/RegistrationController.php');
 
 //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
 error_reporting(E_ALL);
-ini_set('display_errors', 'On');
+ini_set('display_errors', 'Off');
 
 //Creates an object of CurrentUserModel.
 $userModel = new UserModel('Admin', 'Password');
