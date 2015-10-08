@@ -68,6 +68,7 @@ class LoginModel {
     }
     
     public function checkIfCorrectPassword($userPassword) {
+        //Denna måste ta hänsyn till rätt user också!!! glöm ej!
         $users = $this->userCatalogue->getUsers();
         $correct = false;
         foreach($users as $user) {

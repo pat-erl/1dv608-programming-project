@@ -50,27 +50,32 @@ class RegisterView {
 	
 	//Reads the current state from the UserModel and sets the appropriate message.
 	public function getCurrentState() {
-		if($this->registerModel->getFailedPasswordMatch()) {
-			$this->setRequestMessageId('Passwords do not match.');
-		}
-		else if($this->registerModel->getUserNameEmpty()) {
+		if($this->registerModel->getUserNameEmpty()) {
 			$this->setRequestMessageId('Username has too few characters, at least 3 characters.
 			<br /> Password has too few characters, at least 6 characters.');
 		}
 		else if($this->registerModel->getUserPasswordEmpty()) {
 			$this->setRequestMessageId('Password has too few characters, at least 6 characters.');
 		}
-		else if($this->registerModel->getUserNameShort()) {
+		else if($this->registerModel->getInvalidCharacters()) {
+			$this->setRequestMessageId('Username contains invalid characters.');
+			$name = strip_tags($this->getRequestName());
+			$this->setRequestName($name);
+		}
+		else if($this->registerModel->getUserNameTooShort()) {
 			$this->setRequestMessageId('Username has too few characters, at least 3 characters.');
 		}
-		else if($this->registerModel->getUserPasswordShort()) {
+		else if($this->registerModel->getUserPasswordTooShort()) {
 			$this->setRequestMessageId('Password has too few characters, at least 6 characters.');
 		}
-		else if($this->registerModel->getUserAlreadyExists()) {
-			$this->setRequestMessageId('User exists, pick another username.');
+		else if($this->registerModel->getFailedPasswordMatch()) {
+			$this->setRequestMessageId('Passwords do not match.');
 		}
 		else if($this->registerModel->getIsSuccessfulReg()) {
 			$this->setRequestMessageId('Registered new user.');
+		}
+		else if($this->registerModel->getUserAlreadyExists()) {
+			$this->setRequestMessageId('User exists, pick another username.');
 		}
 		else {
 			$this->setRequestMessageId('Some other error!');

@@ -3,11 +3,12 @@
 class RegisterModel {
     
     private $userCatalogue;
-    private $failedPasswordMatch = false;
     private $userNameEmpty = false;
     private $userPasswordEmpty = false;
-    private $userNameShort = false;
-    private $userPasswordShort = false;
+    private $invalidCharacters = false;
+    private $userNameTooShort = false;
+    private $userPasswordTooShort = false;
+    private $failedPasswordMatch = false;
     private $isSuccessfulReg = false;
     private $userAlreadyExists = false;
     
@@ -22,32 +23,29 @@ class RegisterModel {
 	    assert(is_string($userPassword), 'Second argument was not a string');
 	    assert(is_string($userPasswordRepeat), 'Third argument was not a string');
 	    
-	    if($userPassword != $userPasswordRepeat) {
+	    if($this->checkIfEmptyName($userName)) {
+	        $this->userNameEmpty = true;
+	    }
+	    else if($this->checkIfEmptyPassword($userPassword)) {
+	        $this->userPasswordEmpty = true;
+	    }
+	    else if($this->checkIfInvalidCharacters($userName)) {
+	        $this->invalidCharacters = true;
+	    }
+	    else if($this->checkIfTooShortName($userName)) {
+	        $this->userNameTooShort = true;
+	    }
+	    else if($this->checkIfTooShortPassword($userPassword)) {
+	        $this->userPasswordTooShort = true;
+	    }
+	    else if($this->checkIfFailedPasswordMatch($userPassword, $userPasswordRepeat)) {
 	        $this->failedPasswordMatch = true;
 	    }
+	    else if($this->userCatalogue->addUser($userName, $userPassword)) {
+	        $this->isSuccessfulReg = true;
+	    }
 	    else {
-    	    if($this->checkIfEmptyName($userName)) {
-    	        $this->userNameEmpty = true;
-    	    }
-    	    else if($this->checkIfEmptyPassword($userPassword)) {
-    	        $this->userPasswordEmpty = true;
-    	    }
-    	    else if($this->checkIfCorrectName($userName)) {
-    	        if($this->checkIfCorrectPassword($userPassword)) {
-    	            if($this->userCatalogue->addUser($userName, $userPassword)) {
-    	                $this->isSuccessfulReg = true;   
-    	            }
-    	            else {
-    	                $this->userAlreadyExists = true;
-    	            }
-    	        }
-    	        else {
-    	            $this->userPasswordShort = true;
-    	        }
-    	    }
-    	    else {
-    	        $this->userNameShort = true;
-    	    }
+	        $this->userAlreadyExists = true;
 	    }
     }
     
@@ -59,19 +57,23 @@ class RegisterModel {
 	    return empty($userPassword);
 	}
 	
-    public function checkIfCorrectName($userName) {
-        return strlen($userName) >= 3;
+	public function checkIfInvalidCharacters($userName) {
+        return $userName != strip_tags($userName);
     }
     
-    public function checkIfCorrectPassword($userPassword) {
-        return strlen($userPassword) >= 6;
+    public function checkIfTooShortName($userName) {
+        return strlen($userName) < 3;
+    }
+    
+    public function checkIfTooShortPassword($userPassword) {
+        return strlen($userPassword) < 6;
+    }
+    
+    public function checkIfFailedPasswordMatch($userPassword, $userPasswordRepeat) {
+        return $userPassword != $userPasswordRepeat;
     }
     
     //Getters and setters for the private membervariables.
-    
-    public function getFailedPasswordMatch() {
-        return $this->failedPasswordMatch;    
-    }
     
     public function getUserNameEmpty() {
         return $this->userNameEmpty;
@@ -81,12 +83,20 @@ class RegisterModel {
         return $this->userPasswordEmpty;
     }
     
-    public function getUserNameShort() {
-        return $this->userNameShort;
+    public function getInvalidCharacters() {
+        return $this->invalidCharacters;
     }
     
-    public function getUserPasswordShort() {
-        return $this->userPasswordShort;
+    public function getUserNameTooShort() {
+        return $this->userNameTooShort;
+    }
+    
+    public function getUserPasswordTooShort() {
+        return $this->userPasswordTooShort;
+    }
+    
+    public function getFailedPasswordMatch() {
+        return $this->failedPasswordMatch;    
     }
     
     public function getIsSuccessfulReg() {
