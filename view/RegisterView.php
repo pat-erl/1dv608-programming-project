@@ -16,9 +16,7 @@ class RegisterView {
     }
     
 	public function showLink() {
-		$link = '<a href="?">Back to login</a>';
-		
-		return $link;
+		return '<a href="?">Back to login</a>';
 	}
 	
     public function response() {
@@ -52,8 +50,10 @@ class RegisterView {
 	
 	//Reads the current state from the UserModel and sets the appropriate message.
 	public function getCurrentState() {
-		
-		if($this->registerModel->getUserNameEmpty()) {
+		if($this->registerModel->getFailedPasswordMatch()) {
+			$this->setRequestMessageId('Passwords do not match.');
+		}
+		else if($this->registerModel->getUserNameEmpty()) {
 			$this->setRequestMessageId('Username has too few characters, at least 3 characters.
 			<br /> Password has too few characters, at least 6 characters.');
 		}
@@ -116,6 +116,19 @@ class RegisterView {
 		assert(is_string($password), 'First argument was not a string');
 		
 		$_POST[self::$password] = $password;
+	}
+	
+	public function getRequestPasswordRepeat() {
+		if(!isset($_POST[self::$passwordRepeat])) {
+			$this->setRequestPasswordRepeat('');
+		}
+		return $_POST[self::$passwordRepeat];
+	}
+	
+	public function setRequestPasswordRepeat($passwordRepeat) {
+		assert(is_string($passwordRepeat), 'First argument was not a string');
+		
+		$_POST[self::$passwordRepeat] = $passwordRepeat;
 	}
 	
 	public function getRequestRegister() {

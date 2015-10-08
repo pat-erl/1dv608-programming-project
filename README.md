@@ -6,5 +6,6 @@
 
 * Passes all mandatory test-cases 1.
 * "Passes all mandatory test-cases 2".
-* Reaches 44% in the test-application at [http://csquiz.lnu.se:83/](http://csquiz.lnu.se:83/)
+* Reaches 70% in the test-application at [http://csquiz.lnu.se:82/](http://csquiz.lnu.se:82/)
+* Reaches 70% in the test-application at [http://csquiz.lnu.se:83/](http://csquiz.lnu.se:83/)
 * No namespaces due to error with public host.

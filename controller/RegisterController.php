@@ -17,8 +17,9 @@ class RegisterController {
 		if($this->registerView->getRequestRegister()) {
 			$userName = $this->registerView->getRequestName();
 			$userPassword = $this->registerView->getRequestPassword();
+			$userPasswordRepeat = $this->registerView->getRequestPasswordRepeat();
 		
-		    $this->registerModel->doTryToRegister($userName, $userPassword);
+		    $this->registerModel->doTryToRegister($userName, $userPassword, $userPasswordRepeat);
 		    $this->registerView->getCurrentState();
 		}
 	}

@@ -17,7 +17,7 @@ class LayoutView {
               </head>
               <body>
                 <h1>Assignment 4</h1>
-                ' . $this->whatLinkToShow($registerView, $loginView) . '
+                ' . $this->whatLinkToShow($registerView, $loginView, $isLoggedIn) . '
                 
                 ' . $this->renderIsLoggedIn($isLoggedIn) . '
                 
@@ -42,14 +42,15 @@ class LayoutView {
         }
     }
     
-    private function whatLinkToShow($registerView, $loginView) {
+    //Kanske inte behöver ha dessa länka i separata views utan bara skrivna här i layoutview??
+    private function whatLinkToShow($registerView, $loginView, $isLoggedIn) {
         
         if(isset($_GET['register'])) {
 			
 			return $registerView->showLink();
         }
         else {
-			return $loginView->showLink();
+			return $loginView->showLink($isLoggedIn);
         }
     }
     

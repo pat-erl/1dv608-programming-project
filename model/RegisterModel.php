@@ -3,6 +3,7 @@
 class RegisterModel {
     
     private $userCatalogue;
+    private $failedPasswordMatch = false;
     private $userNameEmpty = false;
     private $userPasswordEmpty = false;
     private $userNameShort = false;
@@ -16,33 +17,39 @@ class RegisterModel {
         $this->userCatalogue = $userCatalogue;
     }
     
-    public function doTryToRegister($userName, $userPassword) {
+    public function doTryToRegister($userName, $userPassword, $userPasswordRepeat) {
 	    assert(is_string($userName), 'First argument was not a string');
 	    assert(is_string($userPassword), 'Second argument was not a string');
+	    assert(is_string($userPasswordRepeat), 'Third argument was not a string');
 	    
-	    if($this->checkIfEmptyName($userName)) {
-	        $this->userNameEmpty = true;
-	    }
-	    else if($this->checkIfEmptyPassword($userPassword)) {
-	        $this->userPasswordEmpty = true;
-	    }
-	    else if($this->checkIfCorrectName($userName)) {
-	        if($this->checkIfCorrectPassword($userPassword)) {
-	            if($this->userCatalogue->addUser($userName, $userPassword)) {
-	                $this->isSuccessfulReg = true;   
-	            }
-	            else {
-	                $this->userAlreadyExists = true;
-	            }
-	        }
-	        else {
-	            $this->userPasswordShort = true;
-	        }
+	    if($userPassword != $userPasswordRepeat) {
+	        $this->failedPasswordMatch = true;
 	    }
 	    else {
-	        $this->userNameShort = true;
+    	    if($this->checkIfEmptyName($userName)) {
+    	        $this->userNameEmpty = true;
+    	    }
+    	    else if($this->checkIfEmptyPassword($userPassword)) {
+    	        $this->userPasswordEmpty = true;
+    	    }
+    	    else if($this->checkIfCorrectName($userName)) {
+    	        if($this->checkIfCorrectPassword($userPassword)) {
+    	            if($this->userCatalogue->addUser($userName, $userPassword)) {
+    	                $this->isSuccessfulReg = true;   
+    	            }
+    	            else {
+    	                $this->userAlreadyExists = true;
+    	            }
+    	        }
+    	        else {
+    	            $this->userPasswordShort = true;
+    	        }
+    	    }
+    	    else {
+    	        $this->userNameShort = true;
+    	    }
 	    }
-	}
+    }
     
     public function checkIfEmptyName($userName) {
 	    return empty($userName);
@@ -61,6 +68,10 @@ class RegisterModel {
     }
     
     //Getters and setters for the private membervariables.
+    
+    public function getFailedPasswordMatch() {
+        return $this->failedPasswordMatch;    
+    }
     
     public function getUserNameEmpty() {
         return $this->userNameEmpty;

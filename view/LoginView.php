@@ -19,10 +19,10 @@ class LoginView {
         $this->loginModel = $loginModel;
     }
 	
-	public function showLink() {
-		$link = '<a href="?register">Register a new user</a>';
-		
-		return $link;
+	public function showLink($isLoggedIn) {
+		if(!$isLoggedIn) {
+			return '<a href="?register">Register a new user</a>';
+		}
 	}
 	
 	/**
