@@ -27,7 +27,7 @@ class LoginModel {
 	        $this->userPasswordEmpty = true;
 	    }
 	    else if($this->checkIfCorrectName($userName)) {
-	        if($this->checkIfCorrectPassword($userPassword)) {
+	        if($this->checkIfCorrectPassword($userName, $userPassword)) {
 	            $this->isLoggedIn = true;
 	            return true;
 	        }
@@ -68,15 +68,14 @@ class LoginModel {
         return false;
     }
     
-    public function checkIfCorrectPassword($userPassword) {
-        //Denna metod måste ta hänsyn till rätt user också!!! glöm ej!
+    public function checkIfCorrectPassword($userName, $userPassword) {
         $users = $this->userCatalogue->getUsers();
         
         $userPassword = sha1($userPassword);
         $userPassword .= $this->salt;
         
         foreach($users as $user) {
-            if($userPassword == $user->getPassword()) {
+            if($userPassword == $user->getPassword() && $user->getName() == $userName) {
                 return true;
             }
         }

@@ -47,7 +47,6 @@ class RegisterModel {
 	    }
 	    else {
 	        $this->userAlreadyExists = true;
-	        return false;
 	    }
     }
     

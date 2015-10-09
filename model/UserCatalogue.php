@@ -43,9 +43,7 @@ class UserCatalogue {
             if($userName == $user->getName()) {
                 return true;
             }
-            else {
-                return false;
-            }
         }
+        return false;
     }
 }
