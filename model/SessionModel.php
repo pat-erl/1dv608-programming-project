@@ -7,7 +7,7 @@ class SessionModel {
     private static $regNameId = 'RegName';
     
     public function __construct() {
-      session_start();
+        session_start();
     }
     
     //Returns true or false depending on if the membervariables contains data or not.
@@ -24,6 +24,7 @@ class SessionModel {
         $_SESSION[self::$passId] = $pass;
     }
     
+    //Saves session data in the membervariables.
     public function setRegSession($name) {
         assert(is_string($name), 'First argument was not a string');
         
@@ -36,6 +37,7 @@ class SessionModel {
         unset($_SESSION[self::$passId]);
     }
     
+    //Erases session data.
     public function unsetRegSession() {
         unset($_SESSION[self::$regNameId]);
     }

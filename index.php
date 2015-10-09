@@ -17,7 +17,7 @@ require_once('controller/RegisterController.php');
 
 //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
 error_reporting(E_ALL);
-ini_set('display_errors', 'On');
+ini_set('display_errors', 'Off');
 
 //Creates an object of SessionModel.
 $sessionModel = new SessionModel();
@@ -31,12 +31,13 @@ $loginModel = new LoginModel($userCatalogue);
 //Creates an object of RegisterModel.
 $registerModel = new RegisterModel($userCatalogue);
 
-//CREATE OBJECTS OF THE VIEWS
+//Creates objects of the views.
 $loginView = new LoginView($loginModel);
 $registerView = new RegisterView($registerModel);
 $layoutView = new LayoutView();
 $dateTimeView = new DateTimeView();
 
+//Creates an object of MainController.
 $mainController = new MainController($sessionModel, $loginModel, $loginView, $registerModel, $registerView);
 
 $mainController->startApplication();

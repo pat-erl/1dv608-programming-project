@@ -41,8 +41,7 @@ class LayoutView {
             return '<h2>Not logged in</h2>';
         }
     }
-    
-    //Kanske inte behöver ha dessa länka i separata views utan bara skrivna här i layoutview??
+
     private function whatLinkToShow($registerView, $loginView, $isLoggedIn) {
         
         if(isset($_GET['register'])) {

@@ -2,12 +2,11 @@
 
 class UserCatalogue {
     
-    private $users = array();
     private $DAL;
+    private $users = array();
     private $salt = '/&tggt%F%F&ygyuIYibjiuhiu';
     
     public function __construct() {
-        
         $DAL = new UsersDAL();
         $users = $DAL->getUsers();
         
@@ -25,15 +24,7 @@ class UserCatalogue {
     }
     
     public function addUser($userName, $userPassword) {
-        $exist = false;
-        
-        foreach($this->users as $user) {
-            if($userName == $user->getName()) {
-                $exist = true;
-            }
-        }
-        
-        if($exist) {
+        if($this->checkIfUserAlreadyExists($userName)) {
             return false;
         }
         else {
@@ -44,6 +35,17 @@ class UserCatalogue {
             $this->users[] = $newUser;
             $this->DAL->saveUsers($this->users);
             return true;
+        }
+    }
+    
+    public function checkIfUserAlreadyExists($userName) {
+        foreach($this->users as $user) {
+            if($userName == $user->getName()) {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
     }
 }

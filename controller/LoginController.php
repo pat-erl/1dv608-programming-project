@@ -17,8 +17,7 @@ class LoginController {
     }
     
     //1. Gets the userinput for login and sends it to the Model for comparison.
-    //2. Uses the response from the Model to set the current state in the Model.
-    //3. Tells the View to get the current state.
+    //2. Tells the View to get the current state.
     public function checkIfLogin() {
         if($this->loginView->getRequestLogin()) {
 		    $userName = $this->loginView->getRequestName();
@@ -31,7 +30,7 @@ class LoginController {
         }
     }
     
-    //Gets the userinput for logout and sets the current state in the Model.
+    //Gets the userinput for logout and sends it to the Model.
     public function checkIfLogout() {
         if($this->loginView->getRequestLogout()) {
             $this->loginModel->doLogout();

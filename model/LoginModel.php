@@ -59,30 +59,28 @@ class LoginModel {
 	
     public function checkIfCorrectName($userName) {
         $users = $this->userCatalogue->getUsers();
-        $correct = false;
         
         foreach($users as $user) {
             if($userName == $user->getName()) {
-                $correct = true;
+                return true;
             }
         }
-        return $correct;
+        return false;
     }
     
     public function checkIfCorrectPassword($userPassword) {
         //Denna metod måste ta hänsyn till rätt user också!!! glöm ej!
         $users = $this->userCatalogue->getUsers();
-        $correct = false;
         
         $userPassword = sha1($userPassword);
         $userPassword .= $this->salt;
         
         foreach($users as $user) {
             if($userPassword == $user->getPassword()) {
-                $correct = true;
+                return true;
             }
         }
-        return $correct;
+        return false;
     }
     
     //Getters and setters for the private membervariables.

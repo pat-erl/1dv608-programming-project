@@ -5,12 +5,10 @@ class UsersDAL {
     private $storageFile = "users.txt";
     
     public function getUsers() {
-        
         if(filesize($this->storageFile) > 0) {
             $contents = file_get_contents($this->storageFile);
             return unserialize($contents);
         }
-        
         return null;
     }
     
