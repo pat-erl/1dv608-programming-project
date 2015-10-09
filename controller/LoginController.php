@@ -2,6 +2,10 @@
 
 class LoginController {
     
+    /*
+    Handles the input from the user regarding login and logout.
+    */
+    
     private $sessionModel;
     private $loginModel;
     private $loginView;
@@ -16,8 +20,6 @@ class LoginController {
         $this->loginView = $loginView;
     }
     
-    //1. Gets the userinput for login and sends it to the Model for comparison.
-    //2. Tells the View to get the current state.
     public function checkIfLogin() {
         if($this->loginView->getRequestLogin()) {
 		    $userName = $this->loginView->getRequestName();
@@ -30,7 +32,6 @@ class LoginController {
         }
     }
     
-    //Gets the userinput for logout and sends it to the Model.
     public function checkIfLogout() {
         if($this->loginView->getRequestLogout()) {
             $this->loginModel->doLogout();

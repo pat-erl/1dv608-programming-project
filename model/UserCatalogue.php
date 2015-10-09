@@ -2,6 +2,10 @@
 
 class UserCatalogue {
     
+     /*
+    Handles logic regarding getting and adding users.
+    */
+    
     private $DAL;
     private $users = array();
     private $salt = '/&tggt%F%F&ygyuIYibjiuhiu';
@@ -28,6 +32,7 @@ class UserCatalogue {
             return false;
         }
         else {
+            //Hashing the password.
             $userPassword = sha1($userPassword);
             $userPassword .= $this->salt;
 

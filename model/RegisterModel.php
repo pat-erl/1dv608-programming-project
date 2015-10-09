@@ -2,6 +2,10 @@
 
 class RegisterModel {
     
+    /*
+    Handles logic regarding registration.
+    */
+    
     private $userCatalogue;
     private $userNameEmpty = false;
     private $userPasswordEmpty = false;
@@ -49,6 +53,8 @@ class RegisterModel {
 	        $this->userAlreadyExists = true;
 	    }
     }
+    
+    //Methods for validating the input.
     
     public function checkIfEmptyName($userName) {
 	    return empty($userName);

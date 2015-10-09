@@ -2,7 +2,10 @@
 
 class LayoutView {
     
-    //Handles the rendering to the client.
+    /*
+    Handles the rendering to the client.
+    */
+    
     public function render($isLoggedIn, $loginView, $dateTimeView, $registerView) {
         assert(is_bool($isLoggedIn), 'First argument was not a boolean value');
         assert($loginView instanceof LoginView, 'Second argument was not an instance of LoginView');

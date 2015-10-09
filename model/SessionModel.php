@@ -2,6 +2,10 @@
 
 class SessionModel {
     
+    /*
+    Handles logic regarding sessions.
+    */
+    
     private static $nameId = 'Name';
     private static $passId = 'Pass';
     private static $regNameId = 'RegName';

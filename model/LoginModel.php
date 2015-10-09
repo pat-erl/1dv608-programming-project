@@ -2,6 +2,10 @@
 
 class LoginModel {
     
+    /*
+    Handles logic regarding login and logout.
+    */
+    
     private $userCatalogue;
     private $userNameEmpty = false;
     private $userPasswordEmpty = false;
@@ -71,6 +75,7 @@ class LoginModel {
     public function checkIfCorrectPassword($userName, $userPassword) {
         $users = $this->userCatalogue->getUsers();
         
+        //Hashing the password.
         $userPassword = sha1($userPassword);
         $userPassword .= $this->salt;
         

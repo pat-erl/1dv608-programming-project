@@ -2,6 +2,10 @@
 
 class MainController {
     
+    /*
+    Checks for an existing session and contacts the other controllers.
+    */
+    
     private $sessionModel;
     private $loginModel;
     private $loginView;

@@ -2,6 +2,10 @@
 
 class RegisterController {
     
+    /*
+    Handles the input from the user regarding registration.
+    */
+    
     private $sessionModel;
     private $registerModel;
     private $registerView;
