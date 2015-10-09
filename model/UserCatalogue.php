@@ -4,6 +4,7 @@ class UserCatalogue {
     
     private $users = array();
     private $DAL;
+    private $salt = '/&tggt%F%F&ygyuIYibjiuhiu';
     
     public function __construct() {
         
@@ -16,7 +17,6 @@ class UserCatalogue {
         else {
             $this->users = array();
         }
-        
         $this->DAL = $DAL;
     }
     
@@ -25,7 +25,6 @@ class UserCatalogue {
     }
     
     public function addUser($userName, $userPassword) {
-        
         $exist = false;
         
         foreach($this->users as $user) {
@@ -38,10 +37,12 @@ class UserCatalogue {
             return false;
         }
         else {
+            $userPassword = sha1($userPassword);
+            $userPassword .= $this->salt;
+
             $newUser = new UserModel($userName, $userPassword);
             $this->users[] = $newUser;
             $this->DAL->saveUsers($this->users);
-            //Kanske fixa med try ctach etc steg för steg här och bakåt??
             return true;
         }
     }
