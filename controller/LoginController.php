@@ -35,7 +35,7 @@ class LoginController {
     public function checkIfLogout() {
         if($this->loginView->getRequestLogout()) {
             $this->loginModel->doLogout();
-            $this->sessionModel->destroySession();
+            $this->sessionModel->unsetSession();
             $this->loginView->getCurrentState();
         }
     }

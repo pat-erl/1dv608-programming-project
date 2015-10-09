@@ -126,7 +126,13 @@ class LoginView {
 	
 	public function getRequestName() {
 		if(!isset($_POST[self::$name])) {
-			$this->setRequestName('');	
+			if(isset($_SESSION['RegName'])) {
+				$this->setRequestName($_SESSION['RegName']);
+				unset($_SESSION['RegName']);
+			}
+			else {
+				$this->setRequestName('');
+			}
 		}
 		return $_POST[self::$name];
 	}
@@ -152,7 +158,12 @@ class LoginView {
 	
 	public function getRequestMessageId() {
 		if(!isset($_POST[self::$messageId])) {
-			$this->setRequestMessageId('');	
+			if(isset($_SESSION['RegName'])) {
+				$this->setRequestMessageId('Registered new user.');
+			}
+			else {
+				$this->setRequestMessageId('');
+			}
 		}
 		return $_POST[self::$messageId];
 	}

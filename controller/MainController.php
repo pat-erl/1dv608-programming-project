@@ -23,7 +23,7 @@ class MainController {
         $this->loginController = new LoginController($sessionModel, $loginModel, $loginView);
         $this->registerModel = $registerModel;
         $this->registerView = $registerView;
-        $this->registerController = new RegisterController($registerModel, $registerView);
+        $this->registerController = new RegisterController($sessionModel, $registerModel, $registerView);
     }
     
     public function startApplication() {

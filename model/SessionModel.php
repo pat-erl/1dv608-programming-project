@@ -4,6 +4,7 @@ class SessionModel {
     
     private static $nameId = 'Name';
     private static $passId = 'Pass';
+    private static $regNameId = 'RegName';
     
     public function __construct() {
       session_start();
@@ -23,8 +24,19 @@ class SessionModel {
         $_SESSION[self::$passId] = $pass;
     }
     
+    public function setRegSession($name) {
+        assert(is_string($name), 'First argument was not a string');
+        
+        $_SESSION[self::$regNameId] = $name;
+    }
+    
     //Erases session data.
-    public function destroySession() {
-        session_destroy();
+    public function unsetSession() {
+        unset($_SESSION[self::$nameId]);
+        unset($_SESSION[self::$passId]);
+    }
+    
+    public function unsetRegSession() {
+        unset($_SESSION[self::$regNameId]);
     }
 }

@@ -43,6 +43,7 @@ class RegisterModel {
 	    }
 	    else if($this->userCatalogue->addUser($userName, $userPassword)) {
 	        $this->isSuccessfulReg = true;
+	        return true;
 	    }
 	    else {
 	        $this->userAlreadyExists = true;
