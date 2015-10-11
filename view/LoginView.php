@@ -55,8 +55,11 @@ class LoginView {
 		
 		return '
 			<form  method="post" >
-				<p id="' . self::$messageId . '">' . $message .'</p>
-				<input type="submit" name="' . self::$logout . '" value="logout"/>
+				<fieldset>
+					<legend class="legendlogout">Logged in as user ' . $_SESSION['Name'] . '</legend>
+					<p id="' . self::$messageId . '">' . $message .'</p>
+					<input id="buttonlogout" type="submit" name="' . self::$logout . '" value="Logout"/>
+				</fieldset>
 			</form>
 		';
 	}

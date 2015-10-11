@@ -22,6 +22,11 @@ class LayoutView {
               ' . $this->whatHeaderToShow($isLoggedIn) . '
               
               <div id="container">
+                ' . $this->showMainMenu($isLoggedIn) . '
+                
+                
+                
+              
                 ' . $this->whatResponseToShow($registerView, $loginView, $isLoggedIn) . '
                 
                 </div>
@@ -39,6 +44,13 @@ class LayoutView {
         }
         else {
             return '<h1>Strength Logger 1.0</h1><h3>Log in or register</h3>';
+        }
+    }
+    
+    private function showMainMenu($isLoggedIn) {
+        if($isLoggedIn) {
+            return '<a href="?">Overview</a>
+            <a href="?exerciseadd">Add Exercise</a><br /><br><br />';
         }
     }
     
