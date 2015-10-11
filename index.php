@@ -17,7 +17,7 @@ require_once('controller/RegisterController.php');
 
 //Error reporting.
 error_reporting(E_ALL);
-ini_set('display_errors', 'On');
+ini_set('display_errors', 'Off');
 
 //Creates an object of SessionModel.
 $sessionModel = new SessionModel();
