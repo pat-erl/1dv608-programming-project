@@ -2,7 +2,6 @@
 
 ### By Patrik Erlandsson WP14
 
-* Public [server-link](http://www.yr.no) for the application. 
+* Public [server-link](http://strengthlogger.uphero.com/) for the application. 
 
-* Description
-A simple log-system for storing training-results. 
+A simple logging-system for strength-training. Created in PHP. 
