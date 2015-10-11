@@ -17,7 +17,7 @@ require_once('controller/RegisterController.php');
 
 //Error reporting.
 error_reporting(E_ALL);
-ini_set('display_errors', 'Off');
+ini_set('display_errors', 'On');
 
 //Creates an object of SessionModel.
 $sessionModel = new SessionModel();
@@ -35,7 +35,6 @@ $registerModel = new RegisterModel($userCatalogue);
 $loginView = new LoginView($loginModel);
 $registerView = new RegisterView($registerModel);
 $layoutView = new LayoutView();
-$dateTimeView = new DateTimeView();
 
 //Creates an object of MainController.
 $mainController = new MainController($sessionModel, $loginModel, $loginView, $registerModel, $registerView);
@@ -46,4 +45,4 @@ $mainController->startApplication();
 $isLoggedIn = $loginModel->getIsLoggedIn();
 
 //Calls the method that handles the rendering to the client.
-$layoutView->render($isLoggedIn, $loginView, $dateTimeView, $registerView);
+$layoutView->render($isLoggedIn, $loginView, $registerView);

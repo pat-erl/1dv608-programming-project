@@ -6,45 +6,42 @@ class LayoutView {
     Handles the rendering to the client.
     */
     
-    public function render($isLoggedIn, $loginView, $dateTimeView, $registerView) {
+    public function render($isLoggedIn, $loginView, $registerView) {
         assert(is_bool($isLoggedIn), 'First argument was not a boolean value');
         assert($loginView instanceof LoginView, 'Second argument was not an instance of LoginView');
-        assert($dateTimeView instanceof DateTimeView, 'Third argument was not an instance of DateTimeView');
-        assert($registerView instanceof RegisterView, 'Fourth argument was not an instance of RegisterView');
+        assert($registerView instanceof RegisterView, 'Third argument was not an instance of RegisterView');
         
         echo '<!DOCTYPE html>
             <html>
               <head>
                 <meta charset="utf-8">
-                <title>Assignment 4</title>
+                <link rel="stylesheet" type="text/css" href="css/style.css">
+                <title>Strength LEVELS</title>
               </head>
               <body>
-                <h1>Assignment 4</h1>
-                ' . $this->whatLinkToShow($registerView, $loginView, $isLoggedIn) . '
+              <h1>STRENGTH LEVELS</h1>
+              <h3>Log, improve, repeat..</h3>
+              <div id="container">
                 
-                ' . $this->renderIsLoggedIn($isLoggedIn) . '
-                
-                <div class="container">
                 ' . $this->whatResponseToShow($registerView, $loginView, $isLoggedIn) . '
-                
-                ' . $dateTimeView->show() . '
                 </div>
+                ' . $this->whatLinkToShow($registerView, $loginView, $isLoggedIn) . '
                </body>
             </html>
         ';
     }
-    
-    private function renderIsLoggedIn($isLoggedIn) {
-        assert(is_bool($isLoggedIn), 'First argument was not a boolean value');
+
+    private function whatResponseToShow($registerView, $loginView, $isLoggedIn) {
         
-        if($isLoggedIn) {
-            return '<h2>Logged in</h2>';
+        if(isset($_GET['register'])) {
+			
+			return $registerView->response();
         }
         else {
-            return '<h2>Not logged in</h2>';
+			return $loginView->response($isLoggedIn);
         }
     }
-
+    
     private function whatLinkToShow($registerView, $loginView, $isLoggedIn) {
         
         if(isset($_GET['register'])) {
@@ -56,14 +53,5 @@ class LayoutView {
         }
     }
     
-    private function whatResponseToShow($registerView, $loginView, $isLoggedIn) {
-        
-        if(isset($_GET['register'])) {
-			
-			return $registerView->response();
-        }
-        else {
-			return $loginView->response($isLoggedIn);
-        }
-    }
+    
 }

@@ -6,9 +6,6 @@ class LoginView {
 	private static $logout = 'LoginView::Logout';
 	private static $name = 'LoginView::UserName';
 	private static $password = 'LoginView::Password';
-	private static $cookieName = 'LoginView::CookieName';
-	private static $cookiePassword = 'LoginView::CookiePassword';
-	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 	private static $register = 'LoginView::Register';
 	
@@ -75,7 +72,7 @@ class LoginView {
 		return '
 			<form method="post" > 
 				<fieldset>
-					<legend>Login - enter Username and password</legend>
+					<legend>Enter username and password to login</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
@@ -83,11 +80,8 @@ class LoginView {
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
-
-					<label for="' . self::$keep . '">Keep me logged in  :</label>
-					<input type="checkbox" id="' . self::$keep . '" name="' . self::$keep . '" />
 					
-					<input type="submit" name="' . self::$login . '" value="login" />
+					<input id="button" type="submit" name="' . self::$login . '" value="LOGIN" />
 				</fieldset>
 			</form>
 		';

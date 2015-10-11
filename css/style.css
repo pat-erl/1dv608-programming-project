@@ -1,0 +1,92 @@
+
+
+body{
+    font-family: Verdana;
+    text-align: center;
+}
+
+h1{
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 2%;
+}
+
+h3{
+    font-size: 20px;
+    font-style: italic;
+}
+
+a{
+    font-size: 14px;
+    color: black;
+    text-decoration: none;
+    display: block;
+    margin-top: 1%;
+    margin-top: 10px;
+}
+
+a:hover{
+    color: red;
+}
+
+p{
+    font-size: 12px;
+    color: black;
+}
+
+#container{
+    background-color: white;
+    margin: 0 auto;
+    width: 50%;
+    margin-top: 2%;
+    text-align: left;
+}
+
+form{
+    background-color: silver;
+    border-radius: 15px;
+    width: 70%;
+    margin: 0 auto;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+}
+
+fieldset{
+    background-color: silver;
+    border-width: 0px;
+    border-radius: 15px;
+}
+
+legend{
+    font-weight: bold;
+    color: black;
+}
+
+label{
+    color: black;
+}
+
+input{
+    color: black;
+    border-radius: 15px;
+}
+
+form p{
+    font-size: 12px;
+    font-style: italic;
+    color: red;
+}
+
+#button{
+    width: 100px;
+    font-weight: bold;
+    font-size: 14px;
+    border-color: black;
+    border-width: 1px;
+    cursor: pointer;
+}
+
+#button:hover{
+    color: red;
+}

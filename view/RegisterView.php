@@ -17,7 +17,7 @@ class RegisterView {
     }
     
 	public function showLink() {
-		return '<a href="?">Back to login</a>';
+		return '<a href="?"><< Back to login</a>';
 	}
 	
     public function response() {
@@ -30,10 +30,9 @@ class RegisterView {
 	
 	private function generateRegistrationFormHTML($message) {
 		return '
-			<h2>Register new user</h2>
 			<form method="post" > 
 				<fieldset>
-					<legend>Register a new user - Write username and password</legend>
+					<legend>Choose username and password to register</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$name . '">Username :</label>
 					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
@@ -44,7 +43,7 @@ class RegisterView {
 					<label for="' . self::$passwordRepeat . '">Repeat password :</label>
 					<input type="password" id="' . self::$passwordRepeat . '" name="' . self::$passwordRepeat . '" />
 					<br />
-					<input type="submit" name="' . self::$register . '" value="Register" />
+					<input id="button" type="submit" name="' . self::$register . '" value="REGISTER" />
 				</fieldset>
 			</form>
 		';
