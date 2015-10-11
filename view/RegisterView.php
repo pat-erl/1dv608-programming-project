@@ -17,7 +17,7 @@ class RegisterView {
     }
     
 	public function showLink() {
-		return '<a href="?"><< Back to login</a>';
+		return '<br /><a href="?"><< Back to login</a>';
 	}
 	
     public function response() {
@@ -32,18 +32,18 @@ class RegisterView {
 		return '
 			<form method="post" > 
 				<fieldset>
-					<legend>Choose username and password to register</legend>
+					<legend>Choose username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
+					<input class="extramargin" type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
                     <br />
 					<label for="' . self::$password . '">Password :</label>
-					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
+					<input class="extramargin2" type="password" id="' . self::$password . '" name="' . self::$password . '" />
 					<br />
 					<label for="' . self::$passwordRepeat . '">Repeat password :</label>
 					<input type="password" id="' . self::$passwordRepeat . '" name="' . self::$passwordRepeat . '" />
 					<br />
-					<input id="button" type="submit" name="' . self::$register . '" value="REGISTER" />
+					<input id="button" type="submit" name="' . self::$register . '" value="Register" />
 				</fieldset>
 			</form>
 		';
@@ -52,11 +52,11 @@ class RegisterView {
 	//Reads the current state from the UserModel and sets the appropriate message.
 	public function getCurrentState() {
 		if($this->registerModel->getUserNameEmpty()) {
-			$this->setRequestMessageId('Username has too few characters, at least 3 characters.
-			<br /> Password has too few characters, at least 6 characters.');
+			$this->setRequestMessageId('Username must be at least 3 characters.
+			<br />Password must be at least 6 characters.');
 		}
 		else if($this->registerModel->getUserPasswordEmpty()) {
-			$this->setRequestMessageId('Password has too few characters, at least 6 characters.');
+			$this->setRequestMessageId('Password must be at least 6 characters.');
 		}
 		else if($this->registerModel->getInvalidCharacters()) {
 			$this->setRequestMessageId('Username contains invalid characters.');
@@ -64,10 +64,10 @@ class RegisterView {
 			$this->setRequestName($name);
 		}
 		else if($this->registerModel->getUserNameTooShort()) {
-			$this->setRequestMessageId('Username has too few characters, at least 3 characters.');
+			$this->setRequestMessageId('Username must be at least 3 characters.');
 		}
 		else if($this->registerModel->getUserPasswordTooShort()) {
-			$this->setRequestMessageId('Password has too few characters, at least 6 characters.');
+			$this->setRequestMessageId('Password must be at least 6 characters.');
 		}
 		else if($this->registerModel->getFailedPasswordMatch()) {
 			$this->setRequestMessageId('Passwords do not match.');
@@ -80,7 +80,7 @@ class RegisterView {
 			header("Location: http://$host$uri/$extra");
 		}
 		else if($this->registerModel->getUserAlreadyExists()) {
-			$this->setRequestMessageId('User exists, pick another username.');
+			$this->setRequestMessageId('Username already exists.');
 		}
 		else {
 			$this->setRequestMessageId('Some other error!');

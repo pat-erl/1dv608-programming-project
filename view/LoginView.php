@@ -19,7 +19,7 @@ class LoginView {
 	
 	public function showLink($isLoggedIn) {
 		if(!$isLoggedIn) {
-			return '<a href="?register">Register a new user</a>';
+			return '<br /><a href="?register">Register a new user</a>';
 		}
 	}
 	
@@ -72,16 +72,15 @@ class LoginView {
 		return '
 			<form method="post" > 
 				<fieldset>
-					<legend>Enter username and password to login</legend>
+					<legend>Enter username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
-					
 					<label for="' . self::$name . '">Username :</label>
 					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
-
+					<br />
 					<label for="' . self::$password . '">Password :</label>
-					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
-					
-					<input id="button" type="submit" name="' . self::$login . '" value="LOGIN" />
+					<input class="extramargin3" type="password" id="' . self::$password . '" name="' . self::$password . '" />
+					<br />
+					<input id="button" type="submit" name="' . self::$login . '" value="Login" />
 				</fieldset>
 			</form>
 		';
@@ -99,10 +98,10 @@ class LoginView {
 			$this->setRequestMessageId('');
 		}
 		else if($this->loginModel->getIsLoggedIn()) {
-			$this->setRequestMessageId('Welcome');
+			$this->setRequestMessageId('Welcome to your log!');
 		}
 		else if($this->loginModel->getIsLoggedOut()) {
-			$this->setRequestMessageId('Bye bye!');
+			$this->setRequestMessageId('Keep improving! See you soon!');
 		}
 		else {
 			$this->setRequestMessageId('Wrong name or password');
@@ -154,7 +153,7 @@ class LoginView {
 	public function getRequestMessageId() {
 		if(!isset($_POST[self::$messageId])) {
 			if(isset($_SESSION['RegName'])) {
-				$this->setRequestMessageId('Registered new user.');
+				$this->setRequestMessageId('Registered a new user!');
 			}
 			else {
 				$this->setRequestMessageId('');

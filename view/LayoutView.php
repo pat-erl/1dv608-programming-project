@@ -16,21 +16,32 @@ class LayoutView {
               <head>
                 <meta charset="utf-8">
                 <link rel="stylesheet" type="text/css" href="css/style.css">
-                <title>Strength LEVELS</title>
+                <title>Programming project - Strength Levels</title>
               </head>
               <body>
-              <h1>STRENGTH LEVELS</h1>
-              <h3>Log, improve, repeat..</h3>
+              ' . $this->whatHeaderToShow($isLoggedIn) . '
+              
               <div id="container">
-                
                 ' . $this->whatResponseToShow($registerView, $loginView, $isLoggedIn) . '
+                
                 </div>
                 ' . $this->whatLinkToShow($registerView, $loginView, $isLoggedIn) . '
+                
                </body>
             </html>
         ';
     }
 
+    private function whatHeaderToShow($isLoggedIn) {
+        
+        if($isLoggedIn) {
+            return "<h1>Strength Logger 1.0</h1><h3>" . $_SESSION['Name'] . "'s log</h3>";
+        }
+        else {
+            return '<h1>Strength Logger 1.0</h1><h3>Log in or register</h3>';
+        }
+    }
+    
     private function whatResponseToShow($registerView, $loginView, $isLoggedIn) {
         
         if(isset($_GET['register'])) {
