@@ -138,7 +138,7 @@ form p{
     text-indent: 0px;
 }
 
-#button:hover{
+#button:hover, #buttonlogout:hover{
     color: dodgerblue;
 }
 
