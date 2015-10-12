@@ -31,7 +31,7 @@ class ExerciseCatalogue {
             return false;
         }
         else {
-            $newExercise = '<a href="' . $exerciseName . '">' . $exerciseName . '</a>';
+            $newExercise = new ExerciseModel($exerciseName);
             $this->exercises[] = $newExercise;
             $this->DAL->saveExercises($this->exercises);
             return true;
@@ -40,7 +40,7 @@ class ExerciseCatalogue {
     
     public function checkIfExerciseAlreadyExists($exerciseName) {
         foreach($this->exercises as $exercise) {
-            if($exerciseName == $exercise) {
+            if($exerciseName == $exercise->getName()) {
                 return true;
             }
         }

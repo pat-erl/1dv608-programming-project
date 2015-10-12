@@ -3,38 +3,41 @@
 class MainController {
     
     /*
-    Checks for an existing session and contacts the other controllers.
+    Checks for an existing session and calls the other controllers.
     */
     
     private $sessionModel;
     private $loginModel;
-    private $loginView;
-    private $loginController;
     private $registerModel;
-    private $registerView;
-    private $registerController;
     private $addExerciseModel;
+    private $loginView;
+    private $registerView;
+    private $exerciseListView;
     private $addExerciseView;
+    private $loginController;
+    private $registerController;
     private $addExerciseController;
     
-    public function __construct($sessionModel, $loginModel, $loginView, $registerModel, $registerView, $addExerciseModel, $addExerciseView) {
+    public function __construct($sessionModel, $loginModel, $registerModel, $addExerciseModel, $loginView, $registerView, $exerciseListView, $addExerciseView) {
         assert($sessionModel instanceof SessionModel, 'First argument was not an instance of SessionModel');
         assert($loginModel instanceof LoginModel, 'Second argument was not an instance of LoginModel');
-        assert($loginView instanceof LoginView, 'Third argument was not an instance of LoginView');
-        assert($registerModel instanceof RegisterModel, 'Fourth argument was not an instance of RegisterModel');
-        assert($registerView instanceof RegisterView, 'Fifth argument was not an instance of RegisterView');
-        assert($addExerciseModel instanceof AddExerciseModel, 'Sixth argument was not an instance of AddExerciseModel');
-        assert($addExerciseView instanceof AddExerciseView, 'Seventh argument was not an instance of AddExerciseView');
+        assert($registerModel instanceof RegisterModel, 'Third argument was not an instance of RegisterModel');
+        assert($addExerciseModel instanceof AddExerciseModel, 'Fourth argument was not an instance of AddExerciseModel');
+        assert($loginView instanceof LoginView, 'Fifth argument was not an instance of LoginView');
+        assert($registerView instanceof RegisterView, 'Sixth argument was not an instance of RegisterView');
+        assert($exerciseListView instanceof ExerciseListView, 'Seventh argument was not an instance of ExerciseListView');
+        assert($addExerciseView instanceof AddExerciseView, 'Eighth argument was not an instance of AddExerciseView');
         
         $this->sessionModel = $sessionModel;
         $this->loginModel = $loginModel;
-        $this->loginView = $loginView;
-        $this->loginController = new LoginController($sessionModel, $loginModel, $loginView);
         $this->registerModel = $registerModel;
-        $this->registerView = $registerView;
-        $this->registerController = new RegisterController($sessionModel, $registerModel, $registerView);
         $this->addExerciseModel = $addExerciseModel;
+        $this->loginView = $loginView;
+        $this->registerView = $registerView;
+        $this->exerciseListView = $exerciseListView;
         $this->addExerciseView = $addExerciseView;
+        $this->loginController = new LoginController($sessionModel, $loginModel, $loginView);
+        $this->registerController = new RegisterController($sessionModel, $registerModel, $registerView);
         $this->addExerciseController = new AddExerciseController($addExerciseModel, $addExerciseView);
     }
     

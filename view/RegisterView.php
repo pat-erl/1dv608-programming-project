@@ -15,10 +15,6 @@ class RegisterView {
 		
         $this->registerModel = $registerModel;
     }
-    
-	public function showLink() {
-		return '<a href="?"><< Back to login</a>';
-	}
 	
     public function response() {
         

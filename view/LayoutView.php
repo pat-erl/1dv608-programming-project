@@ -6,11 +6,24 @@ class LayoutView {
     Handles the rendering to the client.
     */
     
-    public function render($isLoggedIn, $loginView, $registerView, $addExerciseView) {
-        assert(is_bool($isLoggedIn), 'First argument was not a boolean value');
-        assert($loginView instanceof LoginView, 'Second argument was not an instance of LoginView');
-        assert($registerView instanceof RegisterView, 'Third argument was not an instance of RegisterView');
-        assert($addExerciseView instanceof AddExerciseView, 'Fourth argument was not an instance of AddExerciseView');
+    private $loginView;
+	private $registerView;
+	private $exerciseListView;
+	private $addExerciseView;
+	
+	public function __construct($loginView, $registerView, $exerciseListView, $addExerciseView) {
+		assert($loginView instanceof LoginView, 'First argument was not an instance of LoginView');
+		assert($registerView instanceof RegisterView, 'First argument was not an instance of RegisterView');
+		assert($exerciseListView instanceof ExerciseListView, 'First argument was not an instance of ExerciseListView');
+		assert($addExerciseView instanceof AddExerciseView, 'First argument was not an instance of AddExerciseView');
+		
+        $this->loginView = $loginView;
+        $this->registerView = $registerView;
+        $this->exerciseListView = $exerciseListView;;
+        $this->addExerciseView = $addExerciseView;
+    }
+    
+    public function render() {
         
         echo '<!DOCTYPE html>
             <html>
@@ -20,72 +33,72 @@ class LayoutView {
                 <title>Programming project - Strength Logger</title>
               </head>
               <body>
-                ' . $this->showHeader($isLoggedIn) . '
+                ' . $this->showHeadline($this->loginView, $this->registerView) . '
+                ' . $this->showMenu($this->loginView, $this->registerView) . '
               <div id="container">
-                ' . $this->showMainMenu($isLoggedIn) . '
-                ' . $this->showMainContent($isLoggedIn, $addExerciseView) . '
-                ' . $this->showCurrentForm($registerView, $loginView, $isLoggedIn) . '
-                ' . $this->showLink($registerView, $loginView, $isLoggedIn) . '
+                ' . $this->showContent($this->loginView, $this->registerView, $this->exerciseListView, $this->addExerciseView) . '
                 </div>
-                ' . $this->showLogoutPanel($loginView, $isLoggedIn) . '
+                ' . $this->showFooter($this->loginView) . '
                </body>
             </html>
         ';
     }
-
-    private function showHeader($isLoggedIn) {
+    
+    private function showHeadline($loginView, $registerView) {
         
-        if($isLoggedIn) {
-            return "<h1>Strength Logger</h1><h3>" . $_SESSION['Name'] . "'s log</h3>";
+        $ret = "<h1>Strength Logger</h1>";
+        
+        if($loginView->getIsLoggedIn()) {
+            $ret .= "<h3>" . $_SESSION['Name'] . "'s log</h3>";
         }
         else {
-            return '<h1>Strength Logger</h1><h3>Log in or register</h3>';
-        }
-    }
-    
-    private function showMainMenu($isLoggedIn) {
-        if($isLoggedIn) {
-            return '<a href="?">Overview</a>
-            <a href="?exerciseadd">Add Exercise</a>';
-        }
-    }
-    
-    private function showMainContent($isLoggedIn, $addExerciseView) {
-        if($isLoggedIn) {
-            if(isset($_GET['exerciseadd'])) {
-                return $addExerciseView->response();
+            if(isset($_GET['register'])) {
+                $ret .= "<h3>Register Page</h3>";
             }
             else {
-                
+                $ret .= "<h3>Login Page</h3>";
+            }
+        }
+        return $ret;
+    }
+    
+    public function showMenu($loginView, $registerView) {
+        
+        if($loginView->getIsLoggedIn()) {
+            return '<a href="?exerciselist">Exercise List</a><a href="?exerciseadd">Add new exercise</a>';
+        }
+        else {
+            if(isset($_GET['register'])) {
+                return '<a href="?"><< Back to login</a>';
+            }
+            else {
+                return '<a href="?register">Register a new user >></a>';
             }
         }
     }
     
-    private function showCurrentForm($registerView, $loginView, $isLoggedIn) {
+    private function showContent($loginView, $registerView, $exerciseListView, $addExerciseView) {
+        
         if(isset($_GET['register'])) {
-			
-			return $registerView->response();
+            return $registerView->response();
+        }
+        else if(isset($_GET['exerciseadd']) && $loginView->getIsLoggedIn()) {
+            return $addExerciseView->response();
+        }
+        else if(isset($_GET['exerciselist']) && $loginView->getIsLoggedIn()) {
+            return $exerciseListView->response();
+        }
+        else if(!$loginView->getIsLoggedIn()) {
+            return $loginView->response();
         }
         else {
-            if(!$isLoggedIn) {
-                return $loginView->response($isLoggedIn);    
-            }
+            return $exerciseListView->response();
         }
     }
     
-    private function showLink($registerView, $loginView, $isLoggedIn) {
-        if(isset($_GET['register'])) {
-			
-			return $registerView->showLink();
-        }
-        else {
-			return $loginView->showLink($isLoggedIn);
-        }
-    }
-    
-    private function showLogoutPanel($loginView, $isLoggedIn) {
-        if($isLoggedIn) {
-            return $loginView->response($isLoggedIn);
+    private function showFooter($loginView) {
+        if($loginView->getIsLoggedIn()) {
+            return $loginView->response();
         }
     }
 }

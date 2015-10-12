@@ -1,68 +1,52 @@
 <?php
 
-//Included files.
+//Including all the files.
 require_once('model/SessionModel.php');
 require_once('model/UserCatalogue.php');
+require_once('model/ExerciseCatalogue.php');
 require_once('model/LoginModel.php');
 require_once('model/RegisterModel.php');
+require_once('model/AddExerciseModel.php');
 require_once('model/UserModel.php');
 require_once('model/DAL/UsersDAL.php');
+require_once('model/ExerciseModel.php');
+require_once('model/DAL/ExercisesDAL.php');
+
 require_once('view/LoginView.php');
-require_once('view/LayoutView.php');
-require_once('view/DateTimeView.php');
 require_once('view/RegisterView.php');
+require_once('view/ExerciseListView.php');
+require_once('view/AddExerciseView.php');
+require_once('view/LayoutView.php');
+require_once('view/DateTimeView.php'); //Kommer ej finnas sedan..
+
 require_once('controller/MainController.php');
 require_once('controller/LoginController.php');
 require_once('controller/RegisterController.php');
-
-require_once('model/ExerciseCatalogue.php');
-require_once('model/AddExerciseModel.php');
-require_once('model/ExerciseModel.php');
-require_once('model/DAL/ExercisesDAL.php');
-require_once('view/AddExerciseView.php');
 require_once('controller/AddExerciseController.php');
 
-//Error reporting.
+//Displaying errors.
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-//Creates an object of SessionModel.
+//Creating all the objects.
 $sessionModel = new SessionModel();
-
-//Creates an object of UserCatalogue.
 $userCatalogue = new UserCatalogue();
-
 $exerciseCatalogue = new ExerciseCatalogue();
 
-//Creates an object of LoginModel.
 $loginModel = new LoginModel($userCatalogue);
-
-$addExerciseModel = new AddExerciseModel($exerciseCatalogue);
-
-//Creates an object of RegisterModel.
 $registerModel = new RegisterModel($userCatalogue);
+$addExerciseModel = new AddExerciseModel($exerciseCatalogue); 
 
-//Creates objects of the views.
 $loginView = new LoginView($loginModel);
 $registerView = new RegisterView($registerModel);
+$exerciseListView = new ExerciseListView();
 $addExerciseView = new AddExerciseView($addExerciseModel);
-$layoutView = new LayoutView();
+$layoutView = new LayoutView($loginView, $registerView, $exerciseListView, $addExerciseView);
 
-//Creates an object of MainController.
-$mainController = new MainController($sessionModel, $loginModel, $loginView, $registerModel, $registerView, $addExerciseModel, $addExerciseView);
+$mainController = new MainController($sessionModel, $loginModel, $registerModel, $addExerciseModel, $loginView, $registerView, $exerciseListView, $addExerciseView);
 
+//Running the application.
 $mainController->startApplication();
 
-//Creates a variable with the current login-state.
-$isLoggedIn = $loginModel->getIsLoggedIn();
-
-//Calls the method that handles the rendering to the client.
-$layoutView->render($isLoggedIn, $loginView, $registerView, $addExerciseView);
-
-
-
-
-
-				
-				
-				
+//Rendering the content to the client.
+$layoutView->render();

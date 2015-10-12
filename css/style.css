@@ -38,9 +38,6 @@ p{
     width: 1000px;
     margin-top: 10px;
     text-align: center;
-    border-style: solid;
-    border-color: black;
-    border-width: 1px;
     height: 500px;
 }
 
@@ -63,7 +60,7 @@ form{
     margin: 0 auto;
     text-align: left;
     margin-bottom: 10px;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 fieldset{

@@ -4,7 +4,6 @@ class LoginController {
     
     /*
     Handles the input from the user regarding login and logout.
-    Also creates the content which only should be available when logged in.
     */
     
     private $sessionModel;
@@ -28,6 +27,7 @@ class LoginController {
 			
 			if($this->loginModel->doTryToLogin($userName, $userPassword)) {
 				$this->sessionModel->setSession($userName, $userPassword);
+				//ändra response på loginview här??
 			}
 			$this->loginView->getCurrentState();
         }

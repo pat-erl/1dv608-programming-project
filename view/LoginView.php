@@ -10,18 +10,13 @@ class LoginView {
 	private static $register = 'LoginView::Register';
 	
 	private $loginModel;
+	private $isLoggedIn;
 	
 	public function __construct($loginModel) {
 		assert($loginModel instanceof LoginModel, 'First argument was not an instance of LoginModel');
 		
         $this->loginModel = $loginModel;
     }
-	
-	public function showLink($isLoggedIn) {
-		if(!$isLoggedIn) {
-			return '<a href="?register">Register a new user >></a>';
-		}
-	}
 	
 	/**
 	 * Create HTTP response
@@ -30,12 +25,11 @@ class LoginView {
 	 *
 	 * @return  void BUT writes to standard output and cookies!
 	 */
-	public function response($isLoggedIn) {
-		assert(is_bool($isLoggedIn), 'First argument was not a boolean value');
+	public function response() {
 		
 		$message = '';
 		
-		if($isLoggedIn) {
+		if($this->isLoggedIn) {
 			$message = $this->getRequestMessageId();
 			return $this->generateLogoutButtonHTML($message); 
 		}
@@ -105,11 +99,11 @@ class LoginView {
 		}
 		else if($this->loginModel->getIsLoggedOut()) {
 			$this->setRequestMessageId('Keep improving. See you soon.');
-			header('Location: ?');
 		}
 		else {
 			$this->setRequestMessageId('Wrong name or password.');
 		}
+		$this->isLoggedIn = $this->loginModel->getIsLoggedIn();
 	}
 	
 	//Getters and setters for the private membervariables.
@@ -170,5 +164,9 @@ class LoginView {
 		assert(is_string($message), 'First argument was not a string');
 		
 		$_POST[self::$messageId] = $message;
+	}
+	
+	public function getIsLoggedIn() {
+		return $this->isLoggedIn;
 	}
 }
