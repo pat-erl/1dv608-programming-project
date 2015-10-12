@@ -3,7 +3,7 @@
 class UsersDAL {
     
      /*
-    Handles logic regarding storage.
+    Handles logic regarding storage of users.
     */
     
     private $storageFile = "users.txt";

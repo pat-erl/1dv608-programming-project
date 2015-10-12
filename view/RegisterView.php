@@ -17,7 +17,7 @@ class RegisterView {
     }
     
 	public function showLink() {
-		return '<br /><a href="?"><< Back to login</a>';
+		return '<a href="?"><< Back to login</a>';
 	}
 	
     public function response() {

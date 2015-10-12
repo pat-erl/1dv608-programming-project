@@ -19,7 +19,7 @@ class LoginView {
 	
 	public function showLink($isLoggedIn) {
 		if(!$isLoggedIn) {
-			return '<br /><a href="?register">Register a new user</a>';
+			return '<a href="?register">Register a new user >></a>';
 		}
 	}
 	
@@ -54,7 +54,7 @@ class LoginView {
 		assert(is_string($message), 'First argument was not a string');
 		
 		return '
-			<form  method="post" >
+			<form method="post">
 				<fieldset>
 					<legend class="legendlogout">Logged in as user ' . $_SESSION['Name'] . '</legend>
 					<p id="' . self::$messageId . '">' . $message .'</p>
@@ -92,22 +92,23 @@ class LoginView {
 	//Reads the current state from the LoginModel and sets the appropriate message.
 	public function getCurrentState() {
 		if($this->loginModel->getUserNameEmpty()) {
-			$this->setRequestMessageId('Username is missing');
+			$this->setRequestMessageId('Username is missing.');
 		}
 		else if($this->loginModel->getUserPasswordEmpty()) {
-			$this->setRequestMessageId('Password is missing');
+			$this->setRequestMessageId('Password is missing.');
 		}
 		else if($this->loginModel->getIsAlreadyLoggedIn()) {
 			$this->setRequestMessageId('');
 		}
 		else if($this->loginModel->getIsLoggedIn()) {
-			$this->setRequestMessageId('Welcome to your log!');
+			$this->setRequestMessageId('Welcome to your log.');
 		}
 		else if($this->loginModel->getIsLoggedOut()) {
-			$this->setRequestMessageId('Keep improving! See you soon!');
+			$this->setRequestMessageId('Keep improving. See you soon.');
+			header('Location: ?');
 		}
 		else {
-			$this->setRequestMessageId('Wrong name or password');
+			$this->setRequestMessageId('Wrong name or password.');
 		}
 	}
 	
@@ -156,7 +157,7 @@ class LoginView {
 	public function getRequestMessageId() {
 		if(!isset($_POST[self::$messageId])) {
 			if(isset($_SESSION['RegName'])) {
-				$this->setRequestMessageId('Registered a new user!');
+				$this->setRequestMessageId('Successfully registered the user ' . $this->getRequestName() . '.');
 			}
 			else {
 				$this->setRequestMessageId('');
