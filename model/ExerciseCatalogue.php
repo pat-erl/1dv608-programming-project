@@ -28,8 +28,9 @@ class ExerciseCatalogue {
     }
     
     public function addExercise($exerciseName) {
-        
         $userName = $_SESSION['Name']; //Hur göra om inte ok att använda seesion här?? injecta sessionmodel??
+        $exerciseName = strtolower($exerciseName);
+        $exerciseName = ucfirst($exerciseName);
         
         if($this->checkIfExerciseAlreadyExists($exerciseName, $userName)) {
             return false;

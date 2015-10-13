@@ -49,7 +49,11 @@ class LayoutView {
         $ret = "<h1>Strength Logger</h1>";
         
         if($loginView->getIsLoggedIn()) {
-            $ret .= "<h3>" . $_SESSION['Name'] . "'s log</h3>";
+            $name = $_SESSION['Name'];
+            $name = strtolower($name);
+            $name = ucfirst($name);
+            
+            $ret .= "<h3>" . $name . "'s log</h3>";
         }
         else {
             if(isset($_GET['register'])) {

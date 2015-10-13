@@ -76,7 +76,7 @@ class RegisterView {
 			header("Location: http://$host$uri/$extra");
 		}
 		else if($this->registerModel->getUserAlreadyExists()) {
-			$this->setRequestMessageId('Username already exists.');
+			$this->setRequestMessageId($this->getRequestName() . ' already exists.');
 		}
 		else {
 			$this->setRequestMessageId('Some other error!');

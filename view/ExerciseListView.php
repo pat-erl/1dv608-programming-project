@@ -16,6 +16,8 @@ class ExerciseListView {
         $ret = '';
         $userName = $_SESSION['Name'];
         
+        uasort($exercises, function($a, $b) { return strcmp($a->getName(), $b->getName()); } );
+        
         foreach($exercises as $exercise) {
             if($exercise->getUserName() == $userName) {
                 $ret .= '<a href="?' . $exercise->getId() . '">' . $exercise->getName() . '</a>'; //länkar för edit och delete här sedan med!!
@@ -24,3 +26,5 @@ class ExerciseListView {
         return $ret;
     }
 }
+
+

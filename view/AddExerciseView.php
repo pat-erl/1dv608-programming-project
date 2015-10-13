@@ -51,11 +51,17 @@ class AddExerciseView {
 			$this->setRequestMessageId('Exercise must be at least 3 characters.');
 		}
 		else if($this->addExerciseModel->getIsSuccessfulReg()) {
-			$this->setRequestMessageId('Successfully registered ' . $this->getRequestName() . '.');
+			$exerciseName = strtolower($this->getRequestName());
+			$exerciseName = ucfirst($exerciseName);
+			
+			$this->setRequestMessageId('Successfully registered ' . $exerciseName . '.');
 			$this->setRequestName('');
 		}
 		else if($this->addExerciseModel->getExerciseAlreadyExists()) {
-			$this->setRequestMessageId('Exercise already exists.');
+			$exerciseName = strtolower($this->getRequestName());
+			$exerciseName = ucfirst($exerciseName);
+			
+			$this->setRequestMessageId($exerciseName . ' already exists.');
 		}
 		else {
 			$this->setRequestMessageId('Some other error!');

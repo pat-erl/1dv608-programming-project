@@ -92,7 +92,11 @@ class LoginView {
 			$this->setRequestMessageId('');
 		}
 		else if($this->loginModel->getIsLoggedIn()) {
-			$this->setRequestMessageId('Welcome ' . $this->getRequestName() . '!');
+			$name = $this->getRequestName();
+			$name = strtolower($name);
+			$name = ucfirst($name);
+			
+			$this->setRequestMessageId('Welcome ' . $name . '!');
 		}
 		else if($this->loginModel->getIsLoggedOut()) {
 			$this->setRequestMessageId('Keep improving. See you soon.');
