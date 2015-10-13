@@ -18,7 +18,7 @@ class ExerciseListView {
         
         foreach($exercises as $exercise) {
             if($exercise->getUserName() == $userName) {
-                $ret .= '<br /><a href="?' . $exercise->getId() . '">' . $exercise->getName() . '</a><br />'; //länkar för edit och delete här sedan med!!
+                $ret .= '<a href="?' . $exercise->getId() . '">' . $exercise->getName() . '</a>'; //länkar för edit och delete här sedan med!!
             }
         }
         return $ret;

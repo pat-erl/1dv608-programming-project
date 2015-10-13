@@ -34,11 +34,11 @@ class LayoutView {
               </head>
               <body>
                 ' . $this->showHeadline($this->loginView, $this->registerView) . '
+                ' . $this->showLogout($this->loginView) . '
                 ' . $this->showMenu($this->loginView, $this->registerView) . '
               <div id="container">
                 ' . $this->showContent($this->loginView, $this->registerView, $this->exerciseListView, $this->addExerciseView) . '
                 </div>
-                ' . $this->showFooter($this->loginView) . '
                </body>
             </html>
         ';
@@ -65,14 +65,14 @@ class LayoutView {
     public function showMenu($loginView, $registerView) {
         
         if($loginView->getIsLoggedIn()) {
-            return '<a href="?exerciselist">EXERCISE LIST</a>' . ' | ' . '<a href="?exerciseadd">ADD EXERCISE</a>';
+            return '<a href="?">SUMMARY</a>' . ' | ' . '<a href="?exerciselist">MODIFY</a>' . ' | ' . '<a href="?exerciseadd">ADD NEW</a>';
         }
         else {
             if(isset($_GET['register'])) {
-                return '<a href="?"><< Back to login</a>';
+                return '<br /><a class="smallerlinks" href="?"><< Back to login</a>';
             }
             else {
-                return '<a href="?register">Register a new user >></a>';
+                return '<br /><a class="smallerlinks" href="?register">Register a new user >></a>';
             }
         }
     }
@@ -96,7 +96,7 @@ class LayoutView {
         }
     }
     
-    private function showFooter($loginView) {
+    private function showLogout($loginView) {
         if($loginView->getIsLoggedIn()) {
             return $loginView->response();
         }

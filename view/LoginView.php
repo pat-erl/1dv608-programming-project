@@ -48,12 +48,9 @@ class LoginView {
 		assert(is_string($message), 'First argument was not a string');
 		
 		return '
-			<form method="post">
-				<fieldset>
-					<legend class="legendlogout">Logged in as user ' . $_SESSION['Name'] . '</legend>
-					<p id="' . self::$messageId . '">' . $message .'</p>
-					<input id="buttonlogout" type="submit" name="' . self::$logout . '" value="Logout"/>
-				</fieldset>
+			<form id="logoutform" method="post">
+				<p id="' . self::$messageId . '">' . $message .'</p>
+				<input id="buttonlogout" type="submit" name="' . self::$logout . '" value="Logout"/>
 			</form>
 		';
 	}
@@ -95,7 +92,7 @@ class LoginView {
 			$this->setRequestMessageId('');
 		}
 		else if($this->loginModel->getIsLoggedIn()) {
-			$this->setRequestMessageId('Welcome to your log.');
+			$this->setRequestMessageId('Welcome ' . $this->getRequestName() . '!');
 		}
 		else if($this->loginModel->getIsLoggedOut()) {
 			$this->setRequestMessageId('Keep improving. See you soon.');
@@ -151,7 +148,7 @@ class LoginView {
 	public function getRequestMessageId() {
 		if(!isset($_POST[self::$messageId])) {
 			if(isset($_SESSION['RegName'])) {
-				$this->setRequestMessageId('Successfully registered the user ' . $this->getRequestName() . '.');
+				$this->setRequestMessageId('Successfully registered ' . $this->getRequestName() . '.');
 			}
 			else {
 				$this->setRequestMessageId('');
