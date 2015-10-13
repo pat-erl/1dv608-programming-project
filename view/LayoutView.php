@@ -65,7 +65,7 @@ class LayoutView {
     public function showMenu($loginView, $registerView) {
         
         if($loginView->getIsLoggedIn()) {
-            return '<a href="?exerciselist">Exercise List</a><a href="?exerciseadd">Add new exercise</a>';
+            return '<a href="?exerciselist">EXERCISE LIST</a>' . ' | ' . '<a href="?exerciseadd">ADD EXERCISE</a>';
         }
         else {
             if(isset($_GET['register'])) {

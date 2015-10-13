@@ -28,28 +28,31 @@ class ExerciseCatalogue {
     }
     
     public function addExercise($exerciseName) {
-        if($this->checkIfExerciseAlreadyExists($exerciseName)) {
+        
+        $userName = $_SESSION['Name']; //Hur göra om inte ok att använda seesion här?? injecta sessionmodel??
+        
+        if($this->checkIfExerciseAlreadyExists($exerciseName, $userName)) {
             return false;
         }
         else {
             $id = 0;
             foreach($this->exercises as $exercise){
-                if($exercise->getId() > $id){
+                if($exercise->getId() > $id && $userName == $exercise->getUserName()){
                     $id = $exercise->getId();
                 }
             }
             $id++;
             
-            $newExercise = new ExerciseModel($id, $exerciseName);
+            $newExercise = new ExerciseModel($userName, $id, $exerciseName);
             $this->exercises[] = $newExercise;
             $this->DAL->saveExercises($this->exercises);
             return true;
         }
     }
     
-    public function checkIfExerciseAlreadyExists($exerciseName) {
+    public function checkIfExerciseAlreadyExists($exerciseName, $userName) {
         foreach($this->exercises as $exercise) {
-            if($exerciseName == $exercise->getName()) {
+            if($exerciseName == $exercise->getName() && $userName == $exercise->getUserName()) {
                 return true;
             }
         }

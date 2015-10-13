@@ -14,9 +14,12 @@ class ExerciseListView {
 
         $exercises = $this->exerciseCatalogue->getExercises();
         $ret = '';
+        $userName = $_SESSION['Name'];
         
         foreach($exercises as $exercise) {
-            $ret .= '<br /><a href="?' . $exercise->getId() . '">' . $exercise->getName() . '</a><br />'; //Id sen inte namnet..
+            if($exercise->getUserName() == $userName) {
+                $ret .= '<br /><a href="?' . $exercise->getId() . '">' . $exercise->getName() . '</a><br />'; //länkar för edit och delete här sedan med!!
+            }
         }
         return $ret;
     }
