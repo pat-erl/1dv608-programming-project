@@ -39,7 +39,7 @@ $addExerciseModel = new AddExerciseModel($exerciseCatalogue);
 
 $loginView = new LoginView($loginModel);
 $registerView = new RegisterView($registerModel);
-$exerciseListView = new ExerciseListView();
+$exerciseListView = new ExerciseListView($exerciseCatalogue);
 $addExerciseView = new AddExerciseView($addExerciseModel);
 $layoutView = new LayoutView($loginView, $registerView, $exerciseListView, $addExerciseView);
 

@@ -23,6 +23,7 @@ class ExerciseCatalogue {
     }
     
     public function getExercises() {
+        $this->DAL->getExercises();
         return $this->exercises;
     }
     
@@ -31,7 +32,15 @@ class ExerciseCatalogue {
             return false;
         }
         else {
-            $newExercise = new ExerciseModel($exerciseName);
+            $id = 0;
+            foreach($this->exercises as $exercise){
+                if($exercise->getId() > $id){
+                    $id = $exercise->getId();
+                }
+            }
+            $id++;
+            
+            $newExercise = new ExerciseModel($id, $exerciseName);
             $this->exercises[] = $newExercise;
             $this->DAL->saveExercises($this->exercises);
             return true;
