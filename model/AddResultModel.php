@@ -2,16 +2,13 @@
 
 class AddResultModel {
     
-    private $logEntryCatalogue;
     private $logEntryEmpty = false;
     private $invalidCharacters = false;
     private $logEntryTooShort = false;
     private $isSuccessfulReg = false;
     
-    public function __construct($logEntryCatalogue) {
-        assert($logEntryCatalogue instanceof LogEntryCatalogue, 'First argument was not an instance of LogEntryCatalogue');
-        
-        $this->logEntryCatalogue = $logEntryCatalogue;
+    public function __construct() {
+
     }
     
     public function doTryToAdd($logEntry) {
@@ -26,12 +23,14 @@ class AddResultModel {
 	    else if($this->checkIfTooShortLogEntry($logEntry)) {
 	        $this->logEntryTooShort = true;
 	    }
+	    /*
 	    else if($this->logEntryCatalogue->addLogEntry($logEntry)) {
 	        $this->isSuccessfulReg = true;
 	    }
 	    else {
 	        
 	    }
+	    */
     }
     
     //Methods for validating the input.
@@ -51,7 +50,7 @@ class AddResultModel {
     //Getters and setters for the private membervariables.
     
     public function getLogEntryEmpty() {
-        return $this->exerciseNameEmpty;
+        return $this->logEntryEmpty;
     }
     
     public function getInvalidCharacters() {
@@ -59,7 +58,7 @@ class AddResultModel {
     }
     
     public function getLogEntryTooShort() {
-        return $this->exerciseNameTooShort;
+        return $this->logEntryTooShort;
     }
     
     public function getIsSuccessfulReg() {

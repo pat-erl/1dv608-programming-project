@@ -10,41 +10,37 @@ class MainController {
     private $loginModel;
     private $registerModel;
     private $addExerciseModel;
-    private $loginView;
-    private $registerView;
-    private $exerciseListView;
-    private $addExerciseView;
+    private $addResultModel;
+    private $mainView;
     private $loginController;
     private $registerController;
     private $addExerciseController;
+    private $addResultController;
     
-    public function __construct($sessionModel, $loginModel, $registerModel, $addExerciseModel, $loginView, $registerView, $exerciseListView, $addExerciseView) {
+    public function __construct($sessionModel, $loginModel, $registerModel, $addExerciseModel, $addResultModel, $mainView) {
         assert($sessionModel instanceof SessionModel, 'First argument was not an instance of SessionModel');
         assert($loginModel instanceof LoginModel, 'Second argument was not an instance of LoginModel');
         assert($registerModel instanceof RegisterModel, 'Third argument was not an instance of RegisterModel');
         assert($addExerciseModel instanceof AddExerciseModel, 'Fourth argument was not an instance of AddExerciseModel');
-        assert($loginView instanceof LoginView, 'Fifth argument was not an instance of LoginView');
-        assert($registerView instanceof RegisterView, 'Sixth argument was not an instance of RegisterView');
-        assert($exerciseListView instanceof ExerciseListView, 'Seventh argument was not an instance of ExerciseListView');
-        assert($addExerciseView instanceof AddExerciseView, 'Eighth argument was not an instance of AddExerciseView');
+        assert($addResultModel instanceof AddResultModel, 'Fifth argument was not an instance of AddResultModel');
+        assert($mainView instanceof MainView, 'Sixth argument was not an instance of MainView');
         
         $this->sessionModel = $sessionModel;
         $this->loginModel = $loginModel;
         $this->registerModel = $registerModel;
         $this->addExerciseModel = $addExerciseModel;
-        $this->loginView = $loginView;
-        $this->registerView = $registerView;
-        $this->exerciseListView = $exerciseListView;
-        $this->addExerciseView = $addExerciseView;
-        $this->loginController = new LoginController($sessionModel, $loginModel, $loginView);
-        $this->registerController = new RegisterController($sessionModel, $registerModel, $registerView);
-        $this->addExerciseController = new AddExerciseController($addExerciseModel, $addExerciseView);
+        $this->addResultModel = $addResultModel;
+        $this->mainView = $mainView;
+        $this->loginController = new LoginController($sessionModel, $loginModel, $mainView);
+        $this->registerController = new RegisterController($sessionModel, $registerModel, $mainView);
+        $this->addExerciseController = new AddExerciseController($addExerciseModel, $mainView);
+        $this->addResultController = new AddResultController($addResultModel, $mainView);
     }
     
     public function startApplication() {
         if($this->sessionModel->existingSession()) {
             $this->loginModel->alreadyLoggedIn();
-			$this->loginView->getCurrentState();
+            $this->mainView->getCurrentStateFromLoginView();
             $this->loginController->checkIfLogout();
         }
         else {
@@ -52,5 +48,6 @@ class MainController {
         }
         $this->registerController->checkIfRegister();
         $this->addExerciseController->checkIfAddExercise();
+        $this->addResultController->checkIfAddResult();
     }
 }

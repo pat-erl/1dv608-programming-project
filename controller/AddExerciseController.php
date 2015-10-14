@@ -7,23 +7,23 @@ class AddExerciseController {
     */
     
     private $addExerciseModel;
-    private $addExerciseView;
+    private $mainView;
     
-    public function __construct($addExerciseModel, $addExerciseView) {
+    public function __construct($addExerciseModel, $mainView) {
         assert($addExerciseModel instanceof AddExerciseModel, 'First argument was not an instance of AddExerciseModel');
-        assert($addExerciseView instanceof AddExerciseView, 'Second argument was not an instance of AddExerciseView');
+        assert($mainView instanceof MainView, 'Second argument was not an instance of MainView');
         
         $this->addExerciseModel = $addExerciseModel;
-        $this->addExerciseView = $addExerciseView;
+        $this->mainView = $mainView;
     }
     
 	public function checkIfAddExercise() {
-		if($this->addExerciseView->getRequestAdd()) {
-			$exerciseName = $this->addExerciseView->getRequestName();
+		if($this->mainView->getRequestAddFromAddExerciseView()) {
+			$exerciseName = $this->mainView->getRequestNameFromAddExerciseView();
 		    
 		    $this->addExerciseModel->doTryToAdd($exerciseName);
 		    
-		    $this->addExerciseView->getCurrentState();
+		    $this->mainView->getCurrentStateFromAddExerciseView();
 		}
 	}
 }

@@ -6,17 +6,14 @@ class AddExerciseModel {
     Handles logic regarding adding exercises.
     */
     
-    private $exerciseCatalogue;
     private $exerciseNameEmpty = false;
     private $invalidCharacters = false;
     private $exerciseNameTooShort = false;
     private $isSuccessfulReg = false;
     private $exerciseAlreadyExists = false;
     
-    public function __construct($exerciseCatalogue) {
-        assert($exerciseCatalogue instanceof ExerciseCatalogue, 'First argument was not an instance of ExerciseCatalogue');
-        
-        $this->exerciseCatalogue = $exerciseCatalogue;
+    public function __construct() {
+
     }
     
     public function doTryToAdd($exerciseName) {
@@ -31,12 +28,15 @@ class AddExerciseModel {
 	    else if($this->checkIfTooShortExerciseName($exerciseName)) {
 	        $this->exerciseNameTooShort = true;
 	    }
+	    //Bättre om kolla i katalogen är en separat företeelse som typ controllern göt efter att ett namn ändå är ok rent bokstavligt...
+	    /*
 	    else if($this->exerciseCatalogue->addExercise($exerciseName)) {
 	        $this->isSuccessfulReg = true;
 	    }
 	    else {
 	        $this->exerciseAlreadyExists = true;
 	    }
+	    */
     }
     
     //Methods for validating the input.

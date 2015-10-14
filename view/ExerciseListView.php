@@ -2,13 +2,15 @@
 
 class ExerciseListView {
     
-    private $exerciseCatalogue;
+    private $userCatalogue;
 	
-	public function __construct($exerciseCatalogue) {
-		assert($exerciseCatalogue instanceof ExerciseCatalogue, 'First argument was not an instance of ExerciseCatalogue');
+	public function __construct($userCatalogue) {
+		assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
 
-        $this->exerciseCatalogue = $exerciseCatalogue;
+        $this->userCatalogue = $userCatalogue;
     }
+    
+    //Massor att fixa här för att bara få tag i exercises, dessutom sen bara för att få tag i results kvar också att göra i deras separata filer etc.
     
     public function response() {
         $exercises = $this->exerciseCatalogue->getExercises();

@@ -8,28 +8,28 @@ class RegisterController {
     
     private $sessionModel;
     private $registerModel;
-    private $registerView;
+    private $mainView;
     
-    public function __construct($sessionModel, $registerModel, $registerView) {
+    public function __construct($sessionModel, $registerModel, $mainView) {
         assert($sessionModel instanceof SessionModel, 'First argument was not an instance of SessionModel');
         assert($registerModel instanceof RegisterModel, 'Second argument was not an instance of RegisterModel');
-        assert($registerView instanceof RegisterView, 'Third argument was not an instance of RegisterView');
+        assert($mainView instanceof MainView, 'Third argument was not an instance of MainView');
         
         $this->sessionModel = $sessionModel;
         $this->registerModel = $registerModel;
-        $this->registerView = $registerView;
+        $this->mainView = $mainView;
     }
     
 	public function checkIfRegister() {
-		if($this->registerView->getRequestRegister()) {
-			$userName = $this->registerView->getRequestName();
-			$userPassword = $this->registerView->getRequestPassword();
-			$userPasswordRepeat = $this->registerView->getRequestPasswordRepeat();
+		if($this->mainView->getRequestRegisterFromRegisterView()) {
+			$userName = $this->mainView->getRequestNameFromRegisterView();
+			$userPassword = $this->mainView->getRequestPasswordFromRegisterView();
+			$userPasswordRepeat = $this->mainView->getRequestPasswordRepeatFromRegisterView();
 		
 		    if($this->registerModel->doTryToRegister($userName, $userPassword, $userPasswordRepeat)) {
 		        $this->sessionModel->setRegSession($userName);
 		    }
-		    $this->registerView->getCurrentState();
+		    $this->mainView->getCurrentStateFromRegisterView();
 		}
 	}
 }

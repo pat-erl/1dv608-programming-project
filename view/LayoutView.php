@@ -17,9 +17,11 @@ class LayoutView {
                 <title>Programming project - Strength Logger</title>
             </head>
             <body>
+                ' . $mainView->showHeadline() .'
+                ' . $mainView->showLogoutPanel() .'
+                ' . $navigationView->showLinks() .'
                 <div id="container">
-                    ' . $navigationView->showLinks() .'
-                    ' . $mainView->response() . '
+                    ' . $mainView->showContent() . '
                 </div>
             </body>
         </html>

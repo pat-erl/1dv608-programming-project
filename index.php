@@ -12,8 +12,8 @@ require_once('model/ExerciseModel.php');
 require_once('model/ResultModel.php');
 require_once('model/DAL/UsersDAL.php');
 require_once('view/MainView.php');
-require_once('view/NavigationView.php');
 require_once('view/LayoutView.php');
+require_once('view/NavigationView.php');
 require_once('view/LoginView.php');
 require_once('view/RegisterView.php');
 require_once('view/AddExerciseView.php');
@@ -39,10 +39,10 @@ $addExerciseModel = new AddExerciseModel();
 $addResultModel = new AddResultModel();
 
 $mainView = new MainView($userCatalogue, $loginModel, $registerModel, $addExerciseModel, $addResultModel);
-$navigationView = new NavigationView();
+$navigationView = new NavigationView($loginModel);
 $layoutView = new LayoutView();
 
-$mainController = new MainController($sessionModel, $loginModel, $registerModel, $addExerciseModel, $mainView);
+$mainController = new MainController($sessionModel, $loginModel, $registerModel, $addExerciseModel, $addResultModel, $mainView);
 
 //Running the application.
 $mainController->startApplication();

@@ -8,36 +8,35 @@ class LoginController {
     
     private $sessionModel;
     private $loginModel;
-    private $loginView;
+    private $mainView;
     
-    public function __construct($sessionModel, $loginModel, $loginView) {
+    public function __construct($sessionModel, $loginModel, $mainView) {
     	assert($sessionModel instanceof SessionModel, 'First argument was not an instance of SessionModel');
         assert($loginModel instanceof LoginModel, 'Second argument was not an instance of LoginModel');
-        assert($loginView instanceof LoginView, 'Third argument was not an instance of LoginView');
+        assert($mainView instanceof MainView, 'Third argument was not an instance of MainView');
         
         $this->sessionModel = $sessionModel;
         $this->loginModel = $loginModel;
-        $this->loginView = $loginView;
+        $this->mainView = $mainView;
     }
     
     public function checkIfLogin() {
-        if($this->loginView->getRequestLogin()) {
-		    $userName = $this->loginView->getRequestName();
-			$userPassword = $this->loginView->getRequestPassword();
+        if($this->mainView->getRequestLoginFromLoginView()) {
+		    $userName = $this->mainView->getRequestNameFromLoginView();
+			$userPassword = $this->mainView->getRequestPasswordFromLoginView();
 			
 			if($this->loginModel->doTryToLogin($userName, $userPassword)) {
 				$this->sessionModel->setSession($userName, $userPassword);
-				//ändra response på loginview här??
 			}
-			$this->loginView->getCurrentState();
+			$this->mainView->getCurrentStateFromLoginView();
         }
     }
     
     public function checkIfLogout() {
-        if($this->loginView->getRequestLogout()) {
+        if($this->mainView->getRequestLogoutFromLoginView()) {
             $this->loginModel->doLogout();
             $this->sessionModel->unsetSession();
-            $this->loginView->getCurrentState();
+            $this->mainView->getCurrentStateFromLoginView();
         }
     }
 }

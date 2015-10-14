@@ -3,15 +3,15 @@
 class AddResultView {
     
     private static $messageId = 'RegisterView::Message';
-    private static $entry = 'RegisterView::LogEntry';
+    private static $text = 'RegisterView::LogEntry';
     private static $add = 'RegisterView::Add';
     
-    private $logEntryModel;
+    private $addResultModel;
     
-    public function __construct($logEntryModel) {
-		assert($logEntryModel instanceof LogEntryModel, 'First argument was not an instance of LogEntryModel');
+    public function __construct($addResultModel) {
+		assert($addResultModel instanceof AddResultModel, 'First argument was not an instance of AddResultModel');
 		
-        $this->logEntryModel = $logEntryModel;
+        $this->addResultModel = $addResultModel;
     }
 	
     public function response() {
@@ -26,7 +26,7 @@ class AddResultView {
 		return '
 			<form method="post" > 
 				<fieldset>
-					<legend>Enter exercise name</legend>
+					<legend>Enter result name</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$entry . '">Result :</label>
 					<input autofocus type="text" id="' . self::$entry . '" name="' . self::$entry . '" value="' . $this->getRequestEntry() . '" />
@@ -39,23 +39,23 @@ class AddResultView {
 	
 	//Reads the current state from the UserModel and sets the appropriate message.
 	public function getCurrentState() {
-		if($this->logEntryModel->getLogEntryEmpty()) {
-			$this->setRequestMessageId('Entry must be at least 3 characters.');
+		if($this->addResultModel->getLogEntryEmpty()) {
+			$this->setRequestMessageId('Result must be at least 3 characters.');
 		}
-		else if($this->logEntryModel->getInvalidCharacters()) {
-			$this->setRequestMessageId('ENtry contains invalid characters.');
-			$entry = strip_tags($this->getRequestEntry());
-			$this->setRequestEntry($entry);
+		else if($this->addResultModel->getInvalidCharacters()) {
+			$this->setRequestMessageId('Result contains invalid characters.');
+			$text = strip_tags($this->getRequestText());
+			$this->setRequestText($text);
 		}
-		else if($this->logEntryModel->getLogEntryTooShort()) {
-			$this->setRequestMessageId('Entry must be at least 3 characters.');
+		else if($this->addResultModel->getLogEntryTooShort()) {
+			$this->setRequestMessageId('Result must be at least 3 characters.');
 		}
-		else if($this->logEntryModel->getIsSuccessfulReg()) {
-			$logEntry = strtolower($this->getRequestEntry());
-			$logEntry = ucfirst($logEntry);
+		else if($this->addResultModel->getIsSuccessfulReg()) {
+			$text = strtolower($this->getRequestText());
+			$text = ucfirst($text);
 			
-			$this->setRequestMessageId('Successfully logged ' . $logEntry . '.');
-			$this->setRequestName('');
+			$this->setRequestMessageId('Successfully logged ' . $text . '.');
+			$this->setRequestText('');
 		}
 		else {
 			$this->setRequestMessageId('Some other error!');
@@ -77,17 +77,17 @@ class AddResultView {
 		$_POST[self::$messageId] = $message;
 	}
 	
-	public function getRequestEntry() {
-		if(!isset($_POST[self::$entry])) {
-			$this->setRequestEntry('');	
+	public function getRequestText() {
+		if(!isset($_POST[self::$text])) {
+			$this->setRequestText('');	
 		}
-		return $_POST[self::$entry];
+		return $_POST[self::$text];
 	}
 	
-	public function setRequestEntry($entry) {
-		assert(is_string($entry), 'First argument was not a string');
+	public function setRequestText($text) {
+		assert(is_string($text), 'First argument was not a string');
 		
-		$_POST[self::$entry] = $entry;
+		$_POST[self::$text] = $text;
 	}
 	
 	public function getRequestAdd() {

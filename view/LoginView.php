@@ -10,7 +10,6 @@ class LoginView {
 	private static $register = 'LoginView::Register';
 	
 	private $loginModel;
-	private $isLoggedIn;
 	
 	public function __construct($loginModel) {
 		assert($loginModel instanceof LoginModel, 'First argument was not an instance of LoginModel');
@@ -29,14 +28,15 @@ class LoginView {
 		
 		$message = '';
 		
-		if($this->isLoggedIn) {
-			$message = $this->getRequestMessageId();
-			return $this->generateLogoutButtonHTML($message); 
-		}
-		else {
-			$message = $this->getRequestMessageId();
-			return $this->generateLoginFormHTML($message);
-		}
+		$message = $this->getRequestMessageId();
+		return $this->generateLoginFormHTML($message);
+	}
+	
+	public function logoutPanel() {
+		$message = '';
+		
+		$message = $this->getRequestMessageId();
+		return $this->generateLogoutButtonHTML($message); 
 	}
 	
 	/**
@@ -104,7 +104,6 @@ class LoginView {
 		else {
 			$this->setRequestMessageId('Wrong name or password.');
 		}
-		$this->isLoggedIn = $this->loginModel->getIsLoggedIn();
 	}
 	
 	//Getters and setters for the private membervariables.
