@@ -27,6 +27,14 @@ class UserCatalogue {
         return $this->users;
     }
     
+    public function getExercises($user) {
+        return 'exercises';
+    }
+    
+    public function getResults($exerciseId) {
+        return 'results';
+    }
+    
     public function addUser($userName, $userPassword) {
         if($this->checkIfUserAlreadyExists($userName)) {
             return false;

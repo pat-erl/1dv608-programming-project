@@ -2,17 +2,18 @@
 
 class UserModel {
     
-    //FIxa id på nåt sätt??
     private $name;
     private $password;
-    //Ha array med exercises här?? och inte starta den i index isf?
+    private $exercises = array();
     
-    public function __construct($name, $password) {
-        assert(is_string($name), 'First argument was not a string');
-	    assert(is_string($password), 'Second argument was not a string');
+    public function __construct($userCatalogue, $name, $password) {
+        assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
+        assert(is_string($name), 'Second argument was not a string');
+	    assert(is_string($password), 'Third argument was not a string');
 	    
         $this->name = $name;
         $this->password = $password;
+        $this->exercises = $userCatalogue->getExercises($name);
     }
     
     //Getters and setters for the private membervariables.
@@ -23,5 +24,9 @@ class UserModel {
     
     public function getPassword() {
         return $this->password;
+    }
+    
+    public function getExercises() {
+        return $this->exercises;
     }
 }

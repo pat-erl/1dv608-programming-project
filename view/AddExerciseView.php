@@ -26,10 +26,10 @@ class AddExerciseView {
 		return '
 			<form method="post" > 
 				<fieldset>
-					<legend>Enter name of exercise</legend>
+					<legend>Enter exercise name</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
-					<label for="' . self::$name . '">Name :</label>
-					<input class="extramargin" type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
+					<label for="' . self::$name . '">Exercise name :</label>
+					<input autofocus type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
                     <br />
 					<input id="button" type="submit" name="' . self::$add . '" value="Add" />
 				</fieldset>

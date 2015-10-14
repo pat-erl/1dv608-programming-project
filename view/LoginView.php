@@ -69,7 +69,7 @@ class LoginView {
 					<legend>Enter username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
+					<input type="text" autofocus id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
 					<br />
 					<label for="' . self::$password . '">Password :</label>
 					<input class="extramargin3" type="password" id="' . self::$password . '" name="' . self::$password . '" />

@@ -31,7 +31,7 @@ class RegisterView {
 					<legend>Choose username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$name . '">Username :</label>
-					<input class="extramargin" type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
+					<input class="extramargin" autofocus type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
                     <br />
 					<label for="' . self::$password . '">Password :</label>
 					<input class="extramargin2" type="password" id="' . self::$password . '" name="' . self::$password . '" />
