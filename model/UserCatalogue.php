@@ -79,7 +79,8 @@ class UserCatalogue {
     }
     
     public function addResult($resultText) {
-        
+        $currentUser = $this->getCurrentUser();
+        $currentExercise = $this->getCurrentExercise();
     }
     
     public function checkIfUserExists($userName) {
@@ -89,8 +90,8 @@ class UserCatalogue {
             if($user->getName() == $userName) {
                 return true;
             }
-            return false;
         }
+        return false;
     }
     
     public function checkIfCorrectPassword($userName, $userPassword) {
@@ -131,5 +132,9 @@ class UserCatalogue {
             }
         }
         return $currentUser;
+    }
+    
+    public function getCurrentExercise() {
+        
     }
 }

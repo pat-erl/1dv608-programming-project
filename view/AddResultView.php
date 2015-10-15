@@ -23,7 +23,7 @@ class AddResultView {
 	
 	//Reads the current state from the UserModel and sets the appropriate message.
 	public function currentState() {
-		if($this->addResultModel->getLogEntryEmpty()) {
+		if($this->addResultModel->getResultTextEmpty()) {
 			$this->setRequestMessageId('Result must be at least 3 characters.');
 		}
 		else if($this->addResultModel->getInvalidCharacters()) {
@@ -31,7 +31,7 @@ class AddResultView {
 			$text = strip_tags($this->getRequestText());
 			$this->setRequestText($text);
 		}
-		else if($this->addResultModel->getLogEntryTooShort()) {
+		else if($this->addResultModel->getResultTextTooShort()) {
 			$this->setRequestMessageId('Result must be at least 3 characters.');
 		}
 		else if($this->addResultModel->getIsSuccessfulAdd()) {
@@ -52,8 +52,8 @@ class AddResultView {
 				<fieldset>
 					<legend>Enter result name</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
-					<label for="' . self::$entry . '">Result :</label>
-					<input autofocus type="text" id="' . self::$entry . '" name="' . self::$entry . '" value="' . $this->getRequestEntry() . '" />
+					<label for="' . self::$text . '">Result :</label>
+					<input autofocus type="text" id="' . self::$text . '" name="' . self::$text . '" value="' . $this->getRequestText() . '" />
                     <br />
 					<input id="button" type="submit" name="' . self::$add . '" value="Add" />
 				</fieldset>
