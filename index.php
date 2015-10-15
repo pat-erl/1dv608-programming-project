@@ -1,6 +1,7 @@
 <?php
 
 //Including all the files.
+require_once('model/DAL/UsersDAL.php');
 require_once('model/SessionModel.php');
 require_once('model/UserCatalogue.php');
 require_once('model/LoginModel.php');
@@ -10,7 +11,6 @@ require_once('model/AddResultModel.php');
 require_once('model/UserModel.php');
 require_once('model/ExerciseModel.php');
 require_once('model/ResultModel.php');
-require_once('model/DAL/UsersDAL.php');
 require_once('view/MainView.php');
 require_once('view/NavigationView.php');
 require_once('view/LayoutView.php');
@@ -31,11 +31,12 @@ ini_set('display_errors', 'On');
 
 //Creating all the objects.
 $sessionModel = new SessionModel();
-$userCatalogue = new UserCatalogue();
+$usersDAL = new UsersDAL();
+$userCatalogue = new UserCatalogue($usersDAL);
 $loginModel = new LoginModel($userCatalogue);
 $registerModel = new RegisterModel($userCatalogue);
-$addExerciseModel = new AddExerciseModel(); 
-$addResultModel = new AddResultModel();
+$addExerciseModel = new AddExerciseModel($userCatalogue); 
+$addResultModel = new AddResultModel($userCatalogue);
 
 $mainView = new MainView($userCatalogue, $loginModel, $registerModel, $addExerciseModel, $addResultModel);
 $navigationView = new NavigationView($loginModel);

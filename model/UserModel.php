@@ -7,13 +7,14 @@ class UserModel {
     private $storageFile;
     private $exercises = array();
     
-    public function __construct($name, $password) {
+    public function __construct($name, $password, $exercises) {
         assert(is_string($name), 'First argument was not a string');
 	    assert(is_string($password), 'Second argument was not a string');
 	    
         $this->name = $name;
         $this->password = $password;
         $this->storageFile = $name . '.txt';
+        $this->exercises = $exercises;
     }
     
     //Getters and setters for the private membervariables.

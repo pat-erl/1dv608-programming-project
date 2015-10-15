@@ -15,26 +15,10 @@ class AddExerciseView {
     }
 	
     public function response() {
-        
         $message = '';
         
         $message = $this->getRequestMessageId();
         return $this->generateRegistrationFormHTML($message);
-	}
-	
-	private function generateRegistrationFormHTML($message) {
-		return '
-			<form method="post" > 
-				<fieldset>
-					<legend>Enter exercise name</legend>
-					<p id="' . self::$messageId . '">' . $message . '</p>
-					<label for="' . self::$name . '">Exercise name :</label>
-					<input autofocus type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
-                    <br />
-					<input id="button" type="submit" name="' . self::$add . '" value="Add" />
-				</fieldset>
-			</form>
-		';
 	}
 	
 	//Reads the current state from the UserModel and sets the appropriate message.
@@ -66,6 +50,21 @@ class AddExerciseView {
 		else {
 			$this->setRequestMessageId('Some other error!');
 		}
+	}
+	
+	private function generateRegistrationFormHTML($message) {
+		return '
+			<form method="post" > 
+				<fieldset>
+					<legend>Enter exercise name</legend>
+					<p id="' . self::$messageId . '">' . $message . '</p>
+					<label for="' . self::$name . '">Exercise name :</label>
+					<input autofocus type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
+                    <br />
+					<input id="button" type="submit" name="' . self::$add . '" value="Add" />
+				</fieldset>
+			</form>
+		';
 	}
 	
 	//Getters and setters for the private membervariables.

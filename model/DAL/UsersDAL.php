@@ -9,7 +9,7 @@ class UsersDAL {
     private $storageFile = "users.txt";
     
     //Gets all the users from file.
-    public function getUsers() {
+    public function getUsersFromFile() {
         if(filesize($this->storageFile) > 0) {
             $contents = file_get_contents($this->storageFile);
             return unserialize($contents);
@@ -18,21 +18,21 @@ class UsersDAL {
     }
     
     //Saves all the users to file.
-    public function saveUsers($users) {
+    public function saveUsersToFile($users) {
         $contents = serialize($users);
         file_put_contents($this->storageFile, $contents);
     }
     
-    public function getExercises($userStorageFile) {
-        if(filesize($userStorageFile) > 0) {
-            $contents = file_get_contents($userStorageFile);
+    public function getExercisesFromFile($file) {
+        if(filesize($file) > 0) {
+            $contents = file_get_contents($file);
             return unserialize($contents);
         }
         return null;
     }
     
-    public function saveExercises($userExercises, $userStorageFile) {
-        $contents = serialize($userExercises);
-        file_put_contents($userStorageFile, $contents);
+    public function saveExercisesToFile($exercises, $file) {
+        $contents = serialize($exercises);
+        file_put_contents($file, $contents);
     }
 }

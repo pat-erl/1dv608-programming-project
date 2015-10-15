@@ -6,14 +6,17 @@ class AddExerciseModel {
     Handles logic regarding adding exercises.
     */
     
+    private $userCatalogue;
     private $exerciseNameEmpty = false;
     private $invalidCharacters = false;
     private $exerciseNameTooShort = false;
-    private $isSuccessfulReg = false;
     private $exerciseAlreadyExists = false;
+    private $isSuccessfulReg = false;
     
-    public function __construct() {
-
+    public function __construct($userCatalogue) {
+        assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
+        
+        $this->userCatalogue = $userCatalogue;
     }
     
     public function doTryToAdd($exerciseName) {
@@ -28,15 +31,16 @@ class AddExerciseModel {
 	    else if($this->checkIfTooShortExerciseName($exerciseName)) {
 	        $this->exerciseNameTooShort = true;
 	    }
-	    //Bättre om kolla i katalogen är en separat företeelse som typ controllern göt efter att ett namn ändå är ok rent bokstavligt...
-	    /*
-	    else if($this->exerciseCatalogue->addExercise($exerciseName)) {
-	        $this->isSuccessfulReg = true;
-	    }
-	    else {
+	    else if($this->checkIfExerciseAlreadyExists($exerciseName)) {
 	        $this->exerciseAlreadyExists = true;
 	    }
-	    */
+	    else if($this->userCatalogue->addExercise($this->findCurrentUser(), $exerciseName)) {
+	        $this->isSuccessfulReg = true;
+	        return true;
+	    }
+	    else {
+	        return false;
+	    }
     }
     
     //Methods for validating the input.
@@ -51,6 +55,30 @@ class AddExerciseModel {
     
     public function checkIfTooShortExerciseName($exerciseName) {
         return strlen($exerciseName) < 3;
+    }
+    
+    public function checkIfExerciseAlreadyExists($exerciseName) {
+        $thisUser = $this->findCurrentUser();
+        
+        $exercises = $this->userCatalogue->getExercises($thisUser);
+        
+        foreach($exercises as $exercise) {
+            if($exerciseName == $exercise->getName()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public function findCurrentUser() {
+        $users = $this->userCatalogue->getUsers();
+        
+        foreach($users as $user) {
+            if($_SESSION['Name'] == $user->getName()) { //Kolla om detta är ok verkligen.., kanske bättre att bara injecta sessionModel... kolla runt om behöver på fler ställen...
+                return $user;
+            }
+            return null;
+        }
     }
     
     //Getters and setters for the private membervariables.
