@@ -38,7 +38,7 @@ class AddResultView {
 	}
 	
 	//Reads the current state from the UserModel and sets the appropriate message.
-	public function getCurrentState() {
+	public function currentState() {
 		if($this->addResultModel->getLogEntryEmpty()) {
 			$this->setRequestMessageId('Result must be at least 3 characters.');
 		}

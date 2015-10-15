@@ -12,8 +12,8 @@ require_once('model/ExerciseModel.php');
 require_once('model/ResultModel.php');
 require_once('model/DAL/UsersDAL.php');
 require_once('view/MainView.php');
-require_once('view/LayoutView.php');
 require_once('view/NavigationView.php');
+require_once('view/LayoutView.php');
 require_once('view/LoginView.php');
 require_once('view/RegisterView.php');
 require_once('view/AddExerciseView.php');
@@ -30,9 +30,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
 //Creating all the objects.
-$userCatalogue = new UserCatalogue();
 $sessionModel = new SessionModel();
-
+$userCatalogue = new UserCatalogue();
 $loginModel = new LoginModel($userCatalogue);
 $registerModel = new RegisterModel($userCatalogue);
 $addExerciseModel = new AddExerciseModel(); 

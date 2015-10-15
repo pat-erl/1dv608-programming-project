@@ -23,7 +23,7 @@ class AddResultController {
 		    
 		    $this->addResultModel->doTryToAdd($resultText);
 		    
-		    $this->mainView->getCurrentStateFromAddResultView();
+		    $this->mainView->currentStateInAddResultView();
 		}
 	}
 }

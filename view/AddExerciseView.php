@@ -38,7 +38,7 @@ class AddExerciseView {
 	}
 	
 	//Reads the current state from the UserModel and sets the appropriate message.
-	public function getCurrentState() {
+	public function currentState() {
 		if($this->addExerciseModel->getExerciseNameEmpty()) {
 			$this->setRequestMessageId('Exercise must be at least 3 characters.');
 		}

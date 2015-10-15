@@ -130,19 +130,19 @@ class MainView {
     
     
     
-    public function getCurrentStateFromLoginView() {
-        $this->loginView->getCurrentState();
+    public function currentStateInLoginView() {
+        $this->loginView->currentState();
     }
     
-    public function getCurrentStateFromRegisterView() {
-        $this->registerView->getCurrentState();
+    public function currentStateInRegisterView() {
+        $this->registerView->currentState();
     }
     
-    public function getCurrentStateFromAddExerciseView() {
-        $this->addExerciseView->getCurrentState();
+    public function currentStateInAddExerciseView() {
+        $this->addExerciseView->currentState();
     }
     
-    public function getCurrentStateFromAddResultView() {
-        $this->addResultView->getCurrentState();
+    public function currentStateInAddResultView() {
+        $this->addResultView->currentState();
     }
 }

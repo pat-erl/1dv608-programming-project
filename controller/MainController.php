@@ -40,7 +40,7 @@ class MainController {
     public function startApplication() {
         if($this->sessionModel->existingSession()) {
             $this->loginModel->alreadyLoggedIn();
-            $this->mainView->getCurrentStateFromLoginView();
+            $this->mainView->currentStateInLoginView();
             $this->loginController->checkIfLogout();
         }
         else {

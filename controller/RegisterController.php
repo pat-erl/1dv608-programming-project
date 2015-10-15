@@ -29,7 +29,7 @@ class RegisterController {
 		    if($this->registerModel->doTryToRegister($userName, $userPassword, $userPasswordRepeat)) {
 		        $this->sessionModel->setRegSession($userName);
 		    }
-		    $this->mainView->getCurrentStateFromRegisterView();
+		    $this->mainView->currentStateInRegisterView();
 		}
 	}
 }

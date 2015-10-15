@@ -22,4 +22,17 @@ class UsersDAL {
         $contents = serialize($users);
         file_put_contents($this->storageFile, $contents);
     }
+    
+    public function getExercises($userStorageFile) {
+        if(filesize($userStorageFile) > 0) {
+            $contents = file_get_contents($userStorageFile);
+            return unserialize($contents);
+        }
+        return null;
+    }
+    
+    public function saveExercises($userExercises, $userStorageFile) {
+        $contents = serialize($userExercises);
+        file_put_contents($userStorageFile, $contents);
+    }
 }

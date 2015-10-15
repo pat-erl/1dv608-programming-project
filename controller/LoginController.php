@@ -26,9 +26,9 @@ class LoginController {
 			$userPassword = $this->mainView->getRequestPasswordFromLoginView();
 			
 			if($this->loginModel->doTryToLogin($userName, $userPassword)) {
-				$this->sessionModel->setSession($userName, $userPassword);
+				$this->sessionModel->setSession($userName);
 			}
-			$this->mainView->getCurrentStateFromLoginView();
+			$this->mainView->currentStateInLoginView();
         }
     }
     
@@ -36,7 +36,7 @@ class LoginController {
         if($this->mainView->getRequestLogoutFromLoginView()) {
             $this->loginModel->doLogout();
             $this->sessionModel->unsetSession();
-            $this->mainView->getCurrentStateFromLoginView();
+            $this->mainView->currentStateInLoginView();
         }
     }
 }

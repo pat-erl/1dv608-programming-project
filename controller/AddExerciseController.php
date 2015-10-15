@@ -23,7 +23,7 @@ class AddExerciseController {
 		    
 		    $this->addExerciseModel->doTryToAdd($exerciseName);
 		    
-		    $this->mainView->getCurrentStateFromAddExerciseView();
+		    $this->mainView->currentStateInAddExerciseView();
 		}
 	}
 }

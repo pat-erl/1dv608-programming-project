@@ -17,15 +17,7 @@ class LoginView {
         $this->loginModel = $loginModel;
     }
 	
-	/**
-	 * Create HTTP response
-	 *
-	 * Should be called after a login attempt has been determined
-	 *
-	 * @return  void BUT writes to standard output and cookies!
-	 */
 	public function response() {
-		
 		$message = '';
 		
 		$message = $this->getRequestMessageId();
@@ -39,49 +31,8 @@ class LoginView {
 		return $this->generateLogoutButtonHTML($message); 
 	}
 	
-	/**
-	* Generate HTML code on the output buffer for the logout button
-	* @param $message, String output message
-	* @return  void, BUT writes to standard output!
-	*/
-	private function generateLogoutButtonHTML($message) {
-		assert(is_string($message), 'First argument was not a string');
-		
-		return '
-			<form id="logoutform" method="post">
-				<p id="' . self::$messageId . '">' . $message .'</p>
-				<input id="buttonlogout" type="submit" name="' . self::$logout . '" value="Logout"/>
-			</form>
-		';
-	}
-	
-	/**
-	* Generate HTML code on the output buffer for the logout button
-	* @param $message, String output message
-	* @return  void, BUT writes to standard output!
-	*/
-	private function generateLoginFormHTML($message) {
-		assert(is_string($message), 'First argument was not a string');
-		
-		return '
-			<form method="post" > 
-				<fieldset>
-					<legend>Enter username and password</legend>
-					<p id="' . self::$messageId . '">' . $message . '</p>
-					<label for="' . self::$name . '">Username :</label>
-					<input type="text" autofocus id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
-					<br />
-					<label for="' . self::$password . '">Password :</label>
-					<input class="extramargin3" type="password" id="' . self::$password . '" name="' . self::$password . '" />
-					<br />
-					<input id="button" type="submit" name="' . self::$login . '" value="Login" />
-				</fieldset>
-			</form>
-		';
-	}
-	
 	//Reads the current state from the LoginModel and sets the appropriate message.
-	public function getCurrentState() {
+	public function currentState() {
 		if($this->loginModel->getUserNameEmpty()) {
 			$this->setRequestMessageId('Username is missing.');
 		}
@@ -104,6 +55,37 @@ class LoginView {
 		else {
 			$this->setRequestMessageId('Wrong name or password.');
 		}
+	}
+	
+	private function generateLoginFormHTML($message) {
+		assert(is_string($message), 'First argument was not a string');
+		
+		return '
+			<form method="post" > 
+				<fieldset>
+					<legend>Enter username and password</legend>
+					<p id="' . self::$messageId . '">' . $message . '</p>
+					<label for="' . self::$name . '">Username :</label>
+					<input type="text" autofocus id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
+					<br />
+					<label for="' . self::$password . '">Password :</label>
+					<input class="extramargin3" type="password" id="' . self::$password . '" name="' . self::$password . '" />
+					<br />
+					<input id="button" type="submit" name="' . self::$login . '" value="Login" />
+				</fieldset>
+			</form>
+		';
+	}
+	
+	private function generateLogoutButtonHTML($message) {
+		assert(is_string($message), 'First argument was not a string');
+		
+		return '
+			<form id="logoutform" method="post">
+				<p id="' . self::$messageId . '">' . $message .'</p>
+				<input id="buttonlogout" type="submit" name="' . self::$logout . '" value="Logout"/>
+			</form>
+		';
 	}
 	
 	//Getters and setters for the private membervariables.

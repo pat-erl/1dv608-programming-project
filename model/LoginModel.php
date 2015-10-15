@@ -35,6 +35,12 @@ class LoginModel {
 	            $this->isLoggedIn = true;
 	            return true;
 	        }
+	        else {
+	            return false;
+	        }
+	    }
+	    else {
+	        return false;
 	    }
 	}
 	
@@ -45,10 +51,8 @@ class LoginModel {
 	}
 	
 	public function alreadyLoggedIn() {
-	    $this->userNameEmpty = false;
-        $this->userPasswordEmpty = false;
 		$this->isAlreadyLoggedIn = true;
-		$this->isLoggedOut = false;
+		$this->isLoggedIn = true;
 	}
 	
 	//Methods for validating the input.
@@ -98,19 +102,14 @@ class LoginModel {
     }
     
     public function getIsLoggedIn() {
-        if($this->isAlreadyLoggedIn) {
-            return true;
-        }
-        else {
-            return $this->isLoggedIn;
-        }
-    }
-    
-    public function getIsAlreadyLoggedIn() {
-        return $this->isAlreadyLoggedIn;
+        return $this->isLoggedIn;
     }
     
     public function getIsLoggedOut() {
         return $this->isLoggedOut;
+    }
+    
+    public function getIsAlreadyLoggedIn() {
+        return $this->isAlreadyLoggedIn;
     }
 }

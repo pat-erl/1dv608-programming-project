@@ -36,27 +36,19 @@ class UserCatalogue {
     }
     
     public function addUser($userName, $userPassword) {
-        if($this->checkIfUserAlreadyExists($userName)) {
-            return false;
-        }
-        else {
-            //Hashing the password.
-            $userPassword = sha1($userPassword);
-            $userPassword .= $this->salt;
+        
+        //Hashing the password.
+        $userPassword = sha1($userPassword);
+        $userPassword .= $this->salt;
 
+        try {
             $newUser = new UserModel($userName, $userPassword);
             $this->users[] = $newUser;
             $this->DAL->saveUsers($this->users);
             return true;
         }
-    }
-    
-    public function checkIfUserAlreadyExists($userName) {
-        foreach($this->users as $user) {
-            if($userName == $user->getName()) {
-                return true;
-            }
+        catch(Exception $e) {
+            return false;
         }
-        return false;
     }
 }

@@ -13,8 +13,8 @@ class RegisterModel {
     private $userNameTooShort = false;
     private $userPasswordTooShort = false;
     private $failedPasswordMatch = false;
-    private $isSuccessfulReg = false;
     private $userAlreadyExists = false;
+    private $isSuccessfulReg = false;
     
     public function __construct($userCatalogue) {
         assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
@@ -45,12 +45,15 @@ class RegisterModel {
 	    else if($this->checkIfFailedPasswordMatch($userPassword, $userPasswordRepeat)) {
 	        $this->failedPasswordMatch = true;
 	    }
+	    else if($this->checkIfUserAlreadyExists($userName)) {
+	        $this->userAlreadyExists = true;
+	    }
 	    else if($this->userCatalogue->addUser($userName, $userPassword)) {
 	        $this->isSuccessfulReg = true;
 	        return true;
 	    }
 	    else {
-	        $this->userAlreadyExists = true;
+	        return false;
 	    }
     }
     
@@ -78,6 +81,17 @@ class RegisterModel {
     
     public function checkIfFailedPasswordMatch($userPassword, $userPasswordRepeat) {
         return $userPassword != $userPasswordRepeat;
+    }
+    
+    public function checkIfUserAlreadyExists($userName) {
+        $users = $this->userCatalogue->getUsers();
+        
+        foreach($users as $user) {
+            if($userName == $user->getName()) {
+                return true;
+            }
+        }
+        return false;
     }
     
     //Getters and setters for the private membervariables.

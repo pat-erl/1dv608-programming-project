@@ -17,36 +17,14 @@ class RegisterView {
     }
 	
     public function response() {
-        
         $message = '';
         
         $message = $this->getRequestMessageId();
         return $this->generateRegistrationFormHTML($message);
 	}
 	
-	private function generateRegistrationFormHTML($message) {
-		return '
-			<form method="post" > 
-				<fieldset>
-					<legend>Choose username and password</legend>
-					<p id="' . self::$messageId . '">' . $message . '</p>
-					<label for="' . self::$name . '">Username :</label>
-					<input class="extramargin" autofocus type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
-                    <br />
-					<label for="' . self::$password . '">Password :</label>
-					<input class="extramargin2" type="password" id="' . self::$password . '" name="' . self::$password . '" />
-					<br />
-					<label for="' . self::$passwordRepeat . '">Repeat password :</label>
-					<input type="password" id="' . self::$passwordRepeat . '" name="' . self::$passwordRepeat . '" />
-					<br />
-					<input id="button" type="submit" name="' . self::$register . '" value="Register" />
-				</fieldset>
-			</form>
-		';
-	}
-	
 	//Reads the current state from the UserModel and sets the appropriate message.
-	public function getCurrentState() {
+	public function currentState() {
 		if($this->registerModel->getUserNameEmpty()) {
 			$this->setRequestMessageId('Username must be at least 3 characters.
 			<br />Password must be at least 6 characters.');
@@ -81,6 +59,27 @@ class RegisterView {
 		else {
 			$this->setRequestMessageId('Some other error!');
 		}
+	}
+	
+	private function generateRegistrationFormHTML($message) {
+		return '
+			<form method="post" > 
+				<fieldset>
+					<legend>Choose username and password</legend>
+					<p id="' . self::$messageId . '">' . $message . '</p>
+					<label for="' . self::$name . '">Username :</label>
+					<input class="extramargin" autofocus type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
+                    <br />
+					<label for="' . self::$password . '">Password :</label>
+					<input class="extramargin2" type="password" id="' . self::$password . '" name="' . self::$password . '" />
+					<br />
+					<label for="' . self::$passwordRepeat . '">Repeat password :</label>
+					<input type="password" id="' . self::$passwordRepeat . '" name="' . self::$passwordRepeat . '" />
+					<br />
+					<input id="button" type="submit" name="' . self::$register . '" value="Register" />
+				</fieldset>
+			</form>
+		';
 	}
 	
 	//Getters and setters for the private membervariables.
