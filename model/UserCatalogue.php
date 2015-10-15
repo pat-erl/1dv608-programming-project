@@ -18,7 +18,7 @@ class UserCatalogue {
     public function getUsers() {
         $users = $this->DAL->getUsersFromFile();
         
-        if($users === null) {
+        if($users == null) {
             $users = array();
         }
         return $users;
@@ -28,7 +28,7 @@ class UserCatalogue {
         $file = $user->getStorageFile();
         $exercises = $this->DAL->getExercisesFromFile($file);
         
-        if($exercises === null) {
+        if($exercises == null) {
             $exercises = array();
         }
         return $exercises; 
@@ -53,9 +53,11 @@ class UserCatalogue {
         }
     }
     
-    public function addExercise($user, $exerciseName) {
-        $file = $user->getStorageFile();
-        $exercises = $this->getExercises($user);
+    public function addExercise($exerciseName) {
+        $currentUser = $this->getCurrentUser();
+        
+        $file = $currentUser->getStorageFile();
+        $exercises = $this->getExercises($currentUser);
         
         try {
             $id = 0;
@@ -74,5 +76,60 @@ class UserCatalogue {
         catch(Exception $e) {
             return false;
         }
+    }
+    
+    public function addResult($resultText) {
+        
+    }
+    
+    public function checkIfUserExists($userName) {
+        $users = $this->getUsers();
+        
+        foreach($users as $user) {
+            if($user->getName() == $userName) {
+                return true;
+            }
+            return false;
+        }
+    }
+    
+    public function checkIfCorrectPassword($userName, $userPassword) {
+        $users = $this->getUsers();
+        
+        //Hashing the password.
+        $userPassword = sha1($userPassword);
+        $userPassword .= $this->salt;
+        
+        foreach($users as $user) {
+            if($user->getName() == $userName && $user->getPassword() == $userPassword) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public function checkIfExerciseExists($exerciseName) {
+        $currentUser = $this->getCurrentUser();
+    
+        $exercises = $this->getExercises($currentUser);
+        
+        foreach($exercises as $exercise) {
+            if($exercise->getName() == $exerciseName) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+     public function getCurrentUser() {
+        $users = $this->getUsers();
+        $currentUser = null;
+        
+        foreach($users as $user) {
+            if($user->getName() == $_SESSION['Name']) { //Kolla om detta är ok verkligen.., kanske bättre att bara injecta sessionModel... kolla runt om behöver på fler ställen...
+                $currentUser = $user;
+            }
+        }
+        return $currentUser;
     }
 }

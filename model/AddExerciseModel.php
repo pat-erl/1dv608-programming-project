@@ -11,7 +11,7 @@ class AddExerciseModel {
     private $invalidCharacters = false;
     private $exerciseNameTooShort = false;
     private $exerciseAlreadyExists = false;
-    private $isSuccessfulReg = false;
+    private $isSuccessfulAdd = false;
     
     public function __construct($userCatalogue) {
         assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
@@ -34,8 +34,8 @@ class AddExerciseModel {
 	    else if($this->checkIfExerciseAlreadyExists($exerciseName)) {
 	        $this->exerciseAlreadyExists = true;
 	    }
-	    else if($this->userCatalogue->addExercise($this->findCurrentUser(), $exerciseName)) {
-	        $this->isSuccessfulReg = true;
+	    else if($this->tryToAddExercise($exerciseName)) {
+	        $this->isSuccessfulAdd = true;
 	        return true;
 	    }
 	    else {
@@ -58,27 +58,11 @@ class AddExerciseModel {
     }
     
     public function checkIfExerciseAlreadyExists($exerciseName) {
-        $thisUser = $this->findCurrentUser();
-        
-        $exercises = $this->userCatalogue->getExercises($thisUser);
-        
-        foreach($exercises as $exercise) {
-            if($exerciseName == $exercise->getName()) {
-                return true;
-            }
-        }
-        return false;
+        return $this->userCatalogue->checkIfExerciseExists($exerciseName);
     }
     
-    public function findCurrentUser() {
-        $users = $this->userCatalogue->getUsers();
-        
-        foreach($users as $user) {
-            if($_SESSION['Name'] == $user->getName()) { //Kolla om detta är ok verkligen.., kanske bättre att bara injecta sessionModel... kolla runt om behöver på fler ställen...
-                return $user;
-            }
-            return null;
-        }
+    public function tryToAddExercise($exerciseName) {
+        return $this->userCatalogue->addExercise($exerciseName);
     }
     
     //Getters and setters for the private membervariables.
@@ -95,8 +79,8 @@ class AddExerciseModel {
         return $this->exerciseNameTooShort;
     }
     
-    public function getIsSuccessfulReg() {
-        return $this->isSuccessfulReg;
+    public function getIsSuccessfulAdd() {
+        return $this->isSuccessfulAdd;
     }
     
     public function getExerciseAlreadyExists() {

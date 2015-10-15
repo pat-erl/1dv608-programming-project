@@ -13,7 +13,7 @@ class UserModel {
 	    
         $this->name = $name;
         $this->password = $password;
-        $this->storageFile = $name . '.txt';
+        $this->storageFile = 'model/DAL/storagefiles/userfiles/' . $name . '.txt';
         $this->exercises = $exercises;
     }
     

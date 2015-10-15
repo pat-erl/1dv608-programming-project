@@ -29,7 +29,7 @@ class MainView {
         $this->registerView = new RegisterView($registerModel);
         $this->addExerciseView = new AddExerciseView($addExerciseModel);
         $this->addResultView = new AddResultView($addResultModel);
-        //$this->exerciseListView = new ExerciseListView($userCatalogue);
+        $this->exerciseListView = new ExerciseListView($userCatalogue);
     }
     
     public function showHeadline() {
@@ -37,7 +37,7 @@ class MainView {
         $ret = "<h1>Strength Logger</h1>";
         
         if($this->loginModel->getIsLoggedIn()) {
-            $name = $_SESSION['Name'];
+            $name = $_SESSION['Name']; //Ta från ensession model istället??
             $name = strtolower($name);
             $name = ucfirst($name);
             
@@ -66,8 +66,7 @@ class MainView {
                 return $this->addExerciseView->response();
             }
             else {
-                //return $this->exerciseListView->response(); Denna ska vara så här sedan när listviewen funkar som den ska
-            return $this->addExerciseView->response(); //Tillfällig
+                return $this->exerciseListView->response();
             }
         }
         else {

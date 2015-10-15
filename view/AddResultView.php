@@ -2,9 +2,9 @@
 
 class AddResultView {
     
-    private static $messageId = 'RegisterView::Message';
-    private static $text = 'RegisterView::LogEntry';
-    private static $add = 'RegisterView::Add';
+    private static $messageId = 'AddResultView::Message';
+    private static $text = 'AddResultView::ResultText';
+    private static $add = 'AddResultView::Add';
     
     private $addResultModel;
     
@@ -15,26 +15,10 @@ class AddResultView {
     }
 	
     public function response() {
-        
         $message = '';
         
         $message = $this->getRequestMessageId();
         return $this->generateRegistrationFormHTML($message);
-	}
-	
-	private function generateRegistrationFormHTML($message) {
-		return '
-			<form method="post" > 
-				<fieldset>
-					<legend>Enter result name</legend>
-					<p id="' . self::$messageId . '">' . $message . '</p>
-					<label for="' . self::$entry . '">Result :</label>
-					<input autofocus type="text" id="' . self::$entry . '" name="' . self::$entry . '" value="' . $this->getRequestEntry() . '" />
-                    <br />
-					<input id="button" type="submit" name="' . self::$add . '" value="Add" />
-				</fieldset>
-			</form>
-		';
 	}
 	
 	//Reads the current state from the UserModel and sets the appropriate message.
@@ -50,7 +34,7 @@ class AddResultView {
 		else if($this->addResultModel->getLogEntryTooShort()) {
 			$this->setRequestMessageId('Result must be at least 3 characters.');
 		}
-		else if($this->addResultModel->getIsSuccessfulReg()) {
+		else if($this->addResultModel->getIsSuccessfulAdd()) {
 			$text = strtolower($this->getRequestText());
 			$text = ucfirst($text);
 			
@@ -60,6 +44,21 @@ class AddResultView {
 		else {
 			$this->setRequestMessageId('Some other error!');
 		}
+	}
+	
+	private function generateRegistrationFormHTML($message) {
+		return '
+			<form method="post" > 
+				<fieldset>
+					<legend>Enter result name</legend>
+					<p id="' . self::$messageId . '">' . $message . '</p>
+					<label for="' . self::$entry . '">Result :</label>
+					<input autofocus type="text" id="' . self::$entry . '" name="' . self::$entry . '" value="' . $this->getRequestEntry() . '" />
+                    <br />
+					<input id="button" type="submit" name="' . self::$add . '" value="Add" />
+				</fieldset>
+			</form>
+		';
 	}
 	
 	//Getters and setters for the private membervariables.

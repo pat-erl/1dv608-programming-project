@@ -2,66 +2,76 @@
 
 class AddResultModel {
     
-    private $logEntryEmpty = false;
-    private $invalidCharacters = false;
-    private $logEntryTooShort = false;
-    private $isSuccessfulReg = false;
+    /*
+    Handles logic regarding adding results.
+    */
     
-    public function __construct() {
-
+    private $userCatalogue;
+    private $resultTextEmpty = false;
+    private $invalidCharacters = false;
+    private $resultTextTooShort = false;
+    private $isSuccessfulAdd = false;
+    
+    public function __construct($userCatalogue) {
+        assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
+        
+        $this->userCatalogue = $userCatalogue;
     }
     
-    public function doTryToAdd($logEntry) {
-	    assert(is_string($logEntry), 'First argument was not a string');
+    public function doTryToAdd($resultText) {
+	    assert(is_string($resultText), 'First argument was not a string');
 	    
-	    if($this->checkIfEmptyLogEntry($logEntry)) {
-	        $this->logEntryEmpty = true;
+	    if($this->checkIfEmptyResultText($resultText)) {
+	        $this->resultTextEmpty = true;
 	    }
-	    else if($this->checkIfInvalidCharacters($logEntry)) {
+	    else if($this->checkIfInvalidCharacters($resultText)) {
 	        $this->invalidCharacters = true;
 	    }
-	    else if($this->checkIfTooShortLogEntry($logEntry)) {
-	        $this->logEntryTooShort = true;
+	    else if($this->checkIfTooShortResultText($resultText)) {
+	        $this->resultTextTooShort = true;
 	    }
-	    /*
-	    else if($this->logEntryCatalogue->addLogEntry($logEntry)) {
-	        $this->isSuccessfulReg = true;
+	    else if($this->tryToAddResult($resultText)) {
+	        $this->isSuccessfulAdd = true;
+	        return true;
 	    }
 	    else {
-	        
+	        return false;
 	    }
-	    */
     }
     
     //Methods for validating the input.
     
-    public function checkIfEmptylogEntry($logEntry) {
-	    return empty($logEntry);
+    public function checkIfEmptyResultText($resultText) {
+	    return empty($resultText);
 	}	
 	
-	public function checkIfInvalidCharacters($logEntry) {
-        return $logEntry != strip_tags($logEntry);
+	public function checkIfInvalidCharacters($resultText) {
+        return $resultText != strip_tags($resultText);
     }
     
-    public function checkIfTooShortLogEntry($logEntry) {
-        return strlen($logEntry) < 3;
+    public function checkIfTooShortResultText($resultText) {
+        return strlen($resultText) < 3;
+    }
+    
+    public function trytoAddResult($resultText) {
+        return $this->userCatalogue->addResult($resultText);
     }
     
     //Getters and setters for the private membervariables.
     
-    public function getLogEntryEmpty() {
-        return $this->logEntryEmpty;
+    public function getResultTextEmpty() {
+        return $this->resultTextEmpty;
     }
     
     public function getInvalidCharacters() {
         return $this->invalidCharacters;
     }
     
-    public function getLogEntryTooShort() {
-        return $this->logEntryTooShort;
+    public function getResultTextTooShort() {
+        return $this->resultTextTooShort;
     }
     
-    public function getIsSuccessfulReg() {
-        return $this->isSuccessfulReg;
+    public function getIsSuccessfulAdd() {
+        return $this->isSuccessfulAdd;
     }
 }

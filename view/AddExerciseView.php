@@ -2,9 +2,9 @@
 
 class AddExerciseView {
     
-    private static $messageId = 'RegisterView::Message';
-    private static $name = 'RegisterView::ExerciseName';
-    private static $add = 'RegisterView::Add';
+    private static $messageId = 'AddExerciseView::Message';
+    private static $name = 'AddExerciseView::ExerciseName';
+    private static $add = 'AddExerciseView::Add';
     
     private $addExerciseModel;
     
@@ -34,11 +34,11 @@ class AddExerciseView {
 		else if($this->addExerciseModel->getExerciseNameTooShort()) {
 			$this->setRequestMessageId('Exercise must be at least 3 characters.');
 		}
-		else if($this->addExerciseModel->getIsSuccessfulReg()) {
+		else if($this->addExerciseModel->getIsSuccessfulAdd()) {
 			$exerciseName = strtolower($this->getRequestName());
 			$exerciseName = ucfirst($exerciseName);
 			
-			$this->setRequestMessageId('Successfully registered ' . $exerciseName . '.');
+			$this->setRequestMessageId('Successfully added ' . $exerciseName . '.');
 			$this->setRequestName('');
 		}
 		else if($this->addExerciseModel->getExerciseAlreadyExists()) {

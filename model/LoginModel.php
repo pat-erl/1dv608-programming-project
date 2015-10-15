@@ -12,7 +12,6 @@ class LoginModel {
     private $isLoggedIn = false;
     private $isLoggedOut = false;
     private $isAlreadyLoggedIn = false;
-    private $salt = '/&tggt%F%F&ygyuIYibjiuhiu';
     
     public function __construct($userCatalogue) {
         assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
@@ -66,29 +65,11 @@ class LoginModel {
 	}
 	
     public function checkIfCorrectName($userName) {
-        $users = $this->userCatalogue->getUsers();
-        
-        foreach($users as $user) {
-            if($userName == $user->getName()) {
-                return true;
-            }
-        }
-        return false;
+        return $this->userCatalogue->checkIfUserExists($userName);
     }
     
     public function checkIfCorrectPassword($userName, $userPassword) {
-        $users = $this->userCatalogue->getUsers();
-        
-        //Hashing the password.
-        $userPassword = sha1($userPassword);
-        $userPassword .= $this->salt;
-        
-        foreach($users as $user) {
-            if($userPassword == $user->getPassword() && $user->getName() == $userName) {
-                return true;
-            }
-        }
-        return false;
+        return $this->userCatalogue->checkIfCorrectPassword($userName, $userPassword);
     }
     
     //Getters and setters for the private membervariables.

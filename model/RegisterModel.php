@@ -48,7 +48,7 @@ class RegisterModel {
 	    else if($this->checkIfUserAlreadyExists($userName)) {
 	        $this->userAlreadyExists = true;
 	    }
-	    else if($this->userCatalogue->addUser($userName, $userPassword)) {
+	    else if($this->tryToRegisterUser($userName, $userPassword)) {
 	        $this->isSuccessfulReg = true;
 	        return true;
 	    }
@@ -84,14 +84,11 @@ class RegisterModel {
     }
     
     public function checkIfUserAlreadyExists($userName) {
-        $users = $this->userCatalogue->getUsers();
-        
-        foreach($users as $user) {
-            if($userName == $user->getName()) {
-                return true;
-            }
-        }
-        return false;
+        return $this->userCatalogue->checkIfUserExists($userName);
+    }
+    
+    public function tryToRegisterUser($userName, $userPassword) {
+        return $this->userCatalogue->addUser($userName, $userPassword);
     }
     
     //Getters and setters for the private membervariables.

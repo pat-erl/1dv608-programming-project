@@ -6,7 +6,7 @@ class UsersDAL {
     Handles logic regarding storage of users.
     */
     
-    private $storageFile = "users.txt";
+    private $storageFile = "model/DAL/storagefiles/users.txt";
     
     //Gets all the users from file.
     public function getUsersFromFile() {
@@ -24,7 +24,7 @@ class UsersDAL {
     }
     
     public function getExercisesFromFile($file) {
-        if(filesize($file) > 0) {
+        if(@filesize($file) > 0) { //Hitta bättre lösning sedan än supress...
             $contents = file_get_contents($file);
             return unserialize($contents);
         }
