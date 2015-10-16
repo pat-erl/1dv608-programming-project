@@ -20,10 +20,6 @@ require_once('view/AddExerciseView.php');
 require_once('view/AddResultView.php');
 require_once('view/ExerciseListView.php');
 require_once('controller/MainController.php');
-require_once('controller/LoginController.php');
-require_once('controller/RegisterController.php');
-require_once('controller/AddExerciseController.php');
-require_once('controller/AddResultController.php');
 
 //Displaying errors.
 error_reporting(E_ALL);
@@ -32,20 +28,26 @@ ini_set('display_errors', 'On');
 //Creating all the objects.
 $sessionModel = new SessionModel();
 $usersDAL = new UsersDAL();
-$userCatalogue = new UserCatalogue($usersDAL);
+$userCatalogue = new UserCatalogue($sessionModel, $usersDAL);
 $loginModel = new LoginModel($userCatalogue);
 $registerModel = new RegisterModel($userCatalogue);
 $addExerciseModel = new AddExerciseModel($userCatalogue); 
 $addResultModel = new AddResultModel($userCatalogue);
 
-$mainView = new MainView($userCatalogue, $loginModel, $registerModel, $addExerciseModel, $addResultModel);
+$loginView = new LoginView($loginModel);
+$registerView = new RegisterView($registerModel);
+$addExerciseView = new AddExerciseView($addExerciseModel);
+$addResultView = new AddResultView($addResultModel, $userCatalogue);
+$exerciseListView = new ExerciseListView($userCatalogue);
 $navigationView = new NavigationView($loginModel);
 $layoutView = new LayoutView();
+        
+$mainView = new MainView($userCatalogue, $loginModel, $registerModel, $addExerciseModel, $addResultModel, $loginView, $registerView, $addExerciseView, $addResultView, $exerciseListView, $navigationView);
 
 $mainController = new MainController($sessionModel, $loginModel, $registerModel, $addExerciseModel, $addResultModel, $mainView);
 
 //Running the application.
 $mainController->startApplication();
 
-//Rendering content to the client.
+//Renders content to the client.
 $layoutView->render($mainView, $navigationView);

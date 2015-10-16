@@ -41,4 +41,8 @@ class SessionModel {
     public function unsetRegSession() {
         unset($_SESSION[self::$regNameId]);
     }
+    
+    public function getStoredUserName() {
+        return $_SESSION[self::$nameId];
+    }
 }

@@ -2,16 +2,21 @@
 
 class AddResultView {
     
+    private static $exercise = "exercise";
     private static $messageId = 'AddResultView::Message';
     private static $text = 'AddResultView::ResultText';
+    private static $date = 'AddResultView::Date';
     private static $add = 'AddResultView::Add';
     
     private $addResultModel;
+    private $userCatalogue;
     
-    public function __construct($addResultModel) {
+    public function __construct($addResultModel, $userCatalogue) {
 		assert($addResultModel instanceof AddResultModel, 'First argument was not an instance of AddResultModel');
+		assert($userCatalogue instanceof UserCatalogue, 'Second argument was not an instance of UserCatalogue');
 		
         $this->addResultModel = $addResultModel;
+        $this->userCatalogue = $userCatalogue;
     }
 	
     public function response() {
@@ -38,7 +43,7 @@ class AddResultView {
 			$text = strtolower($this->getRequestText());
 			$text = ucfirst($text);
 			
-			$this->setRequestMessageId('Successfully logged ' . $text . '.');
+			$this->setRequestMessageId('Successfully added ' . $text . '.');
 			$this->setRequestText('');
 		}
 		else {
@@ -47,18 +52,33 @@ class AddResultView {
 	}
 	
 	private function generateRegistrationFormHTML($message) {
-		return '
+		$ret = '';
+        $currentUser = $this->userCatalogue->getCurrentUser();
+        $exercises = $this->userCatalogue->getExercises($currentUser);
+        
+        uasort($exercises, function($a, $b) { return strcmp($a->getName(), $b->getName()); } );
+        
+        foreach($exercises as $exercise) {
+            $name = strtolower($exercise->getName());
+			$name = ucfirst($name);
+            $ret .= '<a href="?'. self::$exercise .'='. $exercise->getId().'">' . $name . '</a>';
+        }
+     
+		$ret .= '
 			<form method="post" > 
 				<fieldset>
-					<legend>Enter result name</legend>
+					<legend>Enter a result</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$text . '">Result :</label>
 					<input autofocus type="text" id="' . self::$text . '" name="' . self::$text . '" value="' . $this->getRequestText() . '" />
+					<input type="text" id="' . self::$date . '" name="' . self::$date . '" value="' . date("Y-m-j") .'" />
                     <br />
 					<input id="button" type="submit" name="' . self::$add . '" value="Add" />
 				</fieldset>
 			</form>
 		';
+		
+		return $ret;
 	}
 	
 	//Getters and setters for the private membervariables.

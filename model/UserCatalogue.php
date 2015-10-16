@@ -6,12 +6,15 @@ class UserCatalogue {
     Handles logic regarding getting and adding users.
     */
     
+    private $sessionModel;
     private $DAL;
     private $salt = '/&tggt%F%F&ygyuIYibjiuhiu';
     
-    public function __construct($usersDAL) {
-        assert($usersDAL instanceof UsersDAL, 'First argument was not an instance of UsersDAL');
+    public function __construct($sessionModel, $usersDAL) {
+        assert($sessionModel instanceof SessionModel, 'First argument was not an instance of SessionModel');
+        assert($usersDAL instanceof UsersDAL, 'Second argument was not an instance of UsersDAL');
         
+        $this->sessionModel = $sessionModel;
         $this->DAL = $usersDAL;
     }
     
@@ -127,7 +130,7 @@ class UserCatalogue {
         $currentUser = null;
         
         foreach($users as $user) {
-            if($user->getName() == $_SESSION['Name']) { //Kolla om detta är ok verkligen.., kanske bättre att bara injecta sessionModel... kolla runt om behöver på fler ställen...
+            if($user->getName() == $this->sessionModel->getStoredUserName()) { //Kolla om detta är ok verkligen.., kanske bättre att bara injecta sessionModel... kolla runt om behöver på fler ställen...
                 $currentUser = $user;
             }
         }
