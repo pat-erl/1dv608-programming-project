@@ -11,10 +11,11 @@ class MainView {
     private $registerView;
     private $addExerciseView;
     private $addResultView;
+    private $addResultDetailedView;
     private $exerciseListView;
     private $navigationView;
 	
-	public function __construct($userCatalogue, $loginModel, $registerModel, $addExerciseModel, $addResultModel, $loginView, $registerView, $addExerciseView, $addResultView, $exerciseListView, $navigationView) {
+	public function __construct($userCatalogue, $loginModel, $registerModel, $addExerciseModel, $addResultModel, $loginView, $registerView, $addExerciseView, $addResultView, $addResultDetailedView, $exerciseListView, $navigationView) {
 		assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
 		assert($loginModel instanceof LoginModel, 'Second argument was not an instance of LoginModel');
 		assert($registerModel instanceof RegisterModel, 'Third argument was not an instance of RegisterModel');
@@ -24,8 +25,9 @@ class MainView {
 		assert($registerView instanceof RegisterView, 'Seventh argument was not an instance of RegisterView');
 		assert($addExerciseView instanceof AddExerciseView, 'Eighteth argument was not an instance of AddExerciseView');
 		assert($addResultView instanceof AddResultView, 'Nineth argument was not an instance of AddResultView');
-		assert($exerciseListView instanceof ExerciseListView, 'Tenth argument was not an instance of ExerciseListView');
-		assert($navigationView instanceof NavigationView, 'Sixth argument was not an instance of NavigationView');
+		assert($addResultDetailedView instanceof AddResultDetailedView, 'Tenth argument was not an instance of AddResultDetailedView');
+		assert($exerciseListView instanceof ExerciseListView, 'Eleventh argument was not an instance of ExerciseListView');
+		assert($navigationView instanceof NavigationView, 'Twelweth argument was not an instance of NavigationView');
 
         $this->userCatalogue = $userCatalogue;
         $this->loginModel = $loginModel;
@@ -36,12 +38,12 @@ class MainView {
         $this->registerView = $registerView;
         $this->addExerciseView = $addExerciseView;
         $this->addResultView = $addResultView;
+        $this->addResultDetailedView = $addResultDetailedView;
         $this->exerciseListView = $exerciseListView;
         $this->navigationView = $navigationView;
     }
     
     public function showHeadline() {
-        
         $ret = "<h1>Strength Logger</h1>";
         
         if($this->loginModel->getIsLoggedIn()) {
@@ -73,10 +75,13 @@ class MainView {
         $ret = '';
         
         if($this->loginModel->getIsLoggedIn()) {
-            if($this->navigationView->getRequestAddResultPage()) {
+            if($this->getRequestAddResultPageFromNavigationView()) {
                 $ret .= $this->addResultView->response();
             }
-            else if($this->navigationView->getRequestAddExercisePage()) {
+            else if($this->getRequestAddResultDetailedPageFromAddResultView()) {
+                $ret .= $this->addResultDetailedView->response();
+            }
+            else if($this->getRequestAddExercisePageFromNavigationView()) {
                 $ret .= $this->addExerciseView->response();
             }
             else {
@@ -84,7 +89,7 @@ class MainView {
             }
         }
         else {
-            if($this->navigationView->getRequestRegisterPage()) {
+            if($this->getRequestRegisterPageFromNavigationView()) {
                 $ret .= $this->registerView->response();
             }
             else {
@@ -92,6 +97,22 @@ class MainView {
             }
         }
        return $ret;
+    }
+    
+    public function getRequestAddResultPageFromNavigationView() {
+        return $this->navigationView->getRequestAddResultPage();
+    }
+    
+    public function getRequestAddResultDetailedPageFromAddResultView() {
+        return $this->addResultView->getRequestAddResultDetailedPage();
+    }
+    
+    public function getRequestAddExercisePageFromNavigationView() {
+        return $this->navigationView->getRequestAddExercisePage();
+    }
+    
+    public function getRequestRegisterPageFromNavigationView() {
+        return $this->navigationView->getRequestRegisterPage();
     }
     
     public function getRequestLoginFromLoginView() {

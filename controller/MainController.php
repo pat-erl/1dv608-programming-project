@@ -32,18 +32,24 @@ class MainController {
     public function startApplication() {
         if($this->sessionModel->existingSession()) {
             $this->loginModel->alreadyLoggedIn();
-            $this->mainView->currentStateInLoginView();
+            $this->mainView->currentStateInLoginView(); //Detta kommer jag ändra på något sätt, känns lite muppigt, bättre att ha try catch och säga till view vad som ska köras och visas då istället
             $this->checkIfLogout();
         }
         else {
             $this->checkIfLogin();
         }
-        
-        //Här kanske det ska på något sätt kollas vart användaren har tryckt...och först då anropas den metoden som väntar på själva knapptryckningen för att skriva en post etc...
-        //För sidan ska ju redan vara framme innan dessa kan användas iaf??!!!
-        $this->checkIfRegister();
-        $this->checkIfAddExercise();
-        $this->checkIfAddResult();
+        if($this->mainView->getRequestRegisterPageFromNavigationView()) {
+            $this->checkIfRegister();
+        }
+        else if($this->mainView->getRequestAddExercisePageFromNavigationView()) {
+            $this->checkIfAddExercise();
+        }
+        else if($this->mainView->getRequestAddResultPageFromNavigationView()) {
+
+        }
+        else if($this->mainView->getRequestAddResultDetailedPageFromAddResultView()) {
+            $this->checkIfAddResult();
+        }
     }
     
     public function checkIfLogin() {

@@ -1,18 +1,21 @@
 <?php
 
-class AddResultView {
+class AddResultDetailedView {
     
-    private static $addResultDetailedPage = 'addresultdetailedpage';
+    private static $exercise = "exercise";
     private static $messageId = 'AddResultView::Message';
     private static $text = 'AddResultView::ResultText';
     private static $date = 'AddResultView::Date';
     private static $add = 'AddResultView::Add';
     
+    private $addResultModel;
     private $userCatalogue;
     
-    public function __construct($userCatalogue) {
-		assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
+    public function __construct($addResultModel, $userCatalogue) {
+		assert($addResultModel instanceof AddResultModel, 'First argument was not an instance of AddResultModel');
+		assert($userCatalogue instanceof UserCatalogue, 'Second argument was not an instance of UserCatalogue');
 		
+        $this->addResultModel = $addResultModel;
         $this->userCatalogue = $userCatalogue;
     }
 	
@@ -58,17 +61,27 @@ class AddResultView {
         foreach($exercises as $exercise) {
             $name = strtolower($exercise->getName());
 			$name = ucfirst($name);
-            $ret .= '<a href="?'. self::$addResultDetailedPage . '">' . $name . '</a>';
+            $ret .= '<a href="?'. self::$exercise .'='. $exercise->getId().'">' . $name . '</a>';
         }
-        
-        return $ret;
+     
+		$ret .= '
+			<form method="post" > 
+				<fieldset>
+					<legend>Enter a result</legend>
+					<p id="' . self::$messageId . '">' . $message . '</p>
+					<label for="' . self::$text . '">Result :</label>
+					<input autofocus type="text" id="' . self::$text . '" name="' . self::$text . '" value="' . $this->getRequestText() . '" />
+					<input type="date" id="' . self::$date . '" name="' . self::$date . '" value="' . date("Y-m-j") .'" />
+                    <br />
+					<input id="button" type="submit" name="' . self::$add . '" value="Log" />
+				</fieldset>
+			</form>
+		';
+		
+		return $ret;
 	}
 	
 	//Getters and setters for the private membervariables.
-	
-	public function getRequestAddResultDetailedPage() {
-		return isset($_GET[self::$addResultDetailedPage]);
-	}
 	
 	public function getRequestMessageId() {
 		if(!isset($_POST[self::$messageId])) {

@@ -19,8 +19,8 @@ class NavigationView {
     public function showLinks() {
         if($this->loginModel->getIsLoggedIn()) {
             return '<a class="biggerlinks" href="?' . self::$summaryPage . '">SHOW SUMMARY</a>' 
-            . ' | ' . '<a class="biggerlinks" href="?' . self::$addResultPage . '">ADD RESULT</a>'
-            . ' | ' . '<a href="?' . self::$addExercisePage . '">ADD EXERCISE</a>';
+            . ' | ' . '<a class="biggerlinks" href="?' . self::$addResultPage . '">LOG RESULT</a>'
+            . ' | ' . '<a href="?' . self::$addExercisePage . '">ADD EXERCISES</a>';
         }
         else {
             if($this->getRequestRegisterPage()) {

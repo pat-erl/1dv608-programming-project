@@ -18,6 +18,7 @@ require_once('view/LoginView.php');
 require_once('view/RegisterView.php');
 require_once('view/AddExerciseView.php');
 require_once('view/AddResultView.php');
+require_once('view/AddResultDetailedView.php');
 require_once('view/ExerciseListView.php');
 require_once('controller/MainController.php');
 
@@ -37,12 +38,13 @@ $addResultModel = new AddResultModel($userCatalogue);
 $loginView = new LoginView($loginModel);
 $registerView = new RegisterView($registerModel);
 $addExerciseView = new AddExerciseView($addExerciseModel);
-$addResultView = new AddResultView($addResultModel, $userCatalogue);
+$addResultView = new AddResultView($userCatalogue);
+$addResultDetailedView = new AddResultDetailedView($addResultModel, $userCatalogue);
 $exerciseListView = new ExerciseListView($userCatalogue);
 $navigationView = new NavigationView($loginModel);
 $layoutView = new LayoutView();
         
-$mainView = new MainView($userCatalogue, $loginModel, $registerModel, $addExerciseModel, $addResultModel, $loginView, $registerView, $addExerciseView, $addResultView, $exerciseListView, $navigationView);
+$mainView = new MainView($userCatalogue, $loginModel, $registerModel, $addExerciseModel, $addResultModel, $loginView, $registerView, $addExerciseView, $addResultView, $addResultDetailedView, $exerciseListView, $navigationView);
 
 $mainController = new MainController($sessionModel, $loginModel, $registerModel, $addExerciseModel, $addResultModel, $mainView);
 
