@@ -1,8 +1,8 @@
 <?php
 
 class AddResultDetailedView {
-    
-    private static $exercise = "exercise";
+	
+    private static $addResultDetailedPage = 'addresultdetailedpage';
     private static $messageId = 'AddResultView::Message';
     private static $text = 'AddResultView::ResultText';
     private static $date = 'AddResultView::Date';
@@ -61,7 +61,8 @@ class AddResultDetailedView {
         foreach($exercises as $exercise) {
             $name = strtolower($exercise->getName());
 			$name = ucfirst($name);
-            $ret .= '<a href="?'. self::$exercise .'='. $exercise->getId().'">' . $name . '</a>';
+			$results = $exercise->getResults();
+            $ret .= '<a href="?'. self::$addResultDetailedPage . '=' . $exercise->getId() . '">' . $name . ', ' . $this->printOutArray($results) . '</a>';
         }
      
 		$ret .= '
@@ -71,7 +72,7 @@ class AddResultDetailedView {
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$text . '">Result :</label>
 					<input autofocus type="text" id="' . self::$text . '" name="' . self::$text . '" value="' . $this->getRequestText() . '" />
-					<input type="date" id="' . self::$date . '" name="' . self::$date . '" value="' . date("Y-m-j") .'" />
+					<input type="text" id="' . self::$date . '" name="' . self::$date . '" value="' . date("Y-m-j") .'" />
                     <br />
 					<input id="button" type="submit" name="' . self::$add . '" value="Log" />
 				</fieldset>
@@ -81,7 +82,22 @@ class AddResultDetailedView {
 		return $ret;
 	}
 	
+	public function printOutArray($results) {
+		$ret = '';
+		
+		if(!empty($results)) {
+		    foreach($results as $result) {
+    		    $ret .= '<p>' . $result->getText() . '</p>';
+		    }
+		}
+		return $ret;
+	}
+	
 	//Getters and setters for the private membervariables.
+	
+	public function getRequestAddResultDetailedPage() {
+		return isset($_GET[self::$addResultDetailedPage]);
+	}
 	
 	public function getRequestMessageId() {
 		if(!isset($_POST[self::$messageId])) {
@@ -107,6 +123,19 @@ class AddResultDetailedView {
 		assert(is_string($text), 'First argument was not a string');
 		
 		$_POST[self::$text] = $text;
+	}
+	
+	public function getRequestDate() { 
+		if(!isset($_POST[self::$date])) {
+			$this->setRequestDate('');	
+		}
+		return $_POST[self::$date];
+	}
+	
+	public function setRequestDate($date) {
+		assert(is_string($date), 'First argument was not a string');
+		
+		$_POST[self::$date] = $date;
 	}
 	
 	public function getRequestAdd() {

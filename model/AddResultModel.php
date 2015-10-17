@@ -18,7 +18,7 @@ class AddResultModel {
         $this->userCatalogue = $userCatalogue;
     }
     
-    public function doTryToAdd($resultText) {
+    public function doTryToAdd($resultText, $date) {
 	    assert(is_string($resultText), 'First argument was not a string');
 	    
 	    if($this->checkIfEmptyResultText($resultText)) {
@@ -30,7 +30,7 @@ class AddResultModel {
 	    else if($this->checkIfTooShortResultText($resultText)) {
 	        $this->resultTextTooShort = true;
 	    }
-	    else if($this->tryToAddResult($resultText)) {
+	    else if($this->tryToAddResult($resultText, $date)) {
 	        $this->isSuccessfulAdd = true;
 	        return true;
 	    }
@@ -53,8 +53,8 @@ class AddResultModel {
         return strlen($resultText) < 3;
     }
     
-    public function trytoAddResult($resultText) {
-        return $this->userCatalogue->addResult($resultText);
+    public function trytoAddResult($resultText, $date) {
+        return $this->userCatalogue->addResult($resultText, $date);
     }
     
     //Getters and setters for the private membervariables.

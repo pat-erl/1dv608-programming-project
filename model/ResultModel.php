@@ -4,16 +4,16 @@ class ResultModel {
     
     private $id;
     private $text;
-    private $timeStamp;
+    private $datestamp;
     
-    public function __construct($userCatalogue, $id, $text) {
-        assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
-        assert(is_numeric($id), 'Second argument was not a numeric value');
-	    assert(is_string($text), 'Third argument was not a string');
+    public function __construct($id, $text, $date) {
+        assert(is_numeric($id), 'First argument was not a numeric value');
+	    assert(is_string($text), 'Second argument was not a string');
+	    assert(is_string($date), 'Third argument was not a string');
 	    
         $this->id = $id;
         $this->text = $text;
-        $this->timeStamp = date(); //Formatera datumet bra sen..
+        $this->datestamp = $date;
     }
     
     //Getters and setters for the private membervariables.
@@ -26,7 +26,7 @@ class ResultModel {
         return $this->text;
     }
     
-    public function getTimeStamp() {
-        return $this->timeStamp;
+    public function getDateStamp() {
+        return $this->dateStamp;
     }
 }

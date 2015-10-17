@@ -81,9 +81,46 @@ class UserCatalogue {
         }
     }
     
-    public function addResult($resultText) {
+    public function addResult($resultText, $date) {
         $currentUser = $this->getCurrentUser();
-        $currentExercise = $this->getCurrentExercise();
+        
+        $file = $currentUser->getStorageFile();
+        $currentExercises = $this->getExercises($currentUser);
+        
+        $currentExercise = $this->getCurrentExercise($currentExercises);
+        
+        $results = $currentExercise->getResults();
+        
+        if($results == null) {
+            $results = array();
+        }
+        
+        try {
+            $id = 0;
+            foreach($results as $result){
+                if($result->getId() > $id) {
+                    $id = $result->getId();
+                }
+            }
+            $id++;
+            
+            $newResult = new ResultModel($id, $resultText, $date);
+            $results[] = $newResult;
+            $currentExercise->setResults($results);
+            
+            foreach($currentExercises as $exercise) {
+                if($exercise->getId() == $currentExercise->getId()) {
+                    $exercise = $currentExercise;
+                }
+            }
+        
+            $this->DAL->saveExercisesToFile($currentExercises, $file);
+            return true;
+        }
+        catch(Exception $e) {
+            return false;
+        }
+        
     }
     
     public function checkIfUserExists($userName) {
@@ -130,14 +167,22 @@ class UserCatalogue {
         $currentUser = null;
         
         foreach($users as $user) {
-            if($user->getName() == $this->sessionModel->getStoredUserName()) { //Kolla om detta är ok verkligen.., kanske bättre att bara injecta sessionModel... kolla runt om behöver på fler ställen...
+            if($user->getName() == $this->sessionModel->getStoredUserName()) {
                 $currentUser = $user;
             }
         }
         return $currentUser;
     }
     
-    public function getCurrentExercise() {
+    public function getCurrentExercise($currentExercises) {
         
+        $currentExercise = null;
+        
+        foreach($currentExercises as $exercise) {
+            if($exercise->getId() == $this->sessionModel->getStoredExercise()) {
+                $currentExercise = $exercise;
+            }
+        }
+        return $currentExercise;
     }
 }

@@ -45,7 +45,7 @@ class MainController {
             $this->checkIfAddExercise();
         }
         else if($this->mainView->getRequestAddResultPageFromNavigationView()) {
-
+            
         }
         else if($this->mainView->getRequestAddResultDetailedPageFromAddResultView()) {
             $this->checkIfAddResult();
@@ -97,12 +97,15 @@ class MainController {
 	}
 	
     public function checkIfAddResult() {
-		if($this->mainView->getRequestAddFromAddResultView()) {
-			$resultText = $this->mainView->getRequestTextFromAddResultView();
-		    
-		    $this->addResultModel->doTryToAdd($resultText);
-		    
-		    $this->mainView->currentStateInAddResultView();
-		}
-	}
+        $exerciseId = $this->mainView->getExerciseIdFromUrl();
+        $this->sessionModel->setExerciseSession($exerciseId);
+        
+        if($this->mainView->getRequestAddFromAddResultDetailedView()) {
+            $resultText = $this->mainView->getRequestTextFromAddResultDetailedView();
+            $date = $this->mainView->getRequestDateFromAddResultDetailedView();
+            
+            $this->addResultModel->doTryToAdd($resultText, $date);
+            $this->mainView->currentStateInAddResultDetailedView();
+	    }
+    }
 }

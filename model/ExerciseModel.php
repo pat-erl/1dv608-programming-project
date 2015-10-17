@@ -28,4 +28,8 @@ class ExerciseModel {
     public function getResults() {
         return $this->results;
     }
+    
+    public function setResults($results) {
+        $this->results = $results;
+    }
 }

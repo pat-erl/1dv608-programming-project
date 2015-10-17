@@ -100,7 +100,7 @@ class LoginView {
 	
 	public function getRequestName() {
 		if(!isset($_POST[self::$name])) {
-			if(isset($_SESSION['RegName'])) {
+			if(isset($_SESSION['RegName'])) { //Kolla detta i sessionModel som alla andra filer gör?????
 				$this->setRequestName($_SESSION['RegName']);
 				unset($_SESSION['RegName']);
 			}

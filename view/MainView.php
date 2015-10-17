@@ -107,6 +107,34 @@ class MainView {
         return $this->addResultView->getRequestAddResultDetailedPage();
     }
     
+    public function getRequestAddFromAddResultDetailedView() {
+        return $this->addResultDetailedView->getRequestAdd();
+    }
+    
+    public function getRequestTextFromAddResultDetailedView() {
+        return $this->addResultDetailedView->getRequestText();
+    }
+    
+    public function getRequestDateFromAddResultDetailedView() {
+        return $this->addResultDetailedView->getRequestDate();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public function getExerciseIdFromUrl() {
+        return $_GET['addresultdetailedpage'];
+    }
+    
+    
+    
+    
     public function getRequestAddExercisePageFromNavigationView() {
         return $this->navigationView->getRequestAddExercisePage();
     }
@@ -114,6 +142,8 @@ class MainView {
     public function getRequestRegisterPageFromNavigationView() {
         return $this->navigationView->getRequestRegisterPage();
     }
+    
+    
     
     public function getRequestLoginFromLoginView() {
         return $this->loginView->getRequestLogin();
@@ -131,6 +161,8 @@ class MainView {
         return $this->loginView->getRequestPassword();
     }
     
+    
+    
     public function getRequestRegisterFromRegisterView() {
         return $this->registerView->getRequestRegister();
     }
@@ -147,6 +179,8 @@ class MainView {
         return $this->registerView->getRequestPasswordRepeat();
     }
     
+    
+    
     public function getRequestAddFromAddExerciseView() {
         return $this->addExerciseView->getRequestAdd();
     }
@@ -155,13 +189,11 @@ class MainView {
         return $this->addExerciseView->getRequestName();
     }
     
-    public function getRequestAddFromAddResultView() {
-        return $this->addResultView->getRequestAdd();
-    }
     
-    public function getRequestTextFromAddResultView() {
-        return $this->addResultView->getRequestText();
-    }
+    
+    
+    
+    
     
     
     public function currentStateInLoginView() {
@@ -176,7 +208,7 @@ class MainView {
         $this->addExerciseView->currentState();
     }
     
-    public function currentStateInAddResultView() {
-        $this->addResultView->currentState();
+    public function currentStateInAddResultDetailedView() {
+        $this->addResultDetailedView->currentState();
     }
 }
