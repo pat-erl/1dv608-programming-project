@@ -21,14 +21,17 @@ class AddResultView {
         $currentUser = $this->userCatalogue->getCurrentUser();
         $exercises = $this->userCatalogue->getExercises($currentUser);
         
-        uasort($exercises, function($a, $b) { return strcmp($a->getName(), $b->getName()); } );
-		
-        foreach($exercises as $exercise) {
-            $name = strtolower($exercise->getName());
-		    $name = ucfirst($name);
-            $ret .= '<a href="?'. self::$addResultDetailedPage . '=' . $exercise->getId() . '">' . $name . '</a>';
+        if(!empty($exercises)) {
+            uasort($exercises, function($a, $b) { return strcmp($a->getName(), $b->getName()); } );
+            foreach($exercises as $exercise) {
+                $name = strtolower($exercise->getName());
+		        $name = ucfirst($name);
+                $ret .= '<a class="exerciselinks" href="?'. self::$addResultDetailedPage . '=' . $exercise->getId() . '">' . $name . '</a>';
+            }
         }
-        
+        else {
+            $ret .= '<p class="detailedresult">No exercises has been added yet..</p>';
+        }
         return $ret;
 	}
 	

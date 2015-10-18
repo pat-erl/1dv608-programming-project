@@ -20,7 +20,7 @@ class NavigationView {
         if($this->loginModel->getIsLoggedIn()) {
             return '<a class="biggerlinks" href="?' . self::$summaryPage . '">SHOW SUMMARY</a>' 
             . ' | ' . '<a class="biggerlinks" href="?' . self::$addResultPage . '">LOG RESULTS</a>'
-            . ' | ' . '<a href="?' . self::$addExercisePage . '">ADD EXERCISES</a>';
+            . ' | ' . '<a class="biggerlinks" href="?' . self::$addExercisePage . '">ADD EXERCISES</a>';
         }
         else {
             if($this->getRequestRegisterPage()) {

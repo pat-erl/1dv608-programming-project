@@ -3,6 +3,7 @@
 class AddResultDetailedView {
 	
     private static $addResultDetailedPage = 'addresultdetailedpage';
+    private static $addResultPage = 'addresultpage';
     private static $messageId = 'AddResultView::Message';
     private static $text = 'AddResultView::ResultText';
     private static $date = 'AddResultView::Date';
@@ -56,17 +57,12 @@ class AddResultDetailedView {
         $currentUser = $this->userCatalogue->getCurrentUser();
         $exercises = $this->userCatalogue->getExercises($currentUser);
         
-        uasort($exercises, function($a, $b) { return strcmp($a->getName(), $b->getName()); } );
-        
         foreach($exercises as $exercise) {
             $name = strtolower($exercise->getName());
 		    $name = ucfirst($name);
             $id = $_GET['addresultdetailedpage'];
             if($exercise->getId() == $id) {
-            	$ret .= '<a href="?'. self::$addResultDetailedPage . '=' . $exercise->getId() . '">' . $this->printOut($exercise) . '</a>';
-            }
-            else {
-            	$ret .= '<a href="?'. self::$addResultDetailedPage . '=' . $exercise->getId() . '">' . $name . '</a>';
+            	$ret .= '<p class="detailedname">' . $this->printOut($exercise) . '</p>';
             }
         }
 		
@@ -78,11 +74,11 @@ class AddResultDetailedView {
 		$ret .= '
 			<form method="post" > 
 				<fieldset>
-					<legend>Enter a result for ' . $exerciseName . '</legend>
+					<legend>Enter result for ' . $exerciseName . '</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$text . '">Result :</label>
 					<input autofocus type="text" id="' . self::$text . '" name="' . self::$text . '" value="' . $this->getRequestText() . '" />
-					<input type="text" id="' . self::$date . '" name="' . self::$date . '" value="' . date("Y-m-j") .'" />
+					<input class="longerdatefield" type="date" id="' . self::$date . '" name="' . self::$date . '" value="' . date("Y-m-d") .'" />
                     <br />
 					<input id="button" type="submit" name="' . self::$add . '" value="Log" />
 				</fieldset>
@@ -100,9 +96,15 @@ class AddResultDetailedView {
 		$ret = $name;
 		
 		if(!empty($results)) {
+			uasort($results, function($a, $b) { return strcmp($a->getDateStamp(), $b->getDateStamp()); } );
+			$results = array_reverse($results);
+			
 		    foreach($results as $result) {
-    		    $ret .= '<p>' . ' ' . $result->getText() . ' - ' . '<span>' . $result->getDateStamp() . '</span></p>';
+    		    $ret .= '<p class="detailedresult">' . ' ' . $result->getText() . ' - ' . '<span>' . $result->getDateStamp() . '</span></p>';
 		    }
+		}
+		else {
+			$ret .= '<p class="detailedresult">No results has been logged yet..</p>';
 		}
 		return $ret;
 	}
@@ -111,6 +113,10 @@ class AddResultDetailedView {
 	
 	public function getRequestAddResultDetailedPage() {
 		return isset($_GET[self::$addResultDetailedPage]);
+	}
+	
+	public function getRequestAddResultPage() {
+		return isset($_GET[self::$addResultPage]);
 	}
 	
 	public function getRequestMessageId() {
