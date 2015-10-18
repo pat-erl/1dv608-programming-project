@@ -176,6 +176,7 @@ class UserCatalogue {
     
     public function getCurrentExercise($currentExercises) {
         
+        //Kankske måste kolla här om tom array innan kör foreach precis som vid addresultview när skulle prointa resultat. Kolla om fler ställen med!!
         $currentExercise = null;
         
         foreach($currentExercises as $exercise) {

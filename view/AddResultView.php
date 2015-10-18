@@ -22,26 +22,14 @@ class AddResultView {
         $exercises = $this->userCatalogue->getExercises($currentUser);
         
         uasort($exercises, function($a, $b) { return strcmp($a->getName(), $b->getName()); } );
-        
+		
         foreach($exercises as $exercise) {
             $name = strtolower($exercise->getName());
-			$name = ucfirst($name);
-			$results = $exercise->getResults();
-            $ret .= '<a href="?'. self::$addResultDetailedPage . '=' . $exercise->getId() . '">' . $name . ', ' . $this->printOutArray($results) . '</a>';
+		    $name = ucfirst($name);
+            $ret .= '<a href="?'. self::$addResultDetailedPage . '=' . $exercise->getId() . '">' . $name . '</a>';
         }
         
         return $ret;
-	}
-	
-	public function printOutArray($results) {
-		$ret = '';
-		
-		if(!empty($results)) {
-		    foreach($results as $result) {
-    		    $ret .= '<p>' . $result->getText() . '</p>';
-		    }
-		}
-		return $ret;
 	}
 	
 	//Getters and setters for the private membervariables.

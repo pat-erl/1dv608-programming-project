@@ -4,7 +4,7 @@ class ResultModel {
     
     private $id;
     private $text;
-    private $datestamp;
+    private $dateStamp;
     
     public function __construct($id, $text, $date) {
         assert(is_numeric($id), 'First argument was not a numeric value');
@@ -13,7 +13,7 @@ class ResultModel {
 	    
         $this->id = $id;
         $this->text = $text;
-        $this->datestamp = $date;
+        $this->dateStamp = $date;
     }
     
     //Getters and setters for the private membervariables.

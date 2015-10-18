@@ -60,15 +60,25 @@ class AddResultDetailedView {
         
         foreach($exercises as $exercise) {
             $name = strtolower($exercise->getName());
-			$name = ucfirst($name);
-			$results = $exercise->getResults();
-            $ret .= '<a href="?'. self::$addResultDetailedPage . '=' . $exercise->getId() . '">' . $name . ', ' . $this->printOutArray($results) . '</a>';
+		    $name = ucfirst($name);
+            $id = $_GET['addresultdetailedpage'];
+            if($exercise->getId() == $id) {
+            	$ret .= '<a href="?'. self::$addResultDetailedPage . '=' . $exercise->getId() . '">' . $this->printOut($exercise) . '</a>';
+            }
+            else {
+            	$ret .= '<a href="?'. self::$addResultDetailedPage . '=' . $exercise->getId() . '">' . $name . '</a>';
+            }
         }
-     
+		
+		$currentExercise = $this->userCatalogue->getCurrentExercise($exercises);
+		$exerciseName = $currentExercise->getName();
+		$exerciseName = strtolower($exerciseName);
+		$exerciseName = ucfirst($exerciseName);
+		
 		$ret .= '
 			<form method="post" > 
 				<fieldset>
-					<legend>Enter a result</legend>
+					<legend>Enter a result for ' . $exerciseName . '</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$text . '">Result :</label>
 					<input autofocus type="text" id="' . self::$text . '" name="' . self::$text . '" value="' . $this->getRequestText() . '" />
@@ -82,12 +92,16 @@ class AddResultDetailedView {
 		return $ret;
 	}
 	
-	public function printOutArray($results) {
-		$ret = '';
+	public function printOut($exercise) {
+	    $name = strtolower($exercise->getName());
+		$name = ucfirst($name);
+		$results = $exercise->getResults();
+	    
+		$ret = $name;
 		
 		if(!empty($results)) {
 		    foreach($results as $result) {
-    		    $ret .= '<p>' . $result->getText() . '</p>';
+    		    $ret .= '<p>' . ' ' . $result->getText() . ' - ' . '<span>' . $result->getDateStamp() . '</span></p>';
 		    }
 		}
 		return $ret;
