@@ -32,6 +32,9 @@ class AddResultDetailedView {
 		if($this->addResultModel->getResultTextEmpty()) {
 			$this->setRequestMessageId('Result must be at least 3 characters.');
 		}
+		else if($this->addResultModel->getDateEmpty()) {
+			$this->setRequestMessageId('A date must be entered.');
+		}
 		else if($this->addResultModel->getInvalidCharacters()) {
 			$this->setRequestMessageId('Result contains invalid characters.');
 			$text = strip_tags($this->getRequestText());
@@ -39,6 +42,9 @@ class AddResultDetailedView {
 		}
 		else if($this->addResultModel->getResultTextTooShort()) {
 			$this->setRequestMessageId('Result must be at least 3 characters.');
+		}
+		else if($this->addResultModel->getDateWrongFormat()) {
+			$this->setRequestMessageId('A date must be in the correct format.');
 		}
 		else if($this->addResultModel->getIsSuccessfulAdd()) {
 			$text = strtolower($this->getRequestText());
@@ -100,7 +106,9 @@ class AddResultDetailedView {
 			$results = array_reverse($results);
 			
 		    foreach($results as $result) {
-    		    $ret .= '<p class="detailedresult">' . ' ' . $result->getText() . ' - ' . '<span class="datestamp">' . $result->getDateStamp() . '</span></p>';
+    		    $ret .= '<p class="detailedresult">' . ' ' . $result->getText() . ' - ' . '<span class="datestamp">' . $result->getDateStamp() . '</span>
+    		    <a class="linklogos" href="http://www.w3schools.com"><img src="img/editimage.png" width="15px" height="15px"></a>
+    		    <a class="linklogos" href="http://www.w3schools.com"><img src="img/deleteimage.png" width="15px" height="15px"></a></p>';
 		    }
 		}
 		else {

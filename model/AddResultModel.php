@@ -8,8 +8,10 @@ class AddResultModel {
     
     private $userCatalogue;
     private $resultTextEmpty = false;
+    private $dateEmpty = false;
     private $invalidCharacters = false;
     private $resultTextTooShort = false;
+    private $dateWrongFormat = false;
     private $isSuccessfulAdd = false;
     
     public function __construct($userCatalogue) {
@@ -24,11 +26,17 @@ class AddResultModel {
 	    if($this->checkIfEmptyResultText($resultText)) {
 	        $this->resultTextEmpty = true;
 	    }
+	    else if($this->checkIfEmptyDate($date)) {
+	        $this->dateEmpty = true;
+	    }
 	    else if($this->checkIfInvalidCharacters($resultText)) {
 	        $this->invalidCharacters = true;
 	    }
 	    else if($this->checkIfTooShortResultText($resultText)) {
 	        $this->resultTextTooShort = true;
+	    }
+	    else if($this->checkIfWrongFormatDate($date)) {
+	        $this->dateWrongFormat = true;
 	    }
 	    else if($this->tryToAddResult($resultText, $date)) {
 	        $this->isSuccessfulAdd = true;
@@ -45,6 +53,10 @@ class AddResultModel {
 	    return empty($resultText);
 	}	
 	
+	public function checkIfEmptyDate($date) {
+        return empty($date);	    
+	}
+
 	public function checkIfInvalidCharacters($resultText) {
         return $resultText != strip_tags($resultText);
     }
@@ -53,6 +65,15 @@ class AddResultModel {
         return strlen($resultText) < 3;
     }
     
+    public function checkIfWrongFormatDate($date) {
+        // Hittat detta på http://www.devnetwork.net/viewtopic.php?f=29&t=13795
+        if (!preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $date, $datebit)) {
+            return true;
+        } else {
+            return !checkdate($datebit[2] , $datebit[3] , $datebit[1]);
+        } 
+    }
+
     public function trytoAddResult($resultText, $date) {
         return $this->userCatalogue->addResult($resultText, $date);
     }
@@ -63,12 +84,20 @@ class AddResultModel {
         return $this->resultTextEmpty;
     }
     
+    public function getDateEmpty() {
+        return $this->dateEmpty;
+    }
+    
     public function getInvalidCharacters() {
         return $this->invalidCharacters;
     }
     
     public function getResultTextTooShort() {
         return $this->resultTextTooShort;
+    }
+    
+    public function getDateWrongFormat() {
+        return $this->dateWrongFormat;
     }
     
     public function getIsSuccessfulAdd() {

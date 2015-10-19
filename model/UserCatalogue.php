@@ -3,7 +3,7 @@
 class UserCatalogue {
     
      /*
-    Handles logic regarding getting and adding users.
+    Handles logic regarding getting and adding users, exercises and results.
     */
     
     private $sessionModel;

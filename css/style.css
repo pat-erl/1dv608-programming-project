@@ -76,6 +76,10 @@ p{
     color: black;
 }
 
+.linklogos{
+    padding-left: 10px;
+}
+
 #container{
     background-color: #B0C4DE;
     margin: 0 auto;

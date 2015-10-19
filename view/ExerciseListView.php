@@ -2,7 +2,7 @@
 
 class ExerciseListView {
     
-   private static $addResultDetailedPage = 'addresultdetailedpage';
+    private static $addResultDetailedPage = 'addresultdetailedpage';
     private $userCatalogue;
 	
 	public function __construct($userCatalogue) {
@@ -31,13 +31,9 @@ class ExerciseListView {
 			        $results = array_reverse($results);
 			        $latestResultText = $results[0]->getText();
 			        $latestResultDateStamp = $results[0]->getDateStamp();
+			        $ret .= '<a class="summarylinks" href="?'. self::$addResultDetailedPage . '=' . $exercise->getId() . '"><p class="summary">' . $name . '</a> : ' . 
+                    '<span class="latestresult">' . $latestResultText . '</span>' . ' - ' . '<span class="datestamp">' . $latestResultDateStamp . '</span></p>';
 		        }
-		        else {
-			        $latestResultText = '';
-			        $latestResultDateStamp = '';
-		        }
-                $ret .= '<a class="summarylinks" href="?'. self::$addResultDetailedPage . '=' . $exercise->getId() . '"><p class="summary">' . $name . '</a> : ' . 
-                '<span class="latestresult">' . $latestResultText . '</span>' . ' - ' . '<span class="datestamp">' . $latestResultDateStamp . '</span></p>';
             }
         }
         else {
