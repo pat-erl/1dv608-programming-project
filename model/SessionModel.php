@@ -9,6 +9,7 @@ class SessionModel {
     private static $nameId = 'Name';
     private static $regNameId = 'RegName';
     private static $exerciseId = 'ExerciseId';
+    private static $resultId = 'ResultId';
     
     public function __construct() {
         session_start();
@@ -40,6 +41,13 @@ class SessionModel {
         $_SESSION[self::$exerciseId] = $id;
     }
     
+    //Saves session data in the membervariables.
+    public function setResultSession($id) {
+        assert(is_numeric($id), 'First argument was not a numeric value');
+        
+        $_SESSION[self::$resultId] = $id;
+    }
+    
     //Erases session data.
     public function unsetSession() {
         unset($_SESSION[self::$nameId]);
@@ -56,5 +64,9 @@ class SessionModel {
     
     public function getStoredExercise() {
         return $_SESSION[self::$exerciseId];
+    }
+    
+    public function getStoredResult() {
+        return $_SESSION[self::$resultId];
     }
 }

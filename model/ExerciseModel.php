@@ -25,6 +25,10 @@ class ExerciseModel {
         return $this->name;
     }
     
+    public function setName($name) {
+        $this->name = $name;
+    }
+    
     public function getResults() {
         return $this->results;
     }

@@ -3,7 +3,7 @@
 class NavigationView {
     
     private static $summaryPage = 'summarypage';
-    private static $addResultPage = 'addresultpage';
+    private static $selectExercisePage = 'selectexercisepage';
     private static $addExercisePage = 'addexercisepage';
     private static $loginPage = 'loginpage';
     private static $registerPage = 'registerpage';
@@ -19,7 +19,7 @@ class NavigationView {
     public function showLinks() {
         if($this->loginModel->getIsLoggedIn()) {
             return '<a class="biggerlinks" href="?' . self::$summaryPage . '">SHOW SUMMARY</a>' 
-            . ' | ' . '<a class="biggerlinks" href="?' . self::$addResultPage . '">LOG RESULTS</a>'
+            . ' | ' . '<a class="biggerlinks" href="?' . self::$selectExercisePage . '">LOG RESULTS</a>'
             . ' | ' . '<a class="biggerlinks" href="?' . self::$addExercisePage . '">ADD EXERCISES</a>';
         }
         else {
@@ -32,23 +32,23 @@ class NavigationView {
         }
     }
     
-    public function getRequestSummaryPage() {
+    public function isSummaryPageSet() {
         return isset($_GET[self::$summaryPage]);
     }
     
-    public function getRequestAddResultPage() {
-        return isset($_GET[self::$addResultPage]);
+    public function isSelectExercisePageSet() {
+        return isset($_GET[self::$selectExercisePage]);
     }
     
-    public function getRequestAddExercisePage() {
+    public function isAddExercisePageSet() {
         return isset($_GET[self::$addExercisePage]);
     }
     
-    public function getRequestLoginPage() {
+    public function isLoginPageSet() {
         return isset($_GET[self::$loginPage]);
     }
     
-    public function getRequestRegisterPage() {
+    public function isRegisterPageSet() {
         return isset($_GET[self::$registerPage]);
     }
 }

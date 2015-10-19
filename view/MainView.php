@@ -2,44 +2,50 @@
 
 class MainView {
     
+    /*
+    
+    */
+    
     private $userCatalogue;
     private $loginModel;
     private $registerModel;
     private $addExerciseModel;
+    private $editExerciseModel;
     private $addResultModel;
+    private $editResultModel;
     private $loginView;
     private $registerView;
     private $addExerciseView;
+    private $editExerciseView;
     private $addResultView;
-    private $addResultDetailedView;
-    private $exerciseListView;
+    private $editResultView;
+    private $selectExerciseView;
+    private $summaryView;
     private $navigationView;
 	
-	public function __construct($userCatalogue, $loginModel, $registerModel, $addExerciseModel, $addResultModel, $loginView, $registerView, $addExerciseView, $addResultView, $addResultDetailedView, $exerciseListView, $navigationView) {
-		assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
-		assert($loginModel instanceof LoginModel, 'Second argument was not an instance of LoginModel');
-		assert($registerModel instanceof RegisterModel, 'Third argument was not an instance of RegisterModel');
-		assert($addExerciseModel instanceof AddExerciseModel, 'Fourth argument was not an instance of AddExerciseModel');
-		assert($addResultModel instanceof AddResultModel, 'Fifth argument was not an instance of AddResultModel');
-		assert($loginView instanceof LoginView, 'Sixth argument was not an instance of LoginView');
-		assert($registerView instanceof RegisterView, 'Seventh argument was not an instance of RegisterView');
-		assert($addExerciseView instanceof AddExerciseView, 'Eighteth argument was not an instance of AddExerciseView');
-		assert($addResultView instanceof AddResultView, 'Nineth argument was not an instance of AddResultView');
-		assert($addResultDetailedView instanceof AddResultDetailedView, 'Tenth argument was not an instance of AddResultDetailedView');
-		assert($exerciseListView instanceof ExerciseListView, 'Eleventh argument was not an instance of ExerciseListView');
-		assert($navigationView instanceof NavigationView, 'Twelweth argument was not an instance of NavigationView');
+	public function __construct($userCatalogue, $loginModel, $registerModel, 
+                                $addExerciseModel, $editExerciseModel, 
+                                $addResultModel, $editResultModel, 
+                                $loginView, $registerView, 
+                                $addExerciseView, $editExerciseView, 
+                                $addResultView, $editResultView, 
+                                $selectExerciseView, $summaryView, $navigationView) {
 
         $this->userCatalogue = $userCatalogue;
         $this->loginModel = $loginModel;
         $this->registerModel = $registerModel;
         $this->addExerciseModel = $addExerciseModel;
+        $this->editExerciseModel = $editExerciseModel;
         $this->addResultModel = $addResultModel;
+        $this->editResultModel = $editResultModel;
         $this->loginView = $loginView;
         $this->registerView = $registerView;
         $this->addExerciseView = $addExerciseView;
+        $this->editExerciseView = $editExerciseView;
         $this->addResultView = $addResultView;
-        $this->addResultDetailedView = $addResultDetailedView;
-        $this->exerciseListView = $exerciseListView;
+        $this->editResultView = $editResultView;
+        $this->selectExerciseView = $selectExerciseView;
+        $this->summaryView = $summaryView;
         $this->navigationView = $navigationView;
     }
     
@@ -75,24 +81,41 @@ class MainView {
         $ret = '';
         
         if($this->loginModel->getIsLoggedIn()) {
-            if($this->getRequestAddResultPageFromNavigationView()) {
-                $ret .= $this->addResultView->response();
+            
+            //Gets the info from NavigationView
+            if($this->isSummaryPageSet()) {
+                $ret .= $this->summaryView->response();
             }
-            else if($this->getRequestAddResultDetailedPageFromAddResultView()) {
-                $ret .= $this->addResultDetailedView->response();
+            else if($this->isSelectExercisePageSet()) {
+                $ret .= $this->selectExerciseView->response();
             }
-            else if($this->getRequestAddResultDetailedPageFromExerciseListView()) {
-                $ret .= $this->exerciseListView->response();
-            }
-            else if($this->getRequestAddExercisePageFromNavigationView()) {
+            else if($this->isAddExercisePageSet()) {
                 $ret .= $this->addExerciseView->response();
             }
-            else {
-                $ret .= $this->exerciseListView->response();
+            else if($this->isLoginPageSet) {
+                $ret .= $this->loginView->response();
+            }
+            else if($this->isRegisterPageSet()) {
+                $ret .= $this->registerView->response();
+            }
+            
+            //Gets not the info from NavigationView.
+            else if($this->isAddResultPageSetFromSummaryView()) {
+                $ret .= $this->addResultView->response();
+            }
+            else if($this->isAddResultPageSetFromSelectExerciseView()) {
+                $ret .= $this->addResultView->response();
+            }
+            else if($this->isEditResultPageSet()) {
+                $ret .= $this->editResultView->response();
+            }
+            else if($this->isEditExercisePageSet()) {
+                $ret .= $this->editExerciseView->response();
             }
         }
         else {
-            if($this->getRequestRegisterPageFromNavigationView()) {
+            //Gets the info from NavigationView
+            if($this->isRegisterPageSet()) {
                 $ret .= $this->registerView->response();
             }
             else {
@@ -102,56 +125,49 @@ class MainView {
        return $ret;
     }
     
-    public function getRequestAddResultPageFromNavigationView() {
-        return $this->navigationView->getRequestAddResultPage();
+    //Gets the info from NavigationView
+    public function isSummaryPageSet() {
+        return $this->navigationView->isSummaryPageSet();
+    }
+    public function isSelectExercisePageSet() {
+        return $this->navigationView->isSelectExercisePageSet();
+    }
+    public function isAddExercisePageSet() {
+        return $this->navigationView->isAddExercisePageSet();
+    }
+    public function isLoginPageSet() {
+        return $this->navigationView->isLoginPageSet();
+    }
+    public function isRegisterPageSet() {
+        return $this->navigationView->isRegisterPageSet();
     }
     
-    public function getRequestAddResultDetailedPageFromAddResultView() {
-        return $this->addResultView->getRequestAddResultDetailedPage();
+    //Gets not the info from NavigationView.
+    public function isAddResultPageSetFromSummaryView() {
+        return $this->summaryView->isAddResultPageSet();
     }
-    
-    public function getRequestAddResultDetailedPageFromExerciseListView() {
-        return $this->exerciseListView->getRequestAddResultDetailedPage();
+    public function isAddResultPageSetFromSelectExerciseView() {
+        return $this->selectExerciseView->isAddResultPageSet();
     }
-    
-    public function getRequestAddFromAddResultDetailedView() {
-        return $this->addResultDetailedView->getRequestAdd();
+    public function isEditResultPageSet() {
+        return $this->addResultView->isEditResultPageSet();
     }
-    
-    public function getRequestTextFromAddResultDetailedView() {
-        return $this->addResultDetailedView->getRequestText();
-    }
-    
-    public function getRequestDateFromAddResultDetailedView() {
-        return $this->addResultDetailedView->getRequestDate();
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    public function getExerciseIdFromUrl() {
-        return $_GET['addresultdetailedpage'];
+    public function isEditExercisePageSet() {
+        return $this->addResultView->isEditExercisePageSet();
     }
     
     
     
-    
-    public function getRequestAddExercisePageFromNavigationView() {
-        return $this->navigationView->getRequestAddExercisePage();
+    public function getRequestAddFromAddExerciseView() {
+        return $this->addExerciseView->getRequestAdd();
     }
     
-    public function getRequestRegisterPageFromNavigationView() {
-        return $this->navigationView->getRequestRegisterPage();
+    public function getRequestNameFromAddExerciseView() {
+        return $this->addExerciseView->getRequestName();
     }
-    
-    
-    
+
+
+
     public function getRequestLoginFromLoginView() {
         return $this->loginView->getRequestLogin();
     }
@@ -187,19 +203,49 @@ class MainView {
     }
     
     
-    
-    public function getRequestAddFromAddExerciseView() {
-        return $this->addExerciseView->getRequestAdd();
+
+    public function getRequestAddFromAddResultView() {
+        return $this->addResultView->getRequestAdd();
     }
     
-    public function getRequestNameFromAddExerciseView() {
-        return $this->addExerciseView->getRequestName();
+    public function getRequestTextFromAddResultView() {
+        return $this->addResultView->getRequestText();
+    }
+    
+    public function getRequestDateFromAddResultView() {
+        return $this->addResultView->getRequestDate();
     }
     
     
     
+    public function getRequestEditFromEditResultView() {
+        return $this->editResultView->getRequestEdit();
+    }
+    public function getRequestTextFromEditResultView() {
+        return $this->editResultView->getRequestText();
+    }
+    public function getRequestDateFromEditResultView() {
+        return $this->editResultView->getRequestDate();
+    }
     
     
+    
+    public function getRequestEditFromEditExerciseView() {
+        return $this->editExerciseView->getRequestEdit();
+    }
+    public function getRequestNameFromEditExerciseView() {
+        return $this->editExerciseView->getRequestName();
+    }
+    
+    
+    
+    public function getExerciseIdFromUrl() {
+        return $_GET['addresultdetailedpage'];
+    }
+    
+    public function getResultIdFromUrl() {
+        return $_GET['editresultdetailedpage'];
+    }
     
     
     
@@ -215,7 +261,7 @@ class MainView {
         $this->addExerciseView->currentState();
     }
     
-    public function currentStateInAddResultDetailedView() {
-        $this->addResultDetailedView->currentState();
+    public function currentStateInAddResultView() {
+        $this->addResultView->currentState();
     }
 }

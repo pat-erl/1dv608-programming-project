@@ -1,8 +1,8 @@
 <?php
 
-class ExerciseListView {
+class SummaryView {
     
-    private static $addResultDetailedPage = 'addresultdetailedpage';
+    private static $addResultPage = 'addresultpage';
     private $userCatalogue;
 	
 	public function __construct($userCatalogue) {
@@ -31,7 +31,7 @@ class ExerciseListView {
 			        $results = array_reverse($results);
 			        $latestResultText = $results[0]->getText();
 			        $latestResultDateStamp = $results[0]->getDateStamp();
-			        $ret .= '<a class="summarylinks" href="?'. self::$addResultDetailedPage . '=' . $exercise->getId() . '"><p class="summary">' . $name . '</a> : ' . 
+			        $ret .= '<a class="summarylinks" href="?'. self::$addResultPage . '=' . $exercise->getId() . '"><p class="summary">' . $name . '</a> : ' . 
                     '<span class="latestresult">' . $latestResultText . '</span>' . ' - ' . '<span class="datestamp">' . $latestResultDateStamp . '</span></p>';
 		        }
             }
@@ -44,7 +44,7 @@ class ExerciseListView {
 
     //Getters and setters for the private membervariables.
 	
-	public function getRequestAddResultDetailedPage() {
-		return isset($_GET[self::$addResultDetailedPage]);
+	public function isAddResultPageSet() {
+		return isset($_GET[self::$addResultPage]);
     }
 }

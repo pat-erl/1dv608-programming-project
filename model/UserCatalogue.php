@@ -27,16 +27,6 @@ class UserCatalogue {
         return $users;
     }
     
-    public function getExercises($user) {
-        $file = $user->getStorageFile();
-        $exercises = $this->DAL->getExercisesFromFile($file);
-        
-        if($exercises == null) {
-            $exercises = array();
-        }
-        return $exercises; 
-    }
-    
     public function addUser($userName, $userPassword) {
         
         //Hashing the password.
@@ -54,6 +44,54 @@ class UserCatalogue {
         catch(Exception $e) {
             return false;
         }
+    }
+    
+    public function checkIfUserExists($userName) {
+        $users = $this->getUsers();
+        
+        foreach($users as $user) {
+            if($user->getName() == $userName) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public function checkIfCorrectPassword($userName, $userPassword) {
+        $users = $this->getUsers();
+        
+        //Hashing the password.
+        $userPassword = sha1($userPassword);
+        $userPassword .= $this->salt;
+        
+        foreach($users as $user) {
+            if($user->getName() == $userName && $user->getPassword() == $userPassword) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public function getCurrentUser() {
+        $users = $this->getUsers();
+        $currentUser = null;
+        
+        foreach($users as $user) {
+            if($user->getName() == $this->sessionModel->getStoredUserName()) {
+                $currentUser = $user;
+            }
+        }
+        return $currentUser;
+    }
+    
+    public function getExercises($user) {
+        $file = $user->getStorageFile();
+        $exercises = $this->DAL->getExercisesFromFile($file);
+        
+        if($exercises == null) {
+            $exercises = array();
+        }
+        return $exercises; 
     }
     
     public function addExercise($exerciseName) {
@@ -79,6 +117,45 @@ class UserCatalogue {
         catch(Exception $e) {
             return false;
         }
+    }
+    
+    public function editExercise($exerciseName) {
+        $currentUser = $this->getCurrentUser();
+        $file = $currentUser->getStorageFile();
+        $exercises = $this->getExercises($currentUser);
+        
+        foreach($exercises as $exercise) {
+            if($exercise->getId() == $id) {
+                $exercise->setName = $exerciseName;
+            }
+        }
+        $this->DAL->saveExercisesToFile($exercises, $file);
+    }
+    
+    public function checkIfExerciseExists($exerciseName) {
+        $currentUser = $this->getCurrentUser();
+    
+        $exercises = $this->getExercises($currentUser);
+        
+        foreach($exercises as $exercise) {
+            if($exercise->getName() == $exerciseName) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public function getCurrentExercise($currentExercises) {
+        
+        //Kankske måste kolla här om tom array innan kör foreach precis som vid addresultview när skulle prointa resultat. Kolla om fler ställen med!!
+        $currentExercise = null;
+        
+        foreach($currentExercises as $exercise) {
+            if($exercise->getId() == $this->sessionModel->getStoredExercise()) {
+                $currentExercise = $exercise;
+            }
+        }
+        return $currentExercise;
     }
     
     public function addResult($resultText, $date) {
@@ -120,70 +197,9 @@ class UserCatalogue {
         catch(Exception $e) {
             return false;
         }
-        
     }
     
-    public function checkIfUserExists($userName) {
-        $users = $this->getUsers();
+    public function editResult($resultText, $date) {
         
-        foreach($users as $user) {
-            if($user->getName() == $userName) {
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public function checkIfCorrectPassword($userName, $userPassword) {
-        $users = $this->getUsers();
-        
-        //Hashing the password.
-        $userPassword = sha1($userPassword);
-        $userPassword .= $this->salt;
-        
-        foreach($users as $user) {
-            if($user->getName() == $userName && $user->getPassword() == $userPassword) {
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public function checkIfExerciseExists($exerciseName) {
-        $currentUser = $this->getCurrentUser();
-    
-        $exercises = $this->getExercises($currentUser);
-        
-        foreach($exercises as $exercise) {
-            if($exercise->getName() == $exerciseName) {
-                return true;
-            }
-        }
-        return false;
-    }
-    
-     public function getCurrentUser() {
-        $users = $this->getUsers();
-        $currentUser = null;
-        
-        foreach($users as $user) {
-            if($user->getName() == $this->sessionModel->getStoredUserName()) {
-                $currentUser = $user;
-            }
-        }
-        return $currentUser;
-    }
-    
-    public function getCurrentExercise($currentExercises) {
-        
-        //Kankske måste kolla här om tom array innan kör foreach precis som vid addresultview när skulle prointa resultat. Kolla om fler ställen med!!
-        $currentExercise = null;
-        
-        foreach($currentExercises as $exercise) {
-            if($exercise->getId() == $this->sessionModel->getStoredExercise()) {
-                $currentExercise = $exercise;
-            }
-        }
-        return $currentExercise;
     }
 }
