@@ -5,7 +5,6 @@ class AddResultView {
     private static $addResultDetailedPage = 'addresultdetailedpage';
     private $userCatalogue;
     
-    
     public function __construct($userCatalogue) {
 		assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
 		

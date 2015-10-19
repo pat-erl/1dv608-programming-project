@@ -100,7 +100,7 @@ class AddResultDetailedView {
 			$results = array_reverse($results);
 			
 		    foreach($results as $result) {
-    		    $ret .= '<p class="detailedresult">' . ' ' . $result->getText() . ' - ' . '<span>' . $result->getDateStamp() . '</span></p>';
+    		    $ret .= '<p class="detailedresult">' . ' ' . $result->getText() . ' - ' . '<span class="datestamp">' . $result->getDateStamp() . '</span></p>';
 		    }
 		}
 		else {

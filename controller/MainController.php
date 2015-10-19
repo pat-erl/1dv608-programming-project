@@ -47,6 +47,9 @@ class MainController {
         else if($this->mainView->getRequestAddResultPageFromNavigationView()) {
             
         }
+        else if($this->mainView->getRequestAddResultDetailedPageFromExerciseListView()) {
+            $this->checkIfAddResult();
+        }
         else if($this->mainView->getRequestAddResultDetailedPageFromAddResultView()) {
             $this->checkIfAddResult();
         }

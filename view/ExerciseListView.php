@@ -2,7 +2,7 @@
 
 class ExerciseListView {
     
-   
+   private static $addResultDetailedPage = 'addresultdetailedpage';
     private $userCatalogue;
 	
 	public function __construct($userCatalogue) {
@@ -29,13 +29,15 @@ class ExerciseListView {
 		        if(!empty($results)) {
 			        uasort($results, function($a, $b) { return strcmp($a->getDateStamp(), $b->getDateStamp()); } );
 			        $results = array_reverse($results);
-			        $latestResult = $results[0]->getText();
+			        $latestResultText = $results[0]->getText();
+			        $latestResultDateStamp = $results[0]->getDateStamp();
 		        }
 		        else {
-			        $latestResult = '';
+			        $latestResultText = '';
+			        $latestResultDateStamp = '';
 		        }
-		        
-                $ret .= '<p class="detailedresults">' . $name . ' - ' . $latestResult . '</p>';
+                $ret .= '<a class="summarylinks" href="?'. self::$addResultDetailedPage . '=' . $exercise->getId() . '"><p class="summary">' . $name . '</a> : ' . 
+                '<span class="latestresult">' . $latestResultText . '</span>' . ' - ' . '<span class="datestamp">' . $latestResultDateStamp . '</span></p>';
             }
         }
         else {
@@ -43,6 +45,10 @@ class ExerciseListView {
         }
         return $ret;
 	}
+
+    //Getters and setters for the private membervariables.
+	
+	public function getRequestAddResultDetailedPage() {
+		return isset($_GET[self::$addResultDetailedPage]);
+    }
 }
-
-

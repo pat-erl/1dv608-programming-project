@@ -51,10 +51,29 @@ p{
     font-family: Rockwell, 'Courier Bold', Courier, Georgia, Times, 'Times New Roman', serif;
 }
 
-span{
+.datestamp{
     font-size: 14px;
-    color: black;
+    color: grey;
     font-weight: normal;
+}
+
+.latestresult{
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+}
+
+.summary{
+    font-weight: normal;
+    text-align: left;
+    margin-left: 10px;
+    font-family: Rockwell, 'Courier Bold', Courier, Georgia, Times, 'Times New Roman', serif;
+    font-size: 16px;
+}
+
+.summarylinks{
+    text-decoration: none;
+    color: black;
 }
 
 #container{

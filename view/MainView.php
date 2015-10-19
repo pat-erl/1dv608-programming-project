@@ -81,6 +81,9 @@ class MainView {
             else if($this->getRequestAddResultDetailedPageFromAddResultView()) {
                 $ret .= $this->addResultDetailedView->response();
             }
+            else if($this->getRequestAddResultDetailedPageFromExerciseListView()) {
+                $ret .= $this->exerciseListView->response();
+            }
             else if($this->getRequestAddExercisePageFromNavigationView()) {
                 $ret .= $this->addExerciseView->response();
             }
@@ -105,6 +108,10 @@ class MainView {
     
     public function getRequestAddResultDetailedPageFromAddResultView() {
         return $this->addResultView->getRequestAddResultDetailedPage();
+    }
+    
+    public function getRequestAddResultDetailedPageFromExerciseListView() {
+        return $this->exerciseListView->getRequestAddResultDetailedPage();
     }
     
     public function getRequestAddFromAddResultDetailedView() {
