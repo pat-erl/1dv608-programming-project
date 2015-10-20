@@ -26,7 +26,15 @@ class ResultModel {
         return $this->text;
     }
     
+    public function setText($text) {
+        $this->text = $text;
+    }
+    
     public function getDateStamp() {
         return $this->dateStamp;
+    }
+    
+    public function setDateStamp($dateStamp) {
+        $this->dateStamp = $dateStamp;
     }
 }

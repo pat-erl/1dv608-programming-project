@@ -23,7 +23,7 @@ class NavigationView {
             . ' | ' . '<a class="biggerlinks" href="?' . self::$addExercisePage . '">ADD EXERCISES</a>';
         }
         else {
-            if($this->getRequestRegisterPage()) {
+            if($this->isRegisterPageSet()) {
                 return '<br /><a class="smallerlinks" href="?' . self::$loginPage . '"><< Back to login</a>';
             }
             else {

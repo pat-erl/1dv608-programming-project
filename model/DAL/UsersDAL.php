@@ -3,7 +3,7 @@
 class UsersDAL {
     
      /*
-    Handles logic regarding storage of users.
+    Handles logic regarding storage of users and exercises.
     */
     
     private $storageFile = "model/DAL/storagefiles/users.txt";
@@ -24,9 +24,11 @@ class UsersDAL {
     }
     
     public function getExercisesFromFile($file) {
-        if(@filesize($file) > 0) { //Hitta bättre lösning sedan än supress...
-            $contents = file_get_contents($file);
-            return unserialize($contents);
+        if(file_exists($file)) {
+            if(filesize($file) > 0) {
+                $contents = file_get_contents($file);
+                return unserialize($contents);
+            }
         }
         return null;
     }

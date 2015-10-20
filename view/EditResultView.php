@@ -32,16 +32,6 @@ class EditResultView {
 		$ret = '';
         $currentUser = $this->userCatalogue->getCurrentUser();
         $exercises = $this->userCatalogue->getExercises($currentUser);
-        
-        foreach($exercises as $exercise) {
-            $name = strtolower($exercise->getName());
-		    $name = ucfirst($name);
-            $id = $_GET['editresultpage'];
-            if($exercise->getId() == $id) {
-            	$ret .= '<p class="detailedname">' . $this->printOut($exercise) . '</p>';
-            }
-        }
-		
 		$currentExercise = $this->userCatalogue->getCurrentExercise($exercises);
 		$exerciseName = $currentExercise->getName();
 		$exerciseName = strtolower($exerciseName);
@@ -53,7 +43,7 @@ class EditResultView {
 		$ret .= '
 			<form method="post" > 
 				<fieldset>
-					<legend>Enter result for ' . $exerciseName . '</legend>
+					<legend>Change result for ' . $exerciseName . '</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$text . '">Result :</label>
 					<input autofocus type="text" id="' . self::$text . '" name="' . self::$text . '" value="' . $currentResult->getText() . '" />
@@ -110,11 +100,11 @@ class EditResultView {
 		else if($this->editResultModel->getDateWrongFormat()) {
 			$this->setRequestMessageId('A date must be in the correct format.');
 		}
-		else if($this->editResultModel->getIsSuccessfulAdd()) {
+		else if($this->editResultModel->getIsSuccessfulEdit()) {
 			$text = strtolower($this->getRequestText());
 			$text = ucfirst($text);
 			
-			$this->setRequestMessageId('Successfully updated ' . $text . '.');
+			$this->setRequestMessageId('Successfully updated to ' . $text . '.');
 			$this->setRequestText('');
 		}
 		else {

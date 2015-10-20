@@ -69,8 +69,8 @@ class AddResultView {
 		$results = $exercise->getResults();
 	    
 		$ret = $name . ' 
-		<a class="linklogos" href="?' . self::$editExercisePage . '=' . $exercise->getId() . '"><img src="img/editimage.png" width="17px" height="17px"></a>
-		<a class="linklogos" href="http://www.w3schools.com"><img src="img/deleteimage.png" width="17px" height="17px"></a>';
+		<a class="linklogos" href="?' . self::$editExercisePage . '=' . $exercise->getId() . '"><img src="img/editimage.png" width="18px" height="18px"></a>
+		<a class="linklogos" href="http://www.w3schools.com"><img src="img/deleteimage.png" width="18px" height="18px"></a>';
 		
 		if(!empty($results)) {
 			uasort($results, function($a, $b) { return strcmp($a->getDateStamp(), $b->getDateStamp()); } );
@@ -78,8 +78,8 @@ class AddResultView {
 			
 		    foreach($results as $result) {
     		    $ret .= '<p class="detailedresult">' . ' ' . $result->getText() . ' - ' . '<span class="datestamp">' . $result->getDateStamp() . '</span>
-    		    <a class="linklogos" href="?' . self::$editResultPage . '=' . $result->getId() . '"><img src="img/editimage.png" width="17px" height="17px"></a>
-    		    <a class="linklogos" href="http://www.w3schools.com"><img src="img/deleteimage.png" width="17px" height="17px"></a></p>';
+    		    <a class="linklogos" href="?' . self::$editResultPage . '=' . $result->getId() . '"><img src="img/editimage.png" width="14px" height="14px"></a>
+    		    <a class="linklogos" href="http://www.w3schools.com"><img src="img/deleteimage.png" width="14px" height="14px"></a></p>';
 		    }
 		}
 		else {

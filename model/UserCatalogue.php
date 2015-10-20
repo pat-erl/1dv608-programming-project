@@ -3,7 +3,7 @@
 class UserCatalogue {
     
      /*
-    Handles logic regarding getting and adding users, exercises and results.
+    Handles logic regarding getting, adding and editing users, exercises and results.
     */
     
     private $sessionModel;
@@ -93,7 +93,6 @@ class UserCatalogue {
     
     public function addExercise($exerciseName) {
         $currentUser = $this->getCurrentUser();
-        
         $file = $currentUser->getStorageFile();
         $exercises = $this->getExercises($currentUser);
         
@@ -120,13 +119,10 @@ class UserCatalogue {
         $currentUser = $this->getCurrentUser();
         $file = $currentUser->getStorageFile();
         $exercises = $this->getExercises($currentUser);
+        $currentExercise = $this->getCurrentExercise($exercises);
+        $currentExercise->setName($exerciseName);
         
         try {
-            foreach($exercises as $exercise) {
-                if($exercise->getId() == $this->sessionModel->getStoredExercise()) {
-                    $exercise->setName($exerciseName);
-                }
-            }
             $this->DAL->saveExercisesToFile($exercises, $file);
             return true;
         }
@@ -137,7 +133,6 @@ class UserCatalogue {
     
     public function checkIfExerciseExists($exerciseName) {
         $currentUser = $this->getCurrentUser();
-    
         $exercises = $this->getExercises($currentUser);
         
         foreach($exercises as $exercise) {
@@ -148,12 +143,10 @@ class UserCatalogue {
         return false;
     }
     
-    public function getCurrentExercise($currentExercises) {
-        
-        //Kankske måste kolla här om tom array innan kör foreach precis som vid addresultview när skulle prointa resultat. Kolla om fler ställen med!!
+    public function getCurrentExercise($exercises) {
         $currentExercise = null;
         
-        foreach($currentExercises as $exercise) {
+        foreach($exercises as $exercise) {
             if($exercise->getId() == $this->sessionModel->getStoredExercise()) {
                 $currentExercise = $exercise;
             }
@@ -163,12 +156,9 @@ class UserCatalogue {
     
     public function addResult($resultText, $date) {
         $currentUser = $this->getCurrentUser();
-        
         $file = $currentUser->getStorageFile();
-        $currentExercises = $this->getExercises($currentUser);
-        
-        $currentExercise = $this->getCurrentExercise($currentExercises);
-        
+        $exercises = $this->getExercises($currentUser);
+        $currentExercise = $this->getCurrentExercise($exercises);
         $results = $currentExercise->getResults();
         
         if($results == null) {
@@ -187,14 +177,7 @@ class UserCatalogue {
             $newResult = new ResultModel($id, $resultText, $date);
             $results[] = $newResult;
             $currentExercise->setResults($results);
-            
-            foreach($currentExercises as $exercise) {
-                if($exercise->getId() == $currentExercise->getId()) {
-                    $exercise = $currentExercise;
-                }
-            }
-        
-            $this->DAL->saveExercisesToFile($currentExercises, $file);
+            $this->DAL->saveExercisesToFile($exercises, $file);
             return true;
         }
         catch(Exception $e) {
@@ -203,15 +186,28 @@ class UserCatalogue {
     }
     
     public function editResult($resultText, $date) {
+        $currentUser = $this->getCurrentUser();
+        $file = $currentUser->getStorageFile();
+        $exercises = $this->getExercises($currentUser);
+        $currentExercise = $this->getCurrentExercise($exercises);
+        $results = $currentExercise->getResults();
+        $currentResult = $this->getCurrentResult($results);
+        $currentResult->setText($resultText);
+        $currentResult->setDateStamp($date);
         
+        try {
+            $this->DAL->saveExercisesToFile($exercises, $file);
+            return true;
+        }
+        catch(Exception $e) {
+            return false;
+        }
     }
     
-    public function getCurrentResult($currentResults) {
-        
-        //Kankske måste kolla här om tom array innan kör foreach precis som vid addresultview när skulle prointa resultat. Kolla om fler ställen med!!
+    public function getCurrentResult($results) {
         $currentResult = null;
         
-        foreach($currentResults as $result) {
+        foreach($results as $result) {
             if($result->getId() == $this->sessionModel->getStoredResult()) {
                 $currentResult = $result;
             }

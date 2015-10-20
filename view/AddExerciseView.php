@@ -23,7 +23,7 @@ class AddExerciseView {
 		return '
 			<form method="post" > 
 				<fieldset>
-					<legend>Enter exercise name</legend>
+					<legend>Enter name of exercise</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$name . '">Exercise name :</label>
 					<input autofocus type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />

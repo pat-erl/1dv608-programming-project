@@ -61,7 +61,7 @@ class MainView {
             $ret .= "<h3>" . $name . "'s log</h3>";
         }
         else {
-            if($this->navigationView->getRequestRegisterPage()) {
+            if($this->navigationView->isRegisterPageSet()) {
                 $ret .= "<h3>Register Page</h3>";
             }
             else {
@@ -93,10 +93,7 @@ class MainView {
                 $ret .= $this->addExerciseView->response();
             }
             else if($this->isLoginPageSet()) {
-                $ret .= $this->loginView->response();
-            }
-            else if($this->isRegisterPageSet()) {
-                $ret .= $this->registerView->response();
+                $ret .= $this->summaryView->response();
             }
             
             //Gets not the info from NavigationView.

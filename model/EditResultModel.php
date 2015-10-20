@@ -98,7 +98,7 @@ class EditResultModel {
         return $this->dateWrongFormat;
     }
     
-    public function getIsSuccessfulAdd() {
-        return $this->isSuccessfulAdd;
+    public function getIsSuccessfulEdit() {
+        return $this->isSuccessfulEdit;
     }
 }

@@ -4,7 +4,7 @@ class EditExerciseView {
     
     private static $messageId = 'EditExerciseView::Message';
     private static $name = 'EditExerciseView::ExerciseName';
-    private static $edit = 'EditxerciseView::Edit';
+    private static $edit = 'EditExerciseView::Edit';
     
     private $editExerciseModel;
     private $userCatalogue;
@@ -31,7 +31,7 @@ class EditExerciseView {
 		$ret .= '
 			<form method="post" > 
 				<fieldset>
-					<legend>Enter exercise name</legend>
+					<legend>Change name of exercise</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$name . '">Exercise name :</label>
 					<input autofocus type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $currentExercise->getName() . '" />
@@ -60,7 +60,7 @@ class EditExerciseView {
 			$exerciseName = strtolower($this->getRequestName());
 			$exerciseName = ucfirst($exerciseName);
 			
-			$this->setRequestMessageId('Successfully updated ' . $exerciseName . '.');
+			$this->setRequestMessageId('Successfully updated to ' . $exerciseName . '.');
 			$this->setRequestName('');
 		}
 		else if($this->editExerciseModel->getExerciseAlreadyExists()) {

@@ -36,9 +36,6 @@ class SummaryView {
 		        }
             }
         }
-        else {
-            $ret .= '<p class="detailedresult">No exercises has been added yet..</p>';
-        }
         return $ret;
 	}
 
