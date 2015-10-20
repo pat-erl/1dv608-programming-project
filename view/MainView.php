@@ -92,7 +92,7 @@ class MainView {
             else if($this->isAddExercisePageSet()) {
                 $ret .= $this->addExerciseView->response();
             }
-            else if($this->isLoginPageSet) {
+            else if($this->isLoginPageSet()) {
                 $ret .= $this->loginView->response();
             }
             else if($this->isRegisterPageSet()) {
@@ -240,11 +240,11 @@ class MainView {
     
     
     public function getExerciseIdFromUrl() {
-        return $_GET['addresultdetailedpage'];
+        return $_GET['addresultpage'];
     }
     
     public function getResultIdFromUrl() {
-        return $_GET['editresultdetailedpage'];
+        return $_GET['editresultpage'];
     }
     
     
@@ -261,7 +261,15 @@ class MainView {
         $this->addExerciseView->currentState();
     }
     
+    public function currentStateInEditExerciseView() {
+        $this->editExerciseView->currentState();
+    }
+    
     public function currentStateInAddResultView() {
         $this->addResultView->currentState();
+    }
+    
+    public function currentStateInEditResultView() {
+        $this->editResultView->currentState();
     }
 }

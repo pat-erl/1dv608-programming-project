@@ -10,10 +10,7 @@ class UserCatalogue {
     private $DAL;
     private $salt = '/&tggt%F%F&ygyuIYibjiuhiu';
     
-    public function __construct($sessionModel, $usersDAL) {
-        assert($sessionModel instanceof SessionModel, 'First argument was not an instance of SessionModel');
-        assert($usersDAL instanceof UsersDAL, 'Second argument was not an instance of UsersDAL');
-        
+    public function __construct(SessionModel $sessionModel, UsersDAL $usersDAL) {
         $this->sessionModel = $sessionModel;
         $this->DAL = $usersDAL;
     }
@@ -124,12 +121,18 @@ class UserCatalogue {
         $file = $currentUser->getStorageFile();
         $exercises = $this->getExercises($currentUser);
         
-        foreach($exercises as $exercise) {
-            if($exercise->getId() == $id) {
-                $exercise->setName = $exerciseName;
+        try {
+            foreach($exercises as $exercise) {
+                if($exercise->getId() == $this->sessionModel->getStoredExercise()) {
+                    $exercise->setName($exerciseName);
+                }
             }
+            $this->DAL->saveExercisesToFile($exercises, $file);
+            return true;
         }
-        $this->DAL->saveExercisesToFile($exercises, $file);
+        catch(Exception $e) {
+            return false;
+        }
     }
     
     public function checkIfExerciseExists($exerciseName) {
@@ -201,5 +204,18 @@ class UserCatalogue {
     
     public function editResult($resultText, $date) {
         
+    }
+    
+    public function getCurrentResult($currentResults) {
+        
+        //Kankske måste kolla här om tom array innan kör foreach precis som vid addresultview när skulle prointa resultat. Kolla om fler ställen med!!
+        $currentResult = null;
+        
+        foreach($currentResults as $result) {
+            if($result->getId() == $this->sessionModel->getStoredResult()) {
+                $currentResult = $result;
+            }
+        }
+        return $currentResult;
     }
 }

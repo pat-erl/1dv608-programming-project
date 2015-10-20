@@ -16,10 +16,7 @@ class AddResultView {
     private $addResultModel;
     private $userCatalogue;
     
-    public function __construct($addResultModel, $userCatalogue) {
-		assert($addResultModel instanceof AddResultModel, 'First argument was not an instance of AddResultModel');
-		assert($userCatalogue instanceof UserCatalogue, 'Second argument was not an instance of UserCatalogue');
-		
+    public function __construct(AddResultModel $addResultModel, UserCatalogue $userCatalogue) {
         $this->addResultModel = $addResultModel;
         $this->userCatalogue = $userCatalogue;
     }
@@ -39,7 +36,7 @@ class AddResultView {
         foreach($exercises as $exercise) {
             $name = strtolower($exercise->getName());
 		    $name = ucfirst($name);
-            $id = $_GET['addresultdetailedpage'];
+            $id = $_GET['addresultpage'];
             if($exercise->getId() == $id) {
             	$ret .= '<p class="detailedname">' . $this->printOut($exercise) . '</p>';
             }
@@ -71,7 +68,9 @@ class AddResultView {
 		$name = ucfirst($name);
 		$results = $exercise->getResults();
 	    
-		$ret = $name;
+		$ret = $name . ' 
+		<a class="linklogos" href="?' . self::$editExercisePage . '=' . $exercise->getId() . '"><img src="img/editimage.png" width="17px" height="17px"></a>
+		<a class="linklogos" href="http://www.w3schools.com"><img src="img/deleteimage.png" width="17px" height="17px"></a>';
 		
 		if(!empty($results)) {
 			uasort($results, function($a, $b) { return strcmp($a->getDateStamp(), $b->getDateStamp()); } );
