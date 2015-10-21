@@ -54,11 +54,8 @@ class MainView {
         
         if($this->loginModel->getIsLoggedIn()) {
             $currentUser = $this->userCatalogue->getCurrentUser();
-            $name = $currentUser->getName();
-            $name = strtolower($name);
-            $name = ucfirst($name);
             
-            $ret .= "<h3>" . $name . "'s log</h3>";
+            $ret .= "<h3>" . $currentUser->getName() . "'s log</h3>";
         }
         else {
             if($this->navigationView->isRegisterPageSet()) {

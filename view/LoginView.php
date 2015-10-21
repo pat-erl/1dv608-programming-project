@@ -31,32 +31,6 @@ class LoginView {
 		return $this->generateLogoutButtonHTML($message); 
 	}
 	
-	//Reads the current state from the LoginModel and sets the appropriate message.
-	public function currentState() {
-		if($this->loginModel->getUserNameEmpty()) {
-			$this->setRequestMessageId('Username is missing.');
-		}
-		else if($this->loginModel->getUserPasswordEmpty()) {
-			$this->setRequestMessageId('Password is missing.');
-		}
-		else if($this->loginModel->getIsAlreadyLoggedIn()) {
-			$this->setRequestMessageId('');
-		}
-		else if($this->loginModel->getIsLoggedIn()) {
-			$name = $this->getRequestName();
-			$name = strtolower($name);
-			$name = ucfirst($name);
-			
-			$this->setRequestMessageId('Welcome ' . $name . '!');
-		}
-		else if($this->loginModel->getIsLoggedOut()) {
-			$this->setRequestMessageId('Keep improving. See you soon.');
-		}
-		else {
-			$this->setRequestMessageId('Wrong name or password.');
-		}
-	}
-	
 	private function generateLoginFormHTML($message) {
 		assert(is_string($message), 'First argument was not a string');
 		
@@ -86,6 +60,28 @@ class LoginView {
 				<input id="buttonlogout" type="submit" name="' . self::$logout . '" value="Logout"/>
 			</form>
 		';
+	}
+	
+	//Reads the current state from the LoginModel and sets the appropriate message.
+	public function currentState() {
+		if($this->loginModel->getUserNameEmpty()) {
+			$this->setRequestMessageId('Username is missing.');
+		}
+		else if($this->loginModel->getUserPasswordEmpty()) {
+			$this->setRequestMessageId('Password is missing.');
+		}
+		else if($this->loginModel->getIsAlreadyLoggedIn()) {
+			$this->setRequestMessageId('');
+		}
+		else if($this->loginModel->getIsLoggedIn()) {
+			$this->setRequestMessageId('Welcome ' . $this->getRequestName() . '!');
+		}
+		else if($this->loginModel->getIsLoggedOut()) {
+			$this->setRequestMessageId('Keep improving. See you soon.');
+		}
+		else {
+			$this->setRequestMessageId('Wrong name or password.');
+		}
 	}
 	
 	//Getters and setters for the private membervariables.

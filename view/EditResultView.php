@@ -34,9 +34,6 @@ class EditResultView {
         $exercises = $this->userCatalogue->getExercises($currentUser);
 		$currentExercise = $this->userCatalogue->getCurrentExercise($exercises);
 		$exerciseName = $currentExercise->getName();
-		$exerciseName = strtolower($exerciseName);
-		$exerciseName = ucfirst($exerciseName);
-		
 		$results = $currentExercise->getResults();
 		$currentResult = $this->userCatalogue->getCurrentResult($results);
 		
@@ -53,31 +50,6 @@ class EditResultView {
 				</fieldset>
 			</form>
 		';
-		return $ret;
-	}
-	
-	public function printOut($exercise) {
-	    $name = strtolower($exercise->getName());
-		$name = ucfirst($name);
-		$results = $exercise->getResults();
-	    
-		$ret = $name . ' 
-		<a class="linklogos" href="?' . self::$editExercisePage . '=' . $exercise->getId() . '"><img src="img/editimage.png" width="17px" height="17px"></a>
-		<a class="linklogos" href="http://www.w3schools.com"><img src="img/deleteimage.png" width="17px" height="17px"></a>';
-		
-		if(!empty($results)) {
-			uasort($results, function($a, $b) { return strcmp($a->getDateStamp(), $b->getDateStamp()); } );
-			$results = array_reverse($results);
-			
-		    foreach($results as $result) {
-    		    $ret .= '<p class="detailedresult">' . ' ' . $result->getText() . ' - ' . '<span class="datestamp">' . $result->getDateStamp() . '</span>
-    		    <a class="linklogos" href="?' . self::$editResultPage . '=' . $result->getId() . '"><img src="img/editimage.png" width="17px" height="17px"></a>
-    		    <a class="linklogos" href="http://www.w3schools.com"><img src="img/deleteimage.png" width="17px" height="17px"></a></p>';
-		    }
-		}
-		else {
-			$ret .= '<p class="detailedresult">No results has been logged yet..</p>';
-		}
 		return $ret;
 	}
 	
@@ -101,10 +73,7 @@ class EditResultView {
 			$this->setRequestMessageId('A date must be in the correct format.');
 		}
 		else if($this->editResultModel->getIsSuccessfulEdit()) {
-			$text = strtolower($this->getRequestText());
-			$text = ucfirst($text);
-			
-			$this->setRequestMessageId('Successfully updated to ' . $text . '.');
+			$this->setRequestMessageId('Successfully updated to ' . $this->getRequestText() . '.');
 			$this->setRequestText('');
 		}
 		else {

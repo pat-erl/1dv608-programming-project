@@ -23,13 +23,11 @@ class SelectExerciseView {
         if(!empty($exercises)) {
             uasort($exercises, function($a, $b) { return strcmp($a->getName(), $b->getName()); } );
             foreach($exercises as $exercise) {
-                $name = strtolower($exercise->getName());
-		        $name = ucfirst($name);
-                $ret .= '<a class="exerciselinks" href="?'. self::$addResultPage . '=' . $exercise->getId() . '">' . $name . '</a>';
+                $ret .= '<a class="exerciselinks" href="?'. self::$addResultPage . '=' . $exercise->getId() . '">' . $exercise->getName() . '</a>';
             }
         }
         else {
-            $ret .= '<p class="detailedresult">No exercises has been added yet..</p>';
+            $ret .= '<p class="detailedresult">No exercise has been added yet..</p>';
         }
         return $ret;
 	}

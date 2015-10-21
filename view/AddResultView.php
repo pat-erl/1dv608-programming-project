@@ -34,8 +34,6 @@ class AddResultView {
         $exercises = $this->userCatalogue->getExercises($currentUser);
         
         foreach($exercises as $exercise) {
-            $name = strtolower($exercise->getName());
-		    $name = ucfirst($name);
             $id = $_GET['addresultpage'];
             if($exercise->getId() == $id) {
             	$ret .= '<p class="detailedname">' . $this->printOut($exercise) . '</p>';
@@ -44,8 +42,6 @@ class AddResultView {
 		
 		$currentExercise = $this->userCatalogue->getCurrentExercise($exercises);
 		$exerciseName = $currentExercise->getName();
-		$exerciseName = strtolower($exerciseName);
-		$exerciseName = ucfirst($exerciseName);
 		
 		$ret .= '
 			<form method="post" > 
@@ -64,13 +60,11 @@ class AddResultView {
 	}
 	
 	public function printOut($exercise) {
-	    $name = strtolower($exercise->getName());
-		$name = ucfirst($name);
 		$results = $exercise->getResults();
 	    
-		$ret = $name . ' 
-		<a class="linklogos" href="?' . self::$editExercisePage . '=' . $exercise->getId() . '"><img src="img/editimage.png" width="18px" height="18px"></a>
-		<a class="linklogos" href="http://www.w3schools.com"><img src="img/deleteimage.png" width="18px" height="18px"></a>';
+		$ret = $exercise->getName() . ' 
+		<a class="linklogos" title="edit" href="?' . self::$editExercisePage . '=' . $exercise->getId() . '"><img src="img/editimage.png" width="14px" height="14px"></a>
+		<a class="linklogos" title="delete" href="http://www.w3schools.com"><img src="img/deleteimage.png" width="12px" height="12px"></a>';
 		
 		if(!empty($results)) {
 			uasort($results, function($a, $b) { return strcmp($a->getDateStamp(), $b->getDateStamp()); } );
@@ -78,12 +72,12 @@ class AddResultView {
 			
 		    foreach($results as $result) {
     		    $ret .= '<p class="detailedresult">' . ' ' . $result->getText() . ' - ' . '<span class="datestamp">' . $result->getDateStamp() . '</span>
-    		    <a class="linklogos" href="?' . self::$editResultPage . '=' . $result->getId() . '"><img src="img/editimage.png" width="14px" height="14px"></a>
-    		    <a class="linklogos" href="http://www.w3schools.com"><img src="img/deleteimage.png" width="14px" height="14px"></a></p>';
+    		    <a class="linklogos" title="edit" href="?' . self::$editResultPage . '=' . $result->getId() . '"><img src="img/editimage.png" width="14px" height="14px"></a>
+    		    <a class="linklogos" title="delete href="http://www.w3schools.com"><img src="img/deleteimage.png" width="12px" height="12px"></a></p>';
 		    }
 		}
 		else {
-			$ret .= '<p class="detailedresult">No results has been logged yet..</p>';
+			$ret .= '<p class="detailedresult">No result has been logged yet..</p>';
 		}
 		return $ret;
 	}
@@ -108,10 +102,7 @@ class AddResultView {
 			$this->setRequestMessageId('A date must be in the correct format.');
 		}
 		else if($this->addResultModel->getIsSuccessfulAdd()) {
-			$text = strtolower($this->getRequestText());
-			$text = ucfirst($text);
-			
-			$this->setRequestMessageId('Successfully added ' . $text . '.');
+			$this->setRequestMessageId('Successfully added ' . $this->getRequestText() . '.');
 			$this->setRequestText('');
 		}
 		else {
