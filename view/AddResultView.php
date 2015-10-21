@@ -8,6 +8,8 @@ class AddResultView {
     
     private static $editResultPage = 'editresultpage';
     private static $editExercisePage = 'editexercisepage';
+    private static $deleteResult = 'AddResultView::DeleteResult';
+    private static $deleteExercise = 'AddResultView::DeleteExercise';
     private static $messageId = 'AddResultView::Message';
     private static $text = 'AddResultView::ResultText';
     private static $date = 'AddResultView::Date';
@@ -36,7 +38,7 @@ class AddResultView {
         foreach($exercises as $exercise) {
             $id = $_GET['addresultpage'];
             if($exercise->getId() == $id) {
-            	$ret .= '<p class="detailedname">' . $this->printOut($exercise) . '</p>';
+            	$ret .= '<form id="exercisedetailform" method="post">' . $this->printOut($exercise) . '</form>';
             }
         }
 		
@@ -60,20 +62,25 @@ class AddResultView {
 	}
 	
 	public function printOut($exercise) {
+		$ret = '';
 		$results = $exercise->getResults();
 	    
-		$ret = $exercise->getName() . ' 
+		$ret .= '
+		<p class ="detailedname">' . $exercise->getName() . '
 		<a class="linklogos" title="edit" href="?' . self::$editExercisePage . '=' . $exercise->getId() . '"><img src="img/editimage.png" width="12px" height="12px"></a>
-		<a class="linklogos" title="delete" href="http://www.yr.no"><img src="img/deleteimage.png" width="10px" height="10px"></a>';
+		<input id="deletebutton" title="delete" type="submit" name="' . self::$deleteExercise . '" value="" /></p>';
 		
 		if(!empty($results)) {
 			uasort($results, function($a, $b) { return strcmp($a->getDateStamp(), $b->getDateStamp()); } );
 			$results = array_reverse($results);
 			
 		    foreach($results as $result) {
-    		    $ret .= '<p class="detailedresult">' . ' ' . $result->getText() . ' - ' . '<span class="datestamp">' . $result->getDateStamp() . '</span>
-    		    <a class="linklogos" title="edit" href="?' . self::$editResultPage . '=' . $result->getId() . '"><img src="img/editimage.png" width="12px" height="12px"></a>
-    		    <a class="linklogos" title="delete" href="http://www.yr.no"><img src="img/deleteimage.png" width="10px" height="10px"></a></p>';
+    		    $ret .= '
+    		    <form id="deleteform" method="post">
+    		    	<p class="detailedresult">' . ' ' . $result->getText() . ' - ' . '<span class="datestamp">' . $result->getDateStamp() . '</span>
+    		    	<a class="linklogos" title="edit" href="?' . self::$editResultPage . '=' . $result->getId() . '"><img src="img/editimage.png" width="12px" height="12px"></a>
+    		    	<input id="deletebutton" title="delete" type="submit" name="' . self::$deleteResult . '" value="" /></p>
+    		    </form>';
 		    }
 		}
 		else {
