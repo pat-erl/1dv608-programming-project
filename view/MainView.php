@@ -17,8 +17,10 @@ class MainView {
     private $registerView;
     private $addExerciseView;
     private $editExerciseView;
+    private $deleteExerciseView;
     private $addResultView;
     private $editResultView;
+    private $deleteResultView;
     private $selectExerciseView;
     private $summaryView;
     private $navigationView;
@@ -27,8 +29,8 @@ class MainView {
                                 AddExerciseModel $addExerciseModel, EditExerciseModel $editExerciseModel, 
                                 AddResultModel $addResultModel, EditResultModel $editResultModel, 
                                 LoginView $loginView, RegisterView $registerView, 
-                                AddExerciseview $addExerciseView, EditExerciseView $editExerciseView, 
-                                AddResultView $addResultView, EditResultView $editResultView, 
+                                AddExerciseview $addExerciseView, EditExerciseView $editExerciseView, DeleteExerciseView $deleteExerciseView, 
+                                AddResultView $addResultView, EditResultView $editResultView, DeleteResultView $deleteResultView, 
                                 SelectExerciseView $selectExerciseView, SummaryView $summaryView, NavigationView $navigationView) {
 
         $this->userCatalogue = $userCatalogue;
@@ -42,8 +44,10 @@ class MainView {
         $this->registerView = $registerView;
         $this->addExerciseView = $addExerciseView;
         $this->editExerciseView = $editExerciseView;
+        $this->deleteExerciseView = $deleteExerciseView;
         $this->addResultView = $addResultView;
         $this->editResultView = $editResultView;
+        $this->deleteResultView = $deleteResultView;
         $this->selectExerciseView = $selectExerciseView;
         $this->summaryView = $summaryView;
         $this->navigationView = $navigationView;
@@ -94,10 +98,7 @@ class MainView {
             }
             
             //Gets not the info from NavigationView.
-            else if($this->isAddResultPageSetFromSummaryView()) {
-                $ret .= $this->addResultView->response();
-            }
-            else if($this->isAddResultPageSetFromSelectExerciseView()) {
+            else if($this->isAddResultPageSetFromSummaryView() || $this->isAddResultPageSetFromSelectExerciseView()) {
                 $ret .= $this->addResultView->response();
             }
             else if($this->isEditResultPageSet()) {
@@ -105,6 +106,22 @@ class MainView {
             }
             else if($this->isEditExercisePageSet()) {
                 $ret .= $this->editExerciseView->response();
+            }
+            else if($this->getRequestDeleteFromDeleteResultView()) {
+                $currentUser = $this->userCatalogue->getCurrentUser();
+                $exercises = $this->userCatalogue->getExercises($currentUser);
+                $currentExercise = $this->userCatalogue->getCurrentExercise($exercises);
+                $id = $currentExercise->getId();
+                header("Location: index.php?addresultpage=$id");
+            }
+            else if($this->getRequestDeleteFromDeleteExerciseView()) {
+                header("Location: index.php?selectexercisepage");
+            }
+            else if($this->isDeleteResultPageSet()) {
+                $ret .= $this->deleteResultView->response();
+            }
+            else if($this->isDeleteExercisePageSet()) {
+                $ret .= $this->deleteExerciseView->response();
             }
             else {
                 $ret .= $this->summaryView->response();
@@ -151,6 +168,12 @@ class MainView {
     }
     public function isEditExercisePageSet() {
         return $this->addResultView->isEditExercisePageSet();
+    }
+    public function isDeleteResultPageSet() {
+        return $this->addResultView->isDeleteResultPageSet();
+    }
+    public function isDeleteExercisePageSet() {
+        return $this->addResultView->isDeleteExercisePageSet();
     }
     
     
@@ -235,6 +258,20 @@ class MainView {
     }
     
     
+
+    public function getRequestDeleteFromDeleteResultView() {
+        return $this->deleteResultView->getRequestDelete();
+    }
+    
+    
+    
+    public function getRequestDeleteFromDeleteExerciseView() {
+        return $this->deleteExerciseView->getRequestDelete();
+    }
+    
+    
+    
+    
     
     public function getExerciseIdFromUrl() {
         return $_GET['addresultpage'];
@@ -242,6 +279,14 @@ class MainView {
     
     public function getResultIdFromUrl() {
         return $_GET['editresultpage'];
+    }
+    
+    public function getExerciseIdToDeleteFromUrl() {
+        return $_GET['deleteexercisepage'];
+    }
+    
+    public function getResultIdToDeleteFromUrl() {
+        return $_GET['deleteresultpage'];
     }
     
     

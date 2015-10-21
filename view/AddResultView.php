@@ -8,8 +8,8 @@ class AddResultView {
     
     private static $editResultPage = 'editresultpage';
     private static $editExercisePage = 'editexercisepage';
-    private static $deleteResult = 'AddResultView::DeleteResult';
-    private static $deleteExercise = 'AddResultView::DeleteExercise';
+    private static $deleteResultPage = 'deleteresultpage';
+    private static $deleteExercisePage = 'deleteexercisepage';
     private static $messageId = 'AddResultView::Message';
     private static $text = 'AddResultView::ResultText';
     private static $date = 'AddResultView::Date';
@@ -35,40 +35,43 @@ class AddResultView {
         $currentUser = $this->userCatalogue->getCurrentUser();
         $exercises = $this->userCatalogue->getExercises($currentUser);
         
-        foreach($exercises as $exercise) {
-            $id = $_GET['addresultpage'];
-            if($exercise->getId() == $id) {
-            	$ret .= '<form id="exercisedetailform" method="post">' . $this->printOut($exercise) . '</form>';
-            }
-        }
-		
-		$currentExercise = $this->userCatalogue->getCurrentExercise($exercises);
-		$exerciseName = $currentExercise->getName();
-		
-		$ret .= '
-			<form method="post" > 
-				<fieldset>
-					<legend>Enter result for ' . $exerciseName . '</legend>
-					<p id="' . self::$messageId . '">' . $message . '</p>
-					<label for="' . self::$text . '">Result :</label>
-					<input autofocus type="text" maxlength="10" id="' . self::$text . '" name="' . self::$text . '" value="' . $this->getRequestText() . '" />
-					<input class="longerdatefield" type="date" id="' . self::$date . '" name="' . self::$date . '" value="' . date("Y-m-d") .'" />
-                    <br />
-					<input id="button" type="submit" name="' . self::$add . '" value="Log" />
-				</fieldset>
-			</form>
-		';
-		return $ret;
+        if(!empty($exercises)) {
+	        foreach($exercises as $exercise) {
+	            $id = $_GET['addresultpage'];
+	            if($exercise->getId() == $id) {
+	            	$ret .= '<p class ="detailedname">' . $this->printOut($exercise) . '</p>';
+	            }
+	        }
+			
+			$currentExercise = $this->userCatalogue->getCurrentExercise($exercises);
+			if(!empty($currentExercise)) {
+				$exerciseName = $currentExercise->getName();
+				
+				$ret .= '
+					<form method="post" > 
+						<fieldset>
+							<legend>Enter result for ' . $exerciseName . '</legend>
+							<p id="' . self::$messageId . '">' . $message . '</p>
+							<label for="' . self::$text . '">Result :</label>
+							<input autofocus type="text" maxlength="10" id="' . self::$text . '" name="' . self::$text . '" value="' . $this->getRequestText() . '" />
+							<input class="longerdatefield" type="date" id="' . self::$date . '" name="' . self::$date . '" value="' . date("Y-m-d") .'" />
+		                    <br />
+							<input id="button" type="submit" name="' . self::$add . '" value="Log" />
+						</fieldset>
+					</form>
+				';
+				return $ret;
+			}
+		}
 	}
 	
 	public function printOut($exercise) {
 		$ret = '';
 		$results = $exercise->getResults();
 	    
-		$ret .= '
-		<p class ="detailedname">' . $exercise->getName() . '
+		$ret .= $exercise->getName() . '
 		<a class="linklogos" title="edit" href="?' . self::$editExercisePage . '=' . $exercise->getId() . '"><img src="img/editimage.png" width="12px" height="12px"></a>
-		<input id="deletebutton" title="delete" type="submit" name="' . self::$deleteExercise . '" value="" /></p>';
+		<a class="linklogos" title="delete" href="?' . self::$deleteExercisePage . '=' . $exercise->getId() . '"><img src="img/deleteimage.png" width="12px" height="12px"></a>';
 		
 		if(!empty($results)) {
 			uasort($results, function($a, $b) { return strcmp($a->getDateStamp(), $b->getDateStamp()); } );
@@ -76,11 +79,9 @@ class AddResultView {
 			
 		    foreach($results as $result) {
     		    $ret .= '
-    		    <form id="deleteform" method="post">
-    		    	<p class="detailedresult">' . ' ' . $result->getText() . ' - ' . '<span class="datestamp">' . $result->getDateStamp() . '</span>
-    		    	<a class="linklogos" title="edit" href="?' . self::$editResultPage . '=' . $result->getId() . '"><img src="img/editimage.png" width="12px" height="12px"></a>
-    		    	<input id="deletebutton" title="delete" type="submit" name="' . self::$deleteResult . '" value="" /></p>
-    		    </form>';
+    		    <p class="detailedresult">' . ' ' . $result->getText() . ' - ' . '<span class="datestamp">' . $result->getDateStamp() . '</span>
+    		    <a class="linklogos" title="edit" href="?' . self::$editResultPage . '=' . $result->getId() . '"><img src="img/editimage.png" width="12px" height="12px"></a>
+    		    <a class="linklogos" title="delete" href="?' . self::$deleteResultPage . '=' . $result->getId() . '"><img src="img/deleteimage.png" width="12px" height="12px"></a></p>';
 		    }
 		}
 		else {
@@ -125,6 +126,14 @@ class AddResultView {
 	
 	public function isEditExercisePageSet() {
 		return isset($_GET[self::$editExercisePage]);
+	}
+	
+	public function isDeleteResultPageSet() {
+		return isset($_GET[self::$deleteResultPage]);
+	}
+	
+	public function isDeleteExercisePageSet() {
+		return isset($_GET[self::$deleteExercisePage]);
 	}
 	
 	public function getRequestMessageId() {

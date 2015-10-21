@@ -6,6 +6,7 @@ class MainController {
     
     */
     
+    private $userCatalogue;
     private $sessionModel;
     private $loginModel;
     private $registerModel;
@@ -15,10 +16,11 @@ class MainController {
     private $editResultModel;
     private $mainView;
     
-    public function __construct(SessionModel $sessionModel, LoginModel $loginModel, RegisterModel $registerModel, 
+    public function __construct(UserCatalogue $userCatalogue, SessionModel $sessionModel, LoginModel $loginModel, RegisterModel $registerModel, 
                                 AddExerciseModel $addExerciseModel, EditExerciseModel $editExerciseModel, 
                                 AddResultModel $addResultModel, EditResultModel $editResultModel, MainView $mainView) {
         
+        $this->userCatalogue = $userCatalogue;
         $this->sessionModel = $sessionModel;
         $this->loginModel = $loginModel;
         $this->registerModel = $registerModel;
@@ -56,6 +58,12 @@ class MainController {
         }
         else if($this->mainView->isEditExercisePageSet()) {
             $this->checkIfEditExercise();
+        }
+        else if($this->mainView->isDeleteResultPageSet()) {
+            $this->checkIfDeleteResult();
+        }
+        else if($this->mainView->isDeleteExercisePageSet()) {
+            $this->checkIfDeleteExercise();;
         }
     }
     
@@ -131,5 +139,23 @@ class MainController {
             $this->editResultModel->doTryToEdit($resultText, $date);
             $this->mainView->currentStateInEditResultView();
 	    }
+    }
+    
+    public function checkIfDeleteResult() {
+        $resultId = $this->mainView->getResultIdToDeleteFromUrl();
+        $this->sessionModel->setResultSession($resultId);
+        
+        if($this->mainView->getRequestDeleteFromDeleteResultView()) {
+            $this->userCatalogue->deleteResult();
+        }
+    }
+    
+    public function checkIfDeleteExercise() {
+        $exerciseId = $this->mainView->getExerciseIdToDeleteFromUrl();
+        $this->sessionModel->setExerciseSession($exerciseId);
+        
+        if($this->mainView->getRequestDeleteFromDeleteExerciseView()) {
+            $this->userCatalogue->deleteExercise();
+        }
     }
 }

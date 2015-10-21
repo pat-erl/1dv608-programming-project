@@ -132,6 +132,23 @@ class UserCatalogue {
         }
     }
     
+    public function deleteExercise() {
+        $currentUser = $this->getCurrentUser();
+        $file = $currentUser->getStorageFile();
+        $exercises = $this->getExercises($currentUser);
+        $currentExercise = $this->getCurrentExercise($exercises);
+        $key = array_search($currentExercise, $exercises);
+        unset($exercises[$key]);
+        
+        try {
+            $this->DAL->saveExercisesToFile($exercises, $file);
+            return true;
+        }
+        catch(Exception $e) {
+            return false;
+        }
+    }
+    
     public function checkIfExerciseExists($exerciseName) {
         $currentUser = $this->getCurrentUser();
         $exercises = $this->getExercises($currentUser);
@@ -197,6 +214,26 @@ class UserCatalogue {
         $currentResult->setDateStamp($date);
         
         try {
+            $this->DAL->saveExercisesToFile($exercises, $file);
+            return true;
+        }
+        catch(Exception $e) {
+            return false;
+        }
+    }
+    
+    public function deleteResult() {
+        $currentUser = $this->getCurrentUser();
+        $file = $currentUser->getStorageFile();
+        $exercises = $this->getExercises($currentUser);
+        $currentExercise = $this->getCurrentExercise($exercises);
+        $results = $currentExercise->getResults();
+        $currentResult = $this->getCurrentResult($results);
+        $key = array_search($currentResult, $results);
+        unset($results[$key]);
+        
+        try {
+            $currentExercise->setResults($results);
             $this->DAL->saveExercisesToFile($exercises, $file);
             return true;
         }
