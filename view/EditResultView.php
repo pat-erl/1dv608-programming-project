@@ -25,10 +25,10 @@ class EditResultView {
         $message = '';
         
         $message = $this->getRequestMessageId();
-        return $this->generateRegistrationFormHTML($message);
+        return $this->generateEditResultForm($message);
 	}
 	
-	private function generateRegistrationFormHTML($message) {
+	private function generateEditResultForm($message) {
 		$ret = '';
         $currentUser = $this->userCatalogue->getCurrentUser();
         $exercises = $this->userCatalogue->getExercises($currentUser);
@@ -43,7 +43,7 @@ class EditResultView {
 					<legend>Change result for ' . $exerciseName . '</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$text . '">Result :</label>
-					<input autofocus type="text" id="' . self::$text . '" name="' . self::$text . '" value="' . $currentResult->getText() . '" />
+					<input autofocus type="text" maxlength="10" id="' . self::$text . '" name="' . self::$text . '" value="' . $currentResult->getText() . '" />
 					<input class="longerdatefield" type="date" id="' . self::$date . '" name="' . self::$date . '" value="' . $currentResult->getDateStamp() .'" />
                     <br />
 					<input id="button" type="submit" name="' . self::$edit . '" value="Update" />

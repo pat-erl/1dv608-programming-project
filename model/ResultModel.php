@@ -27,6 +27,8 @@ class ResultModel {
     }
     
     public function setText($text) {
+        assert(is_string($text), 'First argument was not a string');
+        
         $this->text = $text;
     }
     
@@ -34,7 +36,8 @@ class ResultModel {
         return $this->dateStamp;
     }
     
-    public function setDateStamp($dateStamp) {
-        $this->dateStamp = $dateStamp;
+    public function setDateStamp($date) {
+        assert(is_string($date), 'First argument was not a string');
+        $this->dateStamp = $date;
     }
 }

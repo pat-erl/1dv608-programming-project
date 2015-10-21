@@ -16,17 +16,17 @@ class AddExerciseView {
         $message = '';
         
         $message = $this->getRequestMessageId();
-        return $this->generateRegistrationFormHTML($message);
+        return $this->generateAddExerciseForm($message);
 	}
 	
-	private function generateRegistrationFormHTML($message) {
+	private function generateAddExerciseForm($message) {
 		return '
 			<form method="post" > 
 				<fieldset>
 					<legend>Enter name of exercise</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$name . '">Exercise name :</label>
-					<input autofocus type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
+					<input autofocus type="text" maxlength="15" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
                     <br />
 					<input id="button" type="submit" name="' . self::$add . '" value="Add" />
 				</fieldset>

@@ -10,9 +10,7 @@ class RegisterView {
     
     private $registerModel;
     
-    public function __construct($registerModel) {
-		assert($registerModel instanceof RegisterModel, 'First argument was not an instance of RegisterModel');
-		
+    public function __construct(RegisterModel $registerModel) {
         $this->registerModel = $registerModel;
     }
 	
@@ -20,23 +18,23 @@ class RegisterView {
         $message = '';
         
         $message = $this->getRequestMessageId();
-        return $this->generateRegistrationFormHTML($message);
+        return $this->generateRegistrationForm($message);
 	}
 	
-	private function generateRegistrationFormHTML($message) {
+	private function generateRegistrationForm($message) {
 		return '
 			<form method="post" > 
 				<fieldset>
 					<legend>Choose username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$name . '">Username :</label>
-					<input class="extramargin" autofocus type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
+					<input class="extramargin" autofocus type="text" maxlength="10" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
                     <br />
 					<label for="' . self::$password . '">Password :</label>
-					<input class="extramargin2" type="password" id="' . self::$password . '" name="' . self::$password . '" />
+					<input class="extramargin2" type="password" maxlength="15" id="' . self::$password . '" name="' . self::$password . '" />
 					<br />
 					<label for="' . self::$passwordRepeat . '">Repeat password :</label>
-					<input type="password" id="' . self::$passwordRepeat . '" name="' . self::$passwordRepeat . '" />
+					<input type="password" maxlength="15" id="' . self::$passwordRepeat . '" name="' . self::$passwordRepeat . '" />
 					<br />
 					<input id="button" type="submit" name="' . self::$register . '" value="Register" />
 				</fieldset>

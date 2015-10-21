@@ -18,10 +18,10 @@ class EditExerciseView {
         $message = '';
         
         $message = $this->getRequestMessageId();
-        return $this->generateRegistrationFormHTML($message);
+        return $this->generateEditExerciseForm($message);
 	}
 	
-	private function generateRegistrationFormHTML($message) {
+	private function generateEditExerciseForm($message) {
 	    $ret = '';
 	    
 	    $currentUser = $this->userCatalogue->getCurrentUser();
@@ -34,7 +34,7 @@ class EditExerciseView {
 					<legend>Change name of exercise</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$name . '">Exercise name :</label>
-					<input autofocus type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $currentExercise->getName() . '" />
+					<input autofocus type="text" maxlength="15" id="' . self::$name . '" name="' . self::$name . '" value="' . $currentExercise->getName() . '" />
                     <br />
 					<input id="button" type="submit" name="' . self::$edit . '" value="Update" />
 				</fieldset>

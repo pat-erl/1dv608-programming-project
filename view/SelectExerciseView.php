@@ -5,18 +5,17 @@ class SelectExerciseView {
     private static $addResultPage = 'addresultpage';
     private $userCatalogue;
     
-    public function __construct($userCatalogue) {
-		assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
-		
+    public function __construct(UserCatalogue $userCatalogue) {
         $this->userCatalogue = $userCatalogue;
     }
 	
     public function response() {
-        return $this->generateRegistrationFormHTML();
+        return $this->generateExerciseList();
 	}
 	
-	private function generateRegistrationFormHTML() {
+	private function generateExerciseList() {
 		$ret = '';
+		
         $currentUser = $this->userCatalogue->getCurrentUser();
         $exercises = $this->userCatalogue->getExercises($currentUser);
         

@@ -15,9 +15,9 @@ class MainController {
     private $editResultModel;
     private $mainView;
     
-    public function __construct($sessionModel, $loginModel, $registerModel, 
-                                $addExerciseModel, $editExerciseModel, 
-                                $addResultModel, $editResultModel, $mainView) {
+    public function __construct(SessionModel $sessionModel, LoginModel $loginModel, RegisterModel $registerModel, 
+                                AddExerciseModel $addExerciseModel, EditExerciseModel $editExerciseModel, 
+                                AddResultModel $addResultModel, EditResultModel $editResultModel, MainView $mainView) {
         
         $this->sessionModel = $sessionModel;
         $this->loginModel = $loginModel;

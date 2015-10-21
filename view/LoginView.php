@@ -11,9 +11,7 @@ class LoginView {
 	
 	private $loginModel;
 	
-	public function __construct($loginModel) {
-		assert($loginModel instanceof LoginModel, 'First argument was not an instance of LoginModel');
-		
+	public function __construct(LoginModel $loginModel) {
         $this->loginModel = $loginModel;
     }
 	
@@ -21,17 +19,17 @@ class LoginView {
 		$message = '';
 		
 		$message = $this->getRequestMessageId();
-		return $this->generateLoginFormHTML($message);
+		return $this->generateLoginForm($message);
 	}
 	
 	public function logoutPanel() {
 		$message = '';
 		
 		$message = $this->getRequestMessageId();
-		return $this->generateLogoutButtonHTML($message); 
+		return $this->generateLogoutButton($message); 
 	}
 	
-	private function generateLoginFormHTML($message) {
+	private function generateLoginForm($message) {
 		assert(is_string($message), 'First argument was not a string');
 		
 		return '
@@ -40,10 +38,10 @@ class LoginView {
 					<legend>Enter username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" autofocus id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
+					<input type="text" autofocus maxlength="10" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getRequestName() . '" />
 					<br />
 					<label for="' . self::$password . '">Password :</label>
-					<input class="extramargin3" type="password" id="' . self::$password . '" name="' . self::$password . '" />
+					<input class="extramargin3" type="password" maxlength="15" id="' . self::$password . '" name="' . self::$password . '" />
 					<br />
 					<input id="button" type="submit" name="' . self::$login . '" value="Login" />
 				</fieldset>
@@ -51,7 +49,7 @@ class LoginView {
 		';
 	}
 	
-	private function generateLogoutButtonHTML($message) {
+	private function generateLogoutButton($message) {
 		assert(is_string($message), 'First argument was not a string');
 		
 		return '
@@ -142,9 +140,5 @@ class LoginView {
 		assert(is_string($message), 'First argument was not a string');
 		
 		$_POST[self::$messageId] = $message;
-	}
-	
-	public function getIsLoggedIn() {
-		return $this->isLoggedIn;
 	}
 }

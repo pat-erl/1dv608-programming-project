@@ -23,13 +23,13 @@ class MainView {
     private $summaryView;
     private $navigationView;
 	
-	public function __construct($userCatalogue, $loginModel, $registerModel, 
-                                $addExerciseModel, $editExerciseModel, 
-                                $addResultModel, $editResultModel, 
-                                $loginView, $registerView, 
-                                $addExerciseView, $editExerciseView, 
-                                $addResultView, $editResultView, 
-                                $selectExerciseView, $summaryView, $navigationView) {
+	public function __construct(UserCatalogue $userCatalogue, LoginModel $loginModel, RegisterModel $registerModel, 
+                                AddExerciseModel $addExerciseModel, EditExerciseModel $editExerciseModel, 
+                                AddResultModel $addResultModel, EditResultModel $editResultModel, 
+                                LoginView $loginView, RegisterView $registerView, 
+                                AddExerciseview $addExerciseView, EditExerciseView $editExerciseView, 
+                                AddResultView $addResultView, EditResultView $editResultView, 
+                                SelectExerciseView $selectExerciseView, SummaryView $summaryView, NavigationView $navigationView) {
 
         $this->userCatalogue = $userCatalogue;
         $this->loginModel = $loginModel;
@@ -105,6 +105,9 @@ class MainView {
             }
             else if($this->isEditExercisePageSet()) {
                 $ret .= $this->editExerciseView->response();
+            }
+            else {
+                $ret .= $this->summaryView->response();
             }
         }
         else {

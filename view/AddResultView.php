@@ -25,10 +25,10 @@ class AddResultView {
         $message = '';
         
         $message = $this->getRequestMessageId();
-        return $this->generateRegistrationFormHTML($message);
+        return $this->generateListAndAddResultForm($message);
 	}
 	
-	private function generateRegistrationFormHTML($message) {
+	private function generateListAndAddResultForm($message) {
 		$ret = '';
         $currentUser = $this->userCatalogue->getCurrentUser();
         $exercises = $this->userCatalogue->getExercises($currentUser);
@@ -49,7 +49,7 @@ class AddResultView {
 					<legend>Enter result for ' . $exerciseName . '</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					<label for="' . self::$text . '">Result :</label>
-					<input autofocus type="text" id="' . self::$text . '" name="' . self::$text . '" value="' . $this->getRequestText() . '" />
+					<input autofocus type="text" maxlength="10" id="' . self::$text . '" name="' . self::$text . '" value="' . $this->getRequestText() . '" />
 					<input class="longerdatefield" type="date" id="' . self::$date . '" name="' . self::$date . '" value="' . date("Y-m-d") .'" />
                     <br />
 					<input id="button" type="submit" name="' . self::$add . '" value="Log" />
@@ -63,8 +63,8 @@ class AddResultView {
 		$results = $exercise->getResults();
 	    
 		$ret = $exercise->getName() . ' 
-		<a class="linklogos" title="edit" href="?' . self::$editExercisePage . '=' . $exercise->getId() . '"><img src="img/editimage.png" width="14px" height="14px"></a>
-		<a class="linklogos" title="delete" href="http://www.w3schools.com"><img src="img/deleteimage.png" width="12px" height="12px"></a>';
+		<a class="linklogos" title="edit" href="?' . self::$editExercisePage . '=' . $exercise->getId() . '"><img src="img/editimage.png" width="12px" height="12px"></a>
+		<a class="linklogos" title="delete" href="http://www.yr.no"><img src="img/deleteimage.png" width="10px" height="10px"></a>';
 		
 		if(!empty($results)) {
 			uasort($results, function($a, $b) { return strcmp($a->getDateStamp(), $b->getDateStamp()); } );
@@ -72,8 +72,8 @@ class AddResultView {
 			
 		    foreach($results as $result) {
     		    $ret .= '<p class="detailedresult">' . ' ' . $result->getText() . ' - ' . '<span class="datestamp">' . $result->getDateStamp() . '</span>
-    		    <a class="linklogos" title="edit" href="?' . self::$editResultPage . '=' . $result->getId() . '"><img src="img/editimage.png" width="14px" height="14px"></a>
-    		    <a class="linklogos" title="delete href="http://www.w3schools.com"><img src="img/deleteimage.png" width="12px" height="12px"></a></p>';
+    		    <a class="linklogos" title="edit" href="?' . self::$editResultPage . '=' . $result->getId() . '"><img src="img/editimage.png" width="12px" height="12px"></a>
+    		    <a class="linklogos" title="delete" href="http://www.yr.no"><img src="img/deleteimage.png" width="10px" height="10px"></a></p>';
 		    }
 		}
 		else {

@@ -16,9 +16,7 @@ class RegisterModel {
     private $userAlreadyExists = false;
     private $isSuccessfulReg = false;
     
-    public function __construct($userCatalogue) {
-        assert($userCatalogue instanceof UserCatalogue, 'First argument was not an instance of UserCatalogue');
-        
+    public function __construct(UserCatalogue $userCatalogue) {
         $this->userCatalogue = $userCatalogue;
     }
     

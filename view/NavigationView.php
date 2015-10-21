@@ -10,16 +10,14 @@ class NavigationView {
     
     private $loginModel;
     
-    public function __construct($loginModel) {
-        assert($loginModel instanceof LoginModel, 'First argument was not an instance of LoginModel');
-        
+    public function __construct(LoginModel $loginModel) {
         $this->loginModel = $loginModel;
     }
     
     public function showLinks() {
         if($this->loginModel->getIsLoggedIn()) {
             return '<a class="biggerlinks" href="?' . self::$summaryPage . '">SHOW SUMMARY</a>' 
-            . ' | ' . '<a class="biggerlinks" href="?' . self::$selectExercisePage . '">LOG RESULTS</a>'
+            . ' | ' . '<a class="biggerlinks" href="?' . self::$selectExercisePage . '">SELECT EXERCISES</a>'
             . ' | ' . '<a class="biggerlinks" href="?' . self::$addExercisePage . '">ADD EXERCISES</a>';
         }
         else {

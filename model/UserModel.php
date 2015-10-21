@@ -4,8 +4,8 @@ class UserModel {
     
     private $name;
     private $password;
-    private $storageFile;
     private $exercises = array();
+    private $storageFile;
     
     public function __construct($name, $password, $exercises) {
         assert(is_string($name), 'First argument was not a string');
@@ -13,8 +13,8 @@ class UserModel {
 	    
         $this->name = $name;
         $this->password = $password;
-        $this->storageFile = 'model/DAL/storagefiles/userfiles/' . $name . '.txt';
         $this->exercises = $exercises;
+        $this->storageFile = 'model/DAL/storagefiles/userfiles/' . $name . '.txt';
     }
     
     //Getters and setters for the private membervariables.
@@ -27,11 +27,11 @@ class UserModel {
         return $this->password;
     }
     
-    public function getStorageFile() {
-        return $this->storageFile;
-    }
-    
     public function getExercises() {
         return $this->exercises;
+    }
+    
+    public function getStorageFile() {
+        return $this->storageFile;
     }
 }

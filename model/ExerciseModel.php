@@ -26,6 +26,7 @@ class ExerciseModel {
     }
     
     public function setName($name) {
+        assert(is_string($name), 'First argument was not a string');
         $this->name = $name;
     }
     
@@ -34,6 +35,8 @@ class ExerciseModel {
     }
     
     public function setResults($results) {
+        assert(is_array($results), 'First argument was not an array');
+        
         $this->results = $results;
     }
 }

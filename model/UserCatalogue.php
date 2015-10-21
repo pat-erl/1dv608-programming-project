@@ -8,7 +8,7 @@ class UserCatalogue {
     
     private $sessionModel;
     private $DAL;
-    private $salt = '/&tggt%F%F&ygyuIYibjiuhiu';
+    //private $salt = '/&tggt%F%F&ygyuIYibjiuhiu';
     
     public function __construct(SessionModel $sessionModel, UsersDAL $usersDAL) {
         $this->sessionModel = $sessionModel;
@@ -27,9 +27,8 @@ class UserCatalogue {
     public function addUser($userName, $userPassword) {
         
         //Hashing the password.
-        $userPassword = sha1($userPassword);
-        $userPassword .= $this->salt;
-        
+        $userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
+
         $users = $this->getUsers();
 
         try {
@@ -56,15 +55,17 @@ class UserCatalogue {
     
     public function checkIfCorrectPassword($userName, $userPassword) {
         $users = $this->getUsers();
-        
-        //Hashing the password.
-        $userPassword = sha1($userPassword);
-        $userPassword .= $this->salt;
+        $hash = '';
         
         foreach($users as $user) {
-            if($user->getName() == $userName && $user->getPassword() == $userPassword) {
-                return true;
+            if($user->getName() == $userName) {
+                $hash = $user->getPassword();
             }
+        }
+        
+        //Verifying the password.
+        if(password_verify($userPassword, $hash)) {
+            return true;
         }
         return false;
     }

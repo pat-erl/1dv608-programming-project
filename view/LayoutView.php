@@ -6,7 +6,7 @@ class LayoutView {
     Handles the rendering to the client.
     */
     
-    public function render($mainView, $navigationView) {
+    public function render(MainView $mainView, NavigationView $navigationView) {
         
         echo '
         <!DOCTYPE html>

@@ -10,9 +10,11 @@ class UsersDAL {
     
     //Gets all the users from file.
     public function getUsersFromFile() {
-        if(filesize($this->storageFile) > 0) {
-            $contents = file_get_contents($this->storageFile);
-            return unserialize($contents);
+        if(file_exists($this->storageFile)) {
+            if(filesize($this->storageFile) > 0) {
+                $contents = file_get_contents($this->storageFile);
+                return unserialize($contents);
+            }
         }
         return null;
     }
