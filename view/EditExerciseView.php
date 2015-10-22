@@ -2,6 +2,10 @@
 
 class EditExerciseView {
     
+    /*
+    
+    */
+    
     private static $messageId = 'EditExerciseView::Message';
     private static $name = 'EditExerciseView::ExerciseName';
     private static $edit = 'EditExerciseView::Edit';
@@ -25,8 +29,8 @@ class EditExerciseView {
 	    $ret = '';
 	    
 	    $currentUser = $this->userCatalogue->getCurrentUser();
-	    $currentExercises = $this->userCatalogue->getExercises($currentUser);
-	    $currentExercise = $this->userCatalogue->getCurrentExercise($currentExercises);
+	    $exercises = $this->userCatalogue->getExercises($currentUser);
+	    $currentExercise = $this->userCatalogue->getCurrentExercise($exercises);
 	    
 		$ret .= '
 			<form method="post" > 
@@ -43,7 +47,7 @@ class EditExerciseView {
 		return $ret;
 	}
 	
-	//Reads the current state from the UserModel and sets the appropriate message.
+	//Reads the current state from the EditExerciseModel and sets the appropriate message.
 	public function currentState() {
 		if($this->editExerciseModel->getExerciseNameEmpty()) {
 			$this->setRequestMessageId('Exercise must be at least 3 characters.');
@@ -55,10 +59,6 @@ class EditExerciseView {
 		}
 		else if($this->editExerciseModel->getExerciseNameTooShort()) {
 			$this->setRequestMessageId('Exercise must be at least 3 characters.');
-		}
-		else if($this->editExerciseModel->getIsSuccessfulEdit()) {
-			$this->setRequestMessageId('Successfully updated to ' . $this->getRequestName() . '.');
-			$this->setRequestName('');
 		}
 		else if($this->editExerciseModel->getExerciseAlreadyExists()) {
 			$this->setRequestMessageId($this->getRequestName() . ' already exists.');

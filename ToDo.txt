@@ -1,8 +1,0 @@
-*När loggas ut så behöver det gå tillbaka till loginpage på nåt sätt, lr tomt..
-header med spara i session precis som user sparas när reggar och byter sida!!
-
-*precis som registerview byter till loginview och presenterar meddelandet där
-så ska editresultview byta till addresultview och presentera meddelandet där!
-samma vid uppdatering av exercisenamnet!!
-
-*glöm ej delete! post

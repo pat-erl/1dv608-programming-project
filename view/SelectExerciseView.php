@@ -2,6 +2,10 @@
 
 class SelectExerciseView {
     
+    /*
+    
+    */
+    
     private static $addResultPage = 'addresultpage';
     private $userCatalogue;
     

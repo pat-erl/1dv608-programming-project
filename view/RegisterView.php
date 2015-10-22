@@ -2,6 +2,10 @@
 
 class RegisterView {
     
+    /*
+    
+    */
+    
     private static $messageId = 'RegisterView::Message';
     private static $name = 'RegisterView::UserName';
     private static $password = 'RegisterView::Password';
@@ -42,7 +46,7 @@ class RegisterView {
 		';
 	}
 	
-	//Reads the current state from the UserModel and sets the appropriate message.
+	//Reads the current state from the RegisterModel and sets the appropriate message.
 	public function currentState() {
 		if($this->registerModel->getUserNameEmpty()) {
 			$this->setRequestMessageId('Username must be at least 3 characters.
@@ -64,13 +68,6 @@ class RegisterView {
 		}
 		else if($this->registerModel->getFailedPasswordMatch()) {
 			$this->setRequestMessageId('Passwords do not match.');
-		}
-		else if($this->registerModel->getIsSuccessfulReg()) {
-			//Detta har jag fått från http://stackoverflow.com/questions/11072042/headerlocation-redirect-works-on-localhost-but-not-on-remote-server
-			$host  = $_SERVER['HTTP_HOST'];
-			$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-			$extra = 'index.php';
-			header("Location: http://$host$uri/$extra");
 		}
 		else if($this->registerModel->getUserAlreadyExists()) {
 			$this->setRequestMessageId($this->getRequestName() . ' already exists.');

@@ -24,6 +24,16 @@ class UserCatalogue {
         return $users;
     }
     
+    public function getExercises($currentUser) {
+        $file = $currentUser->getStorageFile();
+        $exercises = $this->DAL->getExercisesFromFile($file);
+        
+        if($exercises == null) {
+            $exercises = array();
+        }
+        return $exercises;
+    }
+    
     public function addUser($userName, $userPassword) {
         
         //Hashing the password.
@@ -82,20 +92,14 @@ class UserCatalogue {
         return $currentUser;
     }
     
-    public function getExercises($user) {
-        $file = $user->getStorageFile();
-        $exercises = $this->DAL->getExercisesFromFile($file);
-        
-        if($exercises == null) {
-            $exercises = array();
-        }
-        return $exercises; 
-    }
-    
     public function addExercise($exerciseName) {
         $currentUser = $this->getCurrentUser();
         $file = $currentUser->getStorageFile();
         $exercises = $this->getExercises($currentUser);
+        
+        if($exercises == null) {
+            $exercises = array();
+        }
         
         try {
             $id = 0;
@@ -120,6 +124,7 @@ class UserCatalogue {
         $currentUser = $this->getCurrentUser();
         $file = $currentUser->getStorageFile();
         $exercises = $this->getExercises($currentUser);
+        
         $currentExercise = $this->getCurrentExercise($exercises);
         $currentExercise->setName($exerciseName);
         
@@ -136,7 +141,9 @@ class UserCatalogue {
         $currentUser = $this->getCurrentUser();
         $file = $currentUser->getStorageFile();
         $exercises = $this->getExercises($currentUser);
+        
         $currentExercise = $this->getCurrentExercise($exercises);
+        
         $key = array_search($currentExercise, $exercises);
         unset($exercises[$key]);
         
@@ -152,6 +159,10 @@ class UserCatalogue {
     public function checkIfExerciseExists($exerciseName) {
         $currentUser = $this->getCurrentUser();
         $exercises = $this->getExercises($currentUser);
+        
+        if($exercises == null) {
+            $exercises = array();
+        }
         
         foreach($exercises as $exercise) {
             if($exercise->getName() == $exerciseName) {
@@ -176,6 +187,7 @@ class UserCatalogue {
         $currentUser = $this->getCurrentUser();
         $file = $currentUser->getStorageFile();
         $exercises = $this->getExercises($currentUser);
+        
         $currentExercise = $this->getCurrentExercise($exercises);
         $results = $currentExercise->getResults();
         
@@ -207,8 +219,10 @@ class UserCatalogue {
         $currentUser = $this->getCurrentUser();
         $file = $currentUser->getStorageFile();
         $exercises = $this->getExercises($currentUser);
+        
         $currentExercise = $this->getCurrentExercise($exercises);
         $results = $currentExercise->getResults();
+        
         $currentResult = $this->getCurrentResult($results);
         $currentResult->setText($resultText);
         $currentResult->setDateStamp($date);
@@ -226,9 +240,12 @@ class UserCatalogue {
         $currentUser = $this->getCurrentUser();
         $file = $currentUser->getStorageFile();
         $exercises = $this->getExercises($currentUser);
+        
         $currentExercise = $this->getCurrentExercise($exercises);
         $results = $currentExercise->getResults();
+        
         $currentResult = $this->getCurrentResult($results);
+        
         $key = array_search($currentResult, $results);
         unset($results[$key]);
         

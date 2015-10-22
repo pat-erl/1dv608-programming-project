@@ -42,36 +42,34 @@ class AddResultView {
 	            	$ret .= '<p class ="detailedname">' . $this->printOut($exercise) . '</p>';
 	            }
 	        }
-			
 			$currentExercise = $this->userCatalogue->getCurrentExercise($exercises);
-			if(!empty($currentExercise)) {
-				$exerciseName = $currentExercise->getName();
+			$exerciseName = $currentExercise->getName();
 				
-				$ret .= '
-					<form method="post" > 
-						<fieldset>
-							<legend>Enter result for ' . $exerciseName . '</legend>
-							<p id="' . self::$messageId . '">' . $message . '</p>
-							<label for="' . self::$text . '">Result :</label>
-							<input autofocus type="text" maxlength="10" id="' . self::$text . '" name="' . self::$text . '" value="' . $this->getRequestText() . '" />
-							<input class="longerdatefield" type="date" id="' . self::$date . '" name="' . self::$date . '" value="' . date("Y-m-d") .'" />
-		                    <br />
-							<input id="button" type="submit" name="' . self::$add . '" value="Log" />
-						</fieldset>
-					</form>
-				';
-				return $ret;
-			}
+			$ret .= '
+				<form method="post" > 
+					<fieldset>
+						<legend>Enter result for ' . $exerciseName . '</legend>
+						<p id="' . self::$messageId . '">' . $message . '</p>
+						<label for="' . self::$text . '">Result :</label>
+						<input autofocus type="text" maxlength="10" id="' . self::$text . '" name="' . self::$text . '" value="' . $this->getRequestText() . '" />
+						<input class="longerdatefield" type="date" id="' . self::$date . '" name="' . self::$date . '" value="' . date("Y-m-d") .'" />
+	                    <br />
+						<input id="button" type="submit" name="' . self::$add . '" value="Log" />
+					</fieldset>
+				</form>
+			';
+			return $ret;
 		}
 	}
 	
 	public function printOut($exercise) {
 		$ret = '';
-		$results = $exercise->getResults();
 	    
 		$ret .= $exercise->getName() . '
 		<a class="linklogos" title="edit" href="?' . self::$editExercisePage . '=' . $exercise->getId() . '"><img src="img/editimage.png" width="12px" height="12px"></a>
 		<a class="linklogos" title="delete" href="?' . self::$deleteExercisePage . '=' . $exercise->getId() . '"><img src="img/deleteimage.png" width="12px" height="12px"></a>';
+		
+		$results = $exercise->getResults();
 		
 		if(!empty($results)) {
 			uasort($results, function($a, $b) { return strcmp($a->getDateStamp(), $b->getDateStamp()); } );
@@ -90,7 +88,7 @@ class AddResultView {
 		return $ret;
 	}
 	
-	//Reads the current state from the UserModel and sets the appropriate message.
+	//Reads the current state from the AddResultModel and sets the appropriate message.
 	public function currentState() {
 		if($this->addResultModel->getResultTextEmpty()) {
 			$this->setRequestMessageId('Result must be at least 3 characters.');
@@ -110,7 +108,6 @@ class AddResultView {
 			$this->setRequestMessageId('A date must be in the correct format.');
 		}
 		else if($this->addResultModel->getIsSuccessfulAdd()) {
-			$this->setRequestMessageId('Successfully added ' . $this->getRequestText() . '.');
 			$this->setRequestText('');
 		}
 		else {

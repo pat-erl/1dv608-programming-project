@@ -2,6 +2,10 @@
 
 class AddExerciseView {
     
+    /*
+    
+    */
+    
     private static $messageId = 'AddExerciseView::Message';
     private static $name = 'AddExerciseView::ExerciseName';
     private static $add = 'AddExerciseView::Add';
@@ -34,7 +38,7 @@ class AddExerciseView {
 		';
 	}
 	
-	//Reads the current state from the UserModel and sets the appropriate message.
+	//Reads the current state from the AddExerciseModel and sets the appropriate message.
 	public function currentState() {
 		if($this->addExerciseModel->getExerciseNameEmpty()) {
 			$this->setRequestMessageId('Exercise must be at least 3 characters.');
@@ -46,10 +50,6 @@ class AddExerciseView {
 		}
 		else if($this->addExerciseModel->getExerciseNameTooShort()) {
 			$this->setRequestMessageId('Exercise must be at least 3 characters.');
-		}
-		else if($this->addExerciseModel->getIsSuccessfulAdd()) {
-			$this->setRequestMessageId('Successfully added ' . $this->getRequestName() . '.');
-			$this->setRequestName('');
 		}
 		else if($this->addExerciseModel->getExerciseAlreadyExists()) {
 			$this->setRequestMessageId($this->getRequestName() . ' already exists.');

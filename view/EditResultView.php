@@ -53,7 +53,7 @@ class EditResultView {
 		return $ret;
 	}
 	
-	//Reads the current state from the UserModel and sets the appropriate message.
+	//Reads the current state from the EditResultModel and sets the appropriate message.
 	public function currentState() {
 		if($this->editResultModel->getResultTextEmpty()) {
 			$this->setRequestMessageId('Result must be at least 3 characters.');
@@ -71,10 +71,6 @@ class EditResultView {
 		}
 		else if($this->editResultModel->getDateWrongFormat()) {
 			$this->setRequestMessageId('A date must be in the correct format.');
-		}
-		else if($this->editResultModel->getIsSuccessfulEdit()) {
-			$this->setRequestMessageId('Successfully updated to ' . $this->getRequestText() . '.');
-			$this->setRequestText('');
 		}
 		else {
 			$this->setRequestMessageId('Some other error!');

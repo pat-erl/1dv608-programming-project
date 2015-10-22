@@ -2,6 +2,10 @@
 
 class SummaryView {
     
+    /*
+    
+    */
+    
     private static $addResultPage = 'addresultpage';
     private $userCatalogue;
 	
@@ -20,16 +24,15 @@ class SummaryView {
         
         if(!empty($exercises)) {
             uasort($exercises, function($a, $b) { return strcmp($a->getName(), $b->getName()); } );
+            
             foreach($exercises as $exercise) {
-                $name = strtolower($exercise->getName());
-		        $name = ucfirst($name);
 		        $results = $exercise->getResults();
 		        if(!empty($results)) {
 			        uasort($results, function($a, $b) { return strcmp($a->getDateStamp(), $b->getDateStamp()); } );
 			        $results = array_reverse($results);
 			        $latestResultText = $results[0]->getText();
 			        $latestResultDateStamp = $results[0]->getDateStamp();
-			        $ret .= '<a class="summarylinks" href="?'. self::$addResultPage . '=' . $exercise->getId() . '"><p class="summary">' . $name . '</a> : ' . 
+			        $ret .= '<a class="summarylinks" href="?'. self::$addResultPage . '=' . $exercise->getId() . '"><p class="summary">' . $exercise->getName() . '</a> : ' . 
                     '<span class="latestresult">' . $latestResultText . '</span>' . ' - ' . '<span class="datestamp">' . $latestResultDateStamp . '</span></p>';
 		        }
             }

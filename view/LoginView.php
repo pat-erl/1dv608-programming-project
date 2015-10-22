@@ -2,6 +2,10 @@
 
 class LoginView {
 	
+	/*
+    	
+    */
+	
 	private static $login = 'LoginView::Login';
 	private static $logout = 'LoginView::Logout';
 	private static $name = 'LoginView::UserName';
@@ -23,10 +27,7 @@ class LoginView {
 	}
 	
 	public function logoutPanel() {
-		$message = '';
-		
-		$message = $this->getRequestMessageId();
-		return $this->generateLogoutButton($message); 
+		return $this->generateLogoutButton(); 
 	}
 	
 	private function generateLoginForm($message) {
@@ -49,12 +50,9 @@ class LoginView {
 		';
 	}
 	
-	private function generateLogoutButton($message) {
-		assert(is_string($message), 'First argument was not a string');
-		
+	private function generateLogoutButton() {
 		return '
 			<form id="logoutform" method="post">
-				<p id="' . self::$messageId . '">' . $message .'</p>
 				<input id="buttonlogout" type="submit" name="' . self::$logout . '" value="Logout"/>
 			</form>
 		';
@@ -67,15 +65,6 @@ class LoginView {
 		}
 		else if($this->loginModel->getUserPasswordEmpty()) {
 			$this->setRequestMessageId('Password is missing.');
-		}
-		else if($this->loginModel->getIsAlreadyLoggedIn()) {
-			$this->setRequestMessageId('');
-		}
-		else if($this->loginModel->getIsLoggedIn()) {
-			$this->setRequestMessageId('Welcome ' . $this->getRequestName() . '!');
-		}
-		else if($this->loginModel->getIsLoggedOut()) {
-			$this->setRequestMessageId('Keep improving. See you soon.');
 		}
 		else {
 			$this->setRequestMessageId('Wrong name or password.');
@@ -94,13 +83,7 @@ class LoginView {
 	
 	public function getRequestName() {
 		if(!isset($_POST[self::$name])) {
-			if(isset($_SESSION['RegName'])) { //Kolla detta i sessionModel som alla andra filer gör?????
-				$this->setRequestName($_SESSION['RegName']);
-				unset($_SESSION['RegName']);
-			}
-			else {
-				$this->setRequestName('');
-			}
+			$this->setRequestName('');
 		}
 		return $_POST[self::$name];
 	}
@@ -127,7 +110,8 @@ class LoginView {
 	public function getRequestMessageId() {
 		if(!isset($_POST[self::$messageId])) {
 			if(isset($_SESSION['RegName'])) {
-				$this->setRequestMessageId('Successfully registered ' . $this->getRequestName() . '.');
+				$this->setRequestMessageId('Successfully registered ' . $_SESSION['RegName'] . '.'); //Kolla detta i sessionModel som alla andra filer gör????
+				unset($_SESSION['RegName']);
 			}
 			else {
 				$this->setRequestMessageId('');

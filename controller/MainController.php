@@ -31,6 +31,7 @@ class MainController {
         $this->mainView = $mainView;
     }
     
+    //Checks which method to run.
     public function startApplication() {
         if($this->sessionModel->existingSession()) {
             $this->loginModel->alreadyLoggedIn();
@@ -84,6 +85,7 @@ class MainController {
 				$this->sessionModel->setSession($userName);
 			}
 			//Det är här som jag ska ha if else eller true catch beroende på hur insättningen gick...detta gäller samtliga nedanför med förmodligen...
+			//Kanske bara skicka iväg ett meddelande till view??
 			$this->mainView->currentStateInLoginView();
         }
     }

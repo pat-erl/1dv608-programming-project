@@ -90,6 +90,13 @@ class MainView {
             else if($this->isSelectExercisePageSet()) {
                 $ret .= $this->selectExerciseView->response();
             }
+            else if(($this->getRequestAddFromAddExerciseView() && $this->addExerciseModel->getIsSuccessfulAdd()) || $this->getRequestDeleteFromDeleteExerciseView()) {
+                //Detta har jag fått från http://stackoverflow.com/questions/11072042/headerlocation-redirect-works-on-localhost-but-not-on-remote-server
+                $host  = $_SERVER['HTTP_HOST'];
+			    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+			    $extra = "index.php?selectexercisepage";
+			    header("Location: http://$host$uri/$extra");
+            }
             else if($this->isAddExercisePageSet()) {
                 $ret .= $this->addExerciseView->response();
             }
@@ -101,21 +108,21 @@ class MainView {
             else if($this->isAddResultPageSetFromSummaryView() || $this->isAddResultPageSetFromSelectExerciseView()) {
                 $ret .= $this->addResultView->response();
             }
+            else if(($this->getRequestEditFromEditResultView() && $this->editResultModel->getIsSuccessfulEdit()) || ($this->getRequestEditFromEditExerciseView() && $this->editExerciseModel->getIsSuccessfulEdit()) || $this->getRequestDeleteFromDeleteResultView()) {
+                $currentUser = $this->userCatalogue->getCurrentUser();
+                $exercises = $this->userCatalogue->getExercises($currentUser);
+                $currentExercise = $this->userCatalogue->getCurrentExercise($exercises);
+                $id = $currentExercise->getId();
+			    $host  = $_SERVER['HTTP_HOST'];
+			    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+			    $extra = "index.php?addresultpage=$id";
+			    header("Location: http://$host$uri/$extra");
+            }
             else if($this->isEditResultPageSet()) {
                 $ret .= $this->editResultView->response();
             }
             else if($this->isEditExercisePageSet()) {
                 $ret .= $this->editExerciseView->response();
-            }
-            else if($this->getRequestDeleteFromDeleteResultView()) {
-                $currentUser = $this->userCatalogue->getCurrentUser();
-                $exercises = $this->userCatalogue->getExercises($currentUser);
-                $currentExercise = $this->userCatalogue->getCurrentExercise($exercises);
-                $id = $currentExercise->getId();
-                header("Location: index.php?addresultpage=$id");
-            }
-            else if($this->getRequestDeleteFromDeleteExerciseView()) {
-                header("Location: index.php?selectexercisepage");
             }
             else if($this->isDeleteResultPageSet()) {
                 $ret .= $this->deleteResultView->response();
@@ -128,6 +135,12 @@ class MainView {
             }
         }
         else {
+            if($this->getRequestLogoutFromLoginView() || ($this->getRequestRegisterFromRegisterView() && $this->registerModel->getIsSuccessfulReg())) {
+			    $host  = $_SERVER['HTTP_HOST'];
+			    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+			    $extra = "index.php?loginpage";
+			    header("Location: http://$host$uri/$extra");
+            }
             //Gets the info from NavigationView
             if($this->isRegisterPageSet()) {
                 $ret .= $this->registerView->response();
