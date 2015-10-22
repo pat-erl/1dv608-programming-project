@@ -1,7 +1,7 @@
-# 1dv608 - Programming Project. Strength Logger
+# 1dv608 - Programming Project. Result Logger
 
 ### By Patrik Erlandsson WP14
 
-* Public [server-link](http://strengthlogger.uphero.com/) for the application. 
+* Public [server-link](http://resultlogger.com/) for the application. 
 
-A simple logging-system for strength-training. Created in PHP. 
+A simple and easy-to-use web-application for logging training-results. Created in PHP. 

@@ -54,7 +54,7 @@ class MainView {
     }
     
     public function showHeadline() {
-        $ret = "<h1>Strength Logger</h1>";
+        $ret = "<h1>Result Logger</h1>";
         
         if($this->loginModel->getIsLoggedIn()) {
             $currentUser = $this->userCatalogue->getCurrentUser();

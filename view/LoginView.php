@@ -83,7 +83,13 @@ class LoginView {
 	
 	public function getRequestName() {
 		if(!isset($_POST[self::$name])) {
-			$this->setRequestName('');
+			if(isset($_SESSION['RegName'])) {
+				$this->setRequestName($_SESSION['RegName']); //Kolla detta i sessionModel som alla andra filer gör????
+				unset($_SESSION['RegName']);
+			}
+			else {
+				$this->setRequestName('');
+			}
 		}
 		return $_POST[self::$name];
 	}
@@ -111,7 +117,6 @@ class LoginView {
 		if(!isset($_POST[self::$messageId])) {
 			if(isset($_SESSION['RegName'])) {
 				$this->setRequestMessageId('Successfully registered ' . $_SESSION['RegName'] . '.'); //Kolla detta i sessionModel som alla andra filer gör????
-				unset($_SESSION['RegName']);
 			}
 			else {
 				$this->setRequestMessageId('');
