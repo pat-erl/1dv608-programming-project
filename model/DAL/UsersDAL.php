@@ -9,11 +9,7 @@ class UsersDAL {
     private $storageFile;
     
     public function __construct() {
-        $this->storageFile = $this->getCurrentDirectory();
-    }
-    
-    public function getCurrentDirectory() {
-        return dirname(__FILE__) . '/storagefiles/users.txt';
+        $this->storageFile = '/customers/7/b/0/resultlogger.com//httpd.www/model/DAL/storagefiles/users.txt';
     }
     
     //Gets all the users from file.
