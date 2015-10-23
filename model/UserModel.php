@@ -14,7 +14,7 @@ class UserModel {
         $this->name = $name;
         $this->password = $password;
         $this->exercises = $exercises;
-        $this->storageFile = '/customers/7/b/0/resultlogger.com//httpd.www/model/DAL/storagefiles/userfiles/' . $name . '.txt';
+        $this->storageFile = '/model/DAL/storagefiles/userfiles/' . $name . '.txt';
     }
     
     //Getters and setters for the private membervariables.

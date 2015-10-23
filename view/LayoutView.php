@@ -3,7 +3,7 @@
 class LayoutView {
     
     /*
-    Handles the rendering to the client.
+        Handles the rendering to the client.
     */
     
     public function render(MainView $mainView, NavigationView $navigationView) {

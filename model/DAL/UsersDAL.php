@@ -3,13 +3,13 @@
 class UsersDAL {
     
      /*
-    Handles logic regarding storage of users and exercises.
+        Handles logic regarding storage of users and exercises.
     */
     
     private $storageFile;
     
     public function __construct() {
-        $this->storageFile = '/customers/7/b/0/resultlogger.com//httpd.www/model/DAL/storagefiles/users.txt';
+        $this->storageFile = '/model/DAL/storagefiles/users.txt';
     }
     
     //Gets all the users from file.
