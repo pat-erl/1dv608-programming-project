@@ -6,7 +6,15 @@ class UsersDAL {
     Handles logic regarding storage of users and exercises.
     */
     
-    private $storageFile = "model/DAL/storagefiles/users.txt";
+    private $storageFile;
+    
+    public function __construct() {
+        $this->storageFile = $this->getCurrentDirectory();
+    }
+    
+    public function getCurrentDirectory() {
+        return dirname(__FILE__) . '/storagefiles/users.txt';
+    }
     
     //Gets all the users from file.
     public function getUsersFromFile() {

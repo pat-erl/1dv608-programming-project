@@ -94,7 +94,7 @@ class MainView {
                 //Detta har jag fått från http://stackoverflow.com/questions/11072042/headerlocation-redirect-works-on-localhost-but-not-on-remote-server
                 $host  = $_SERVER['HTTP_HOST'];
 			    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-			    $extra = "index.php?selectexercisepage";
+			    $extra = "?selectexercisepage";
 			    header("Location: http://$host$uri/$extra");
             }
             else if($this->isAddExercisePageSet()) {
@@ -115,7 +115,7 @@ class MainView {
                 $id = $currentExercise->getId();
 			    $host  = $_SERVER['HTTP_HOST'];
 			    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-			    $extra = "index.php?addresultpage=$id";
+			    $extra = "?addresultpage=$id";
 			    header("Location: http://$host$uri/$extra");
             }
             else if($this->isEditResultPageSet()) {
@@ -138,7 +138,7 @@ class MainView {
             if($this->getRequestLogoutFromLoginView() || ($this->getRequestRegisterFromRegisterView() && $this->registerModel->getIsSuccessfulReg())) {
 			    $host  = $_SERVER['HTTP_HOST'];
 			    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-			    $extra = "index.php?loginpage";
+			    $extra = "?loginpage";
 			    header("Location: http://$host$uri/$extra");
             }
             //Gets the info from NavigationView

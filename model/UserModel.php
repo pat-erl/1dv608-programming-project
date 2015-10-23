@@ -14,7 +14,11 @@ class UserModel {
         $this->name = $name;
         $this->password = $password;
         $this->exercises = $exercises;
-        $this->storageFile = 'model/DAL/storagefiles/userfiles/' . $name . '.txt';
+        $this->storageFile = $this->getCurrentDirectory($name);
+    }
+    
+    public function getCurrentDirectory($name) {
+        return dirname(__FILE__) . '/DAL/storagefiles/userfiles/' . $name . '.txt';
     }
     
     //Getters and setters for the private membervariables.

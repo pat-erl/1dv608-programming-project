@@ -14,7 +14,7 @@ class LayoutView {
             <head>
                 <meta charset="utf-8">
                 <link rel="stylesheet" type="text/css" href="css/style.css">
-                <title>Programming project - Result Logger</title>
+                <title>Result Logger</title>
             </head>
             <body>
                 ' . $mainView->showHeadline() .'
