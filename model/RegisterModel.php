@@ -3,7 +3,7 @@
 class RegisterModel {
     
     /*
-    Handles logic regarding registration.
+        Handles logic regarding registration.
     */
     
     private $userCatalogue;

@@ -3,12 +3,11 @@
 class UserCatalogue {
     
      /*
-    Handles logic regarding getting, adding and editing users, exercises and results.
+        Handles logic regarding getting, adding and editing users, exercises and results.
     */
     
     private $sessionModel;
     private $DAL;
-    //private $salt = '/&tggt%F%F&ygyuIYibjiuhiu';
     
     public function __construct(SessionModel $sessionModel, UsersDAL $usersDAL) {
         $this->sessionModel = $sessionModel;
@@ -41,9 +40,10 @@ class UserCatalogue {
 
         $users = $this->getUsers();
 
+        $newUser = new UserModel($userName, $userPassword, null);
+        $users[] = $newUser;
+        
         try {
-            $newUser = new UserModel($userName, $userPassword, null);
-            $users[] = $newUser;
             $this->DAL->saveUsersToFile($users);
             return true;
         }
@@ -101,17 +101,18 @@ class UserCatalogue {
             $exercises = array();
         }
         
-        try {
-            $id = 0;
-            foreach($exercises as $exercise){
-                if($exercise->getId() > $id) {
-                    $id = $exercise->getId();
-                }
+        $id = 0;
+        foreach($exercises as $exercise){
+            if($exercise->getId() > $id) {
+                $id = $exercise->getId();
             }
-            $id++;
-            
-            $newExercise = new ExerciseModel($id, $exerciseName, null);
-            $exercises[] = $newExercise;
+        }
+        $id++;
+        
+        $newExercise = new ExerciseModel($id, $exerciseName, null);
+        $exercises[] = $newExercise;
+        
+        try {
             $this->DAL->saveExercisesToFile($exercises, $file);
             return true;
         }
@@ -195,18 +196,19 @@ class UserCatalogue {
             $results = array();
         }
         
-        try {
-            $id = 0;
-            foreach($results as $result){
-                if($result->getId() > $id) {
-                    $id = $result->getId();
-                }
+        $id = 0;
+        foreach($results as $result){
+            if($result->getId() > $id) {
+                $id = $result->getId();
             }
-            $id++;
-            
-            $newResult = new ResultModel($id, $resultText, $date);
-            $results[] = $newResult;
-            $currentExercise->setResults($results);
+        }
+        $id++;
+        
+        $newResult = new ResultModel($id, $resultText, $date);
+        $results[] = $newResult;
+        $currentExercise->setResults($results);
+        
+        try {
             $this->DAL->saveExercisesToFile($exercises, $file);
             return true;
         }
@@ -249,8 +251,9 @@ class UserCatalogue {
         $key = array_search($currentResult, $results);
         unset($results[$key]);
         
+        $currentExercise->setResults($results);
+        
         try {
-            $currentExercise->setResults($results);
             $this->DAL->saveExercisesToFile($exercises, $file);
             return true;
         }

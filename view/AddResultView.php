@@ -89,7 +89,7 @@ class AddResultView {
 	}
 	
 	//Reads the current state from the AddResultModel and sets the appropriate message.
-	public function currentState() {
+	public function displayMessage() {
 		if($this->addResultModel->getResultTextEmpty()) {
 			$this->setRequestMessageId('Result must be at least 3 characters.');
 		}

@@ -38,6 +38,7 @@ class ResultModel {
     
     public function setDateStamp($date) {
         assert(is_string($date), 'First argument was not a string');
+        
         $this->dateStamp = $date;
     }
 }

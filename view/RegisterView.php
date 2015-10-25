@@ -47,7 +47,7 @@ class RegisterView {
 	}
 	
 	//Reads the current state from the RegisterModel and sets the appropriate message.
-	public function currentState() {
+	public function displayMessage() {
 		if($this->registerModel->getUserNameEmpty()) {
 			$this->setRequestMessageId('Username must be at least 3 characters.
 			<br />Password must be at least 6 characters.');

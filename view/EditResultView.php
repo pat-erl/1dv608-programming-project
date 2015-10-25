@@ -54,7 +54,7 @@ class EditResultView {
 	}
 	
 	//Reads the current state from the EditResultModel and sets the appropriate message.
-	public function currentState() {
+	public function displayMessage() {
 		if($this->editResultModel->getResultTextEmpty()) {
 			$this->setRequestMessageId('Result must be at least 3 characters.');
 		}

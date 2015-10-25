@@ -3,7 +3,7 @@
 class MainController {
     
     /*
-    
+        .. depending on where the user wants to do.
     */
     
     private $userCatalogue;
@@ -35,7 +35,7 @@ class MainController {
     public function startApplication() {
         if($this->sessionModel->existingSession()) {
             $this->loginModel->alreadyLoggedIn();
-            $this->mainView->currentStateInLoginView(); //Detta kommer jag ändra på något sätt, känns lite muppigt, bättre att ha try catch och säga till view vad som ska köras och visas då istället
+            $this->mainView->displayMessageInLoginView();
             $this->checkIfLogout();
         }
         else {
@@ -72,7 +72,7 @@ class MainController {
         if($this->mainView->getRequestLogoutFromLoginView()) {
             $this->loginModel->doLogout();
             $this->sessionModel->unsetSession();
-            $this->mainView->currentStateInLoginView();
+            $this->mainView->displayMessageInLoginView();
         }
     }
     
@@ -84,9 +84,7 @@ class MainController {
 			if($this->loginModel->doTryToLogin($userName, $userPassword)) {
 				$this->sessionModel->setSession($userName);
 			}
-			//Det är här som jag ska ha if else eller true catch beroende på hur insättningen gick...detta gäller samtliga nedanför med förmodligen...
-			//Kanske bara skicka iväg ett meddelande till view??
-			$this->mainView->currentStateInLoginView();
+			$this->mainView->displayMessageInLoginView();
         }
     }
     
@@ -94,7 +92,7 @@ class MainController {
 		if($this->mainView->getRequestAddFromAddExerciseView()) {
 			$exerciseName = $this->mainView->getRequestNameFromAddExerciseView();
 		    $this->addExerciseModel->doTryToAdd($exerciseName);
-		    $this->mainView->currentStateInAddExerciseView();
+		    $this->mainView->displayMessageInAddExerciseView();
 		}
 	}
 	
@@ -102,7 +100,7 @@ class MainController {
 		if($this->mainView->getRequestEditFromEditExerciseView()) {
 			$exerciseName = $this->mainView->getRequestNameFromEditExerciseView();
 		    $this->editExerciseModel->doTryToEdit($exerciseName);
-		    $this->mainView->currentStateInEditExerciseView();
+		    $this->mainView->displayMessageInEditExerciseView();
 		}
 	}
     
@@ -115,7 +113,7 @@ class MainController {
 		    if($this->registerModel->doTryToRegister($userName, $userPassword, $userPasswordRepeat)) {
 		        $this->sessionModel->setRegSession($userName);
 		    }
-		    $this->mainView->currentStateInRegisterView();
+		    $this->mainView->displayMessageInRegisterView();
 		}
 	}
     
@@ -127,7 +125,7 @@ class MainController {
             $resultText = $this->mainView->getRequestTextFromAddResultView();
             $date = $this->mainView->getRequestDateFromAddResultView();
             $this->addResultModel->doTryToAdd($resultText, $date);
-            $this->mainView->currentStateInAddResultView();
+            $this->mainView->displayMessageInAddResultView();
 	    }
     }
     
@@ -139,7 +137,7 @@ class MainController {
             $resultText = $this->mainView->getRequestTextFromEditResultView();
             $date = $this->mainView->getRequestDateFromEditResultView();
             $this->editResultModel->doTryToEdit($resultText, $date);
-            $this->mainView->currentStateInEditResultView();
+            $this->mainView->displayMessageInEditResultView();
 	    }
     }
     

@@ -27,6 +27,7 @@ class ExerciseModel {
     
     public function setName($name) {
         assert(is_string($name), 'First argument was not a string');
+        
         $this->name = $name;
     }
     

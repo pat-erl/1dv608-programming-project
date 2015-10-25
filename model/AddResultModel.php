@@ -3,7 +3,7 @@
 class AddResultModel {
     
     /*
-    Handles logic regarding adding results.
+        Handles logic regarding adding results.
     */
     
     private $userCatalogue;

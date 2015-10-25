@@ -38,12 +38,16 @@ class UsersDAL {
     //Saves all the users to file.
     public function saveUsersToFile($users) {
         $contents = serialize($users);
-        file_put_contents($this->storageFile, $contents);
+        if(!file_put_contents($this->storageFile, $contents)) {
+            throw new Exception();
+        }
     }
     
     //Saves a user's all exercises to file.
     public function saveExercisesToFile($exercises, $file) {
         $contents = serialize($exercises);
-        file_put_contents($file, $contents);
+        if(!file_put_contents($file, $contents)) {
+            throw new Exception();
+        }
     }
 }

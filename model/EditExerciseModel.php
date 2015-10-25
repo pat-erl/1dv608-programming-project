@@ -3,7 +3,7 @@
 class EditExerciseModel {
     
     /*
-    Handles logic regarding editing exercises.
+        Handles logic regarding editing exercises.
     */
     
     private $userCatalogue;

@@ -48,7 +48,7 @@ class EditExerciseView {
 	}
 	
 	//Reads the current state from the EditExerciseModel and sets the appropriate message.
-	public function currentState() {
+	public function displayMessage() {
 		if($this->editExerciseModel->getExerciseNameEmpty()) {
 			$this->setRequestMessageId('Exercise must be at least 3 characters.');
 		}

@@ -3,7 +3,7 @@
 class AddExerciseModel {
     
     /*
-    Handles logic regarding adding exercises.
+        Handles logic regarding adding exercises.
     */
     
     private $userCatalogue;

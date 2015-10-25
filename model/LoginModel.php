@@ -3,7 +3,7 @@
 class LoginModel {
     
     /*
-    Handles logic regarding login and logout.
+        Handles logic regarding login and logout.
     */
     
     private $userCatalogue;

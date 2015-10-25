@@ -3,7 +3,7 @@
 class MainView {
     
     /*
-    
+        Shows the headlines and the main content from the views depending on where the user wants to go.
     */
     
     private $userCatalogue;
@@ -304,27 +304,27 @@ class MainView {
     
     
     
-    public function currentStateInLoginView() {
-        $this->loginView->currentState();
+    public function displayMessageInLoginView() {
+        $this->loginView->displayMessage();
     }
     
-    public function currentStateInRegisterView() {
-        $this->registerView->currentState();
+    public function displayMessageInRegisterView() {
+        $this->registerView->displayMessage();
     }
     
-    public function currentStateInAddExerciseView() {
-        $this->addExerciseView->currentState();
+    public function displayMessageInAddExerciseView() {
+        $this->addExerciseView->displayMessage();
     }
     
-    public function currentStateInEditExerciseView() {
-        $this->editExerciseView->currentState();
+    public function displayMessageInEditExerciseView() {
+        $this->editExerciseView->displayMessage();
     }
     
-    public function currentStateInAddResultView() {
-        $this->addResultView->currentState();
+    public function displayMessageInAddResultView() {
+        $this->addResultView->displayMessage();
     }
     
-    public function currentStateInEditResultView() {
-        $this->editResultView->currentState();
+    public function displayMessageInEditResultView() {
+        $this->editResultView->displayMessage();
     }
 }

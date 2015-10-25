@@ -59,7 +59,7 @@ class LoginView {
 	}
 	
 	//Reads the current state from the LoginModel and sets the appropriate message.
-	public function currentState() {
+	public function displayMessage() {
 		if($this->loginModel->getUserNameEmpty()) {
 			$this->setRequestMessageId('Username is missing.');
 		}

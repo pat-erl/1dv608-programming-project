@@ -3,7 +3,7 @@
 class EditResultModel {
     
     /*
-    Handles logic regarding editing results.
+        Handles logic regarding editing results.
     */
     
     private $userCatalogue;

@@ -3,7 +3,7 @@
 class SessionModel {
     
     /*
-    Handles logic regarding sessions.
+        Handles logic regarding sessions.
     */
     
     private static $nameId = 'Name';
