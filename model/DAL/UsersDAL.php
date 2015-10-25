@@ -9,10 +9,8 @@ class UsersDAL {
     private $storageFile;
     
     public function __construct() {
-        
-        var_dump(realpath(null));
-
-        $this->storageFile = 'model/DAL/storagefiles/users.txt';
+        $dir = dirname(__FILE__);
+        $this->storageFile = $dir . '/storagefiles/users.txt';
     }
     
     //Gets all the users from file.
