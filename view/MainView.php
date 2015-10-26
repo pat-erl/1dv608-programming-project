@@ -83,7 +83,6 @@ class MainView {
         
         if($this->loginModel->getIsLoggedIn()) {
             
-            //Gets the info from NavigationView
             if($this->isSummaryPageSet()) {
                 $ret .= $this->summaryView->response();
             }
@@ -103,8 +102,6 @@ class MainView {
             else if($this->isLoginPageSet()) {
                 $ret .= $this->summaryView->response();
             }
-            
-            //Gets not the info from NavigationView.
             else if($this->isAddResultPageSetFromSummaryView() || $this->isAddResultPageSetFromSelectExerciseView()) {
                 $ret .= $this->addResultView->response();
             }
@@ -141,7 +138,6 @@ class MainView {
 			    $extra = "?loginpage";
 			    header("Location: http://$host$uri/$extra");
             }
-            //Gets the info from NavigationView
             if($this->isRegisterPageSet()) {
                 $ret .= $this->registerView->response();
             }
@@ -281,8 +277,6 @@ class MainView {
     public function getRequestDeleteFromDeleteExerciseView() {
         return $this->deleteExerciseView->getRequestDelete();
     }
-    
-    
     
     
     

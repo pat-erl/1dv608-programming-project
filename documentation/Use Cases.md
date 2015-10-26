@@ -1,12 +1,12 @@
 ## Use Cases
 
-### UC1 - Register
+### UC 1 - Register
 
 **Main scenario**
 
 * Starts when a user wants to create login-credentials.
-* System asks for username, password and a repeated password.
-* User provides the necessary input.
+* System asks for username, password and repeated password.
+* User provides username, password and repeated password.
 * System saves the credentials and presents a success message.
 
 **Alternate scenarios**
@@ -16,13 +16,13 @@ Credentials could not be registered due to invalid input.
 * System presents an error message.
 * Step 2 in main scenario.
 
-### UC2 - Login
+### UC 2 - Login
 
 **Main scenario**
 
 * Starts when a user wants to authenticate.
 * System asks for username and password.
-* User provides the necessary input.
+* User provides username and password.
 * System authenticates the user and presents the users page.
 
 **Alternate scenarios**
@@ -32,7 +32,7 @@ User could not be authenticated due to invalid input.
 * System presents an error message.
 * Step 2 in main scenario.
 
-### UC3 - Add Exercise
+### UC 3 - Add Exercise
 
 **Preconditions**
 
@@ -42,7 +42,7 @@ User could not be authenticated due to invalid input.
 
 * Starts when the user clicks on "add exercise".
 * System asks for a name of an exercise.
-* User provides the necessary input.
+* User provides a name of an exercise.
 * System saves the exercise and presents the users collection of created exercises.
 
 **Alternate scenarios**
@@ -52,7 +52,7 @@ Exercise could not be created due to invalid input.
 * System presents an error message.
 * Step 2 in main scenario.
 
-### UC4 - Add Result
+### UC 4 - Add Result
 
 **Preconditions**
 
@@ -62,7 +62,7 @@ Exercise could not be created due to invalid input.
 
 * Starts when the user clicks on an exercise in the collection of created exercises.
 * System asks for a result-text and a date.
-* User provides the necessary input.
+* User provides a result-text and a date.
 * System saves the result and presents the current exercise with all logged results.
 
 **Alternate scenarios**
@@ -72,7 +72,7 @@ Result could not be created due to invalid input.
 * System presents an error message.
 * Step 2 in main scenario.
 
-### UC5 - Edit Exercise
+### UC 5 - Edit Exercise
 
 **Preconditions**
 
@@ -83,7 +83,7 @@ Result could not be created due to invalid input.
 
 * Starts when the user clicks on "edit exercise".
 * System asks for a name of an exercise.
-* User provides the necessary input.
+* User provides a name of an exercise.
 * System saves the exercise and presents the current exercise with all logged results.
 
 **Alternate scenarios**
@@ -93,7 +93,7 @@ Exercise could not be edited due to invalid input.
 * System presents an error message.
 * Step 2 in main scenario.
 
-### UC6 - Edit Result
+### UC 6 - Edit Result
 
 **Preconditions**
 
@@ -104,7 +104,7 @@ Exercise could not be edited due to invalid input.
 
 * Starts when the user clicks on "edit result".
 * System asks for a result-text and a date.
-* User provides the necessary input.
+* User provides a result-text and a date.
 * System saves the result and presents the current exercise with all logged results.
 
 **Alternate scenarios**
@@ -114,7 +114,7 @@ Result could not be edited due to invalid input.
 * System presents an error message.
 * Step 2 in main scenario.
 
-### UC7 - Delete Exercise
+### UC 7 - Delete Exercise
 
 **Preconditions**
 
@@ -125,14 +125,16 @@ Result could not be edited due to invalid input.
 
 * Starts when the user clicks on "delete exercise".
 * System asks the user to confirm delete.
-* User provides the necessary input.
+* User confirms delete.
 * System deletes the exercise and presents the users collection of created exercises.
 
 **Alternate scenarios**
 
-back button????
+User clicks on other link intead of confirming.
 
-### UC8 - Delete Result
+* System presents content based on which other link was clicked.
+
+### UC 8 - Delete Result
 
 **Preconditions**
 
@@ -143,14 +145,16 @@ back button????
 
 * Starts when the user clicks on "delete result".
 * System asks the user to confirm delete.
-* User provides the necessary input.
+* User confirms delete.
 * System deletes the result and presents the current exercise with all logged results.
 
 **Alternate scenarios**
 
-back button????
+User clicks on other link intead of confirming.
 
-### UC9 - Logout
+* System presents content based on which other link was clicked.
+
+### UC 9 - Logout
 
 **Preconditions**
 

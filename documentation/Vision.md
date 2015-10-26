@@ -1,15 +1,15 @@
 ## Vision
 
-En stilren resultatlogg för olika typer av övningar där det ska gå att skapa egna övningar och logga sitt bästa resultat för dem. 
+En stilren resultatlogg för valfri träningsform där det ska gå att skapa egna övningar och logga sitt bästa resultat för dem. 
 Träningsloggen ska vara personlig och kommer därför ha ett login-system där en användare matar in användarnamn och ett lösenord. 
 För att kunna logga in behöver man först göra en registrering med önskat användarnamn och lösenord.
 
 När användaren har loggat in så ska det finnas tre olika val att göra:
 * Man ska kunna lägga till nya övningar.
-* Man ska utifrån en lista med samtliga tillagda övningar i bokstavsordning kunna välja att se en övnings samtliga loggade resultat. 
-Resultaten listas i datumordning med det nyaste först. Här ska man också kunna lägga till ett nytt resultat, samt editera eller ta bort övning eller resultat.
-* Man ska kunna välja att se en sammanfattning av de övningar som har resultat. De ska presenteras i  bokstavsordning och endast visa det senast loggade resultatet.
-En övning syns ej om det inte finns något loggat resultat i den.
+* Man ska utifrån en lista med samtliga tillagda övningar kunna välja att se en övnings samtliga loggade resultat. Övningarna ska presenteras i bokstavsordning. 
+Resultaten ska listas i datumordning med det nyaste först. Här ska man också kunna lägga till nya resultat, editera eller ta bort övningen eller resultat.
+* Man ska kunna välja att se en sammanfattning av de övningar som har loggade resultat. De ska presenteras i bokstavsordning och endast visa det senast loggade resultatet.
+En övning syns ej om det inte finns något loggat resultat för den.
 
 Syftet med applikationen är att man ska logga sitt bästa resultat i en övning, alltså sin nuvarande nivå. 
 När man sedan tränar vidare och slår det resultatet så loggar med det nya förbättrade resultatet. 

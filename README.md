@@ -1,4 +1,4 @@
-# 1dv608 - Programming Project. Result Logger
+## 1dv608 - Programming Project. Result Logger
 
 ### By Patrik Erlandsson WP14
 
