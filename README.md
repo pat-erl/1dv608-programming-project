@@ -2,6 +2,6 @@
 
 ### By Patrik Erlandsson WP14
 
-* Public [server-link](http://resultlogger.com/) for the application. 
+**[www.resultlogger.com](http://resultlogger.com/)**
 
 A simple and easy-to-use web-application for logging training-results. Created in PHP. 

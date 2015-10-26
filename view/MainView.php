@@ -3,7 +3,7 @@
 class MainView {
     
     /*
-        Shows the headlines and the main content from the views depending on where the user wants to go.
+        Shows the headlines and the main content from the views based on what the user does.
     */
     
     private $userCatalogue;
