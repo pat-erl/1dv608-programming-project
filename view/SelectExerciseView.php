@@ -3,7 +3,7 @@
 class SelectExerciseView {
     
     /*
-    
+        Handles the content for selecting exercises.
     */
     
     private static $addResultPage = 'addresultpage';

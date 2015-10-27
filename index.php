@@ -31,7 +31,7 @@ require_once('controller/MainController.php');
 
 //Displaying errors.
 error_reporting(E_ALL);
-ini_set('display_errors', 'On');
+ini_set('display_errors', 'Off');
 
 //Creating all the objects.
 

@@ -3,7 +3,7 @@
 class AddResultView {
 	
 	/*
-    
+    	Handles the content for adding new results.
     */
     
     private static $editResultPage = 'editresultpage';

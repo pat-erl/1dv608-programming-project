@@ -15,45 +15,38 @@ class SessionModel {
         session_start();
     }
     
-    //Returns true or false depending on if the membervariables contains data or not.
     public function existingSession() {
         return isset($_SESSION[self::$nameId]);
     }
     
-    //Saves session data in the membervariables.
     public function setSession($name) {
         assert(is_string($name), 'First argument was not a string');
         
         $_SESSION[self::$nameId] = $name;
     }
     
-    //Saves session data in the membervariables.
     public function setRegSession($name) {
         assert(is_string($name), 'First argument was not a string');
         
         $_SESSION[self::$regNameId] = $name;
     }
     
-    //Saves session data in the membervariables.
     public function setExerciseSession($id) {
         assert(is_numeric($id), 'First argument was not a numeric value');
         
         $_SESSION[self::$exerciseId] = $id;
     }
     
-    //Saves session data in the membervariables.
     public function setResultSession($id) {
         assert(is_numeric($id), 'First argument was not a numeric value');
         
         $_SESSION[self::$resultId] = $id;
     }
     
-    //Erases session data.
     public function unsetSession() {
         unset($_SESSION[self::$nameId]);
     }
     
-    //Erases session data.
     public function unsetRegSession() {
         unset($_SESSION[self::$regNameId]);
     }

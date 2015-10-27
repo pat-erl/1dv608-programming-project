@@ -3,7 +3,7 @@
 class MainView {
     
     /*
-        Shows the headlines and the main content from the views based on what the user does.
+        Shows the headlines and shows content from the other views based on what the user wants to do.
     */
     
     private $userCatalogue;
@@ -83,6 +83,8 @@ class MainView {
         
         if($this->loginModel->getIsLoggedIn()) {
             
+            //Detta kan bara köras om en användare är inloggad.
+            
             if($this->isSummaryPageSet()) {
                 $ret .= $this->summaryView->response();
             }
@@ -132,6 +134,9 @@ class MainView {
             }
         }
         else {
+            
+            //Detta kan bara köras om en användare ej är inloggad.
+            
             if($this->getRequestLogoutFromLoginView() || ($this->getRequestRegisterFromRegisterView() && $this->registerModel->getIsSuccessfulReg())) {
 			    $host  = $_SERVER['HTTP_HOST'];
 			    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
@@ -148,7 +153,8 @@ class MainView {
        return $ret;
     }
     
-    //Gets the info from NavigationView
+
+
     public function isSummaryPageSet() {
         return $this->navigationView->isSummaryPageSet();
     }
@@ -165,7 +171,8 @@ class MainView {
         return $this->navigationView->isRegisterPageSet();
     }
     
-    //Gets not the info from NavigationView.
+    
+    
     public function isAddResultPageSetFromSummaryView() {
         return $this->summaryView->isAddResultPageSet();
     }

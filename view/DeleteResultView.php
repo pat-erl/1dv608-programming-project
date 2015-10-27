@@ -3,7 +3,7 @@
 class DeleteResultView {
 	
 	/*
-    
+        Handles the content for deleting results.
     */
     
     private static $delete = 'DeleteResultView::Delete';

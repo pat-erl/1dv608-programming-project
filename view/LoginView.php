@@ -3,7 +3,7 @@
 class LoginView {
 	
 	/*
-    	
+    	Handles the content for login and logout.
     */
 	
 	private static $login = 'LoginView::Login';

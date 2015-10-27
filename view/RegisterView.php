@@ -3,7 +3,7 @@
 class RegisterView {
     
     /*
-    
+    	Handles the content for registration.
     */
     
     private static $messageId = 'RegisterView::Message';

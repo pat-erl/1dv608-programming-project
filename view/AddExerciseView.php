@@ -3,7 +3,7 @@
 class AddExerciseView {
     
     /*
-    
+    	Handles the content for adding new exercises.
     */
     
     private static $messageId = 'AddExerciseView::Message';

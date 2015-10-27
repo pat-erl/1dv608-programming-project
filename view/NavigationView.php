@@ -2,6 +2,10 @@
 
 class NavigationView {
     
+    /*
+        Handles the navigation-links.
+    */
+    
     private static $summaryPage = 'summarypage';
     private static $selectExercisePage = 'selectexercisepage';
     private static $addExercisePage = 'addexercisepage';

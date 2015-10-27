@@ -4,7 +4,7 @@
 
 * The system should respond to input in an acceptable timeframe.
 * The system should be user-friendly.
-* The system provides helpful error messages.
+* The system should provide helpful error messages.
 * The system should be secure.
 
 **Security Considerations**

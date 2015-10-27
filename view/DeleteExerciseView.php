@@ -3,7 +3,7 @@
 class DeleteExerciseView {
 	
 	/*
-    
+        Handles the content for deleting exercises.
     */
     
     private static $delete = 'DeleteExerciseView::Delete';

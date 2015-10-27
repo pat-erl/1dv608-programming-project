@@ -3,7 +3,7 @@
 class MainController {
     
     /*
-        .. depending on where the user wants to do.
+        Handles the flow of the application and chooses operation based on what the user wants to do.
     */
     
     private $userCatalogue;
@@ -81,6 +81,7 @@ class MainController {
 		    $userName = $this->mainView->getRequestNameFromLoginView();
 			$userPassword = $this->mainView->getRequestPasswordFromLoginView();
 			
+			//Saves a successful login-username in session to be referenced to when managing exercises and/or results.
 			if($this->loginModel->doTryToLogin($userName, $userPassword)) {
 				$this->sessionModel->setSession($userName);
 			}
@@ -110,6 +111,7 @@ class MainController {
 			$userPassword = $this->mainView->getRequestPasswordFromRegisterView();
 			$userPasswordRepeat = $this->mainView->getRequestPasswordRepeatFromRegisterView();
 		
+		    //Saves a successful registration-username in session to be showed on loginpage.
 		    if($this->registerModel->doTryToRegister($userName, $userPassword, $userPasswordRepeat)) {
 		        $this->sessionModel->setRegSession($userName);
 		    }
@@ -118,6 +120,7 @@ class MainController {
 	}
     
     public function checkIfAddResult() {
+        //Saves a selected exercise-name in session to be referenced to when managing exercises and/or results.
         $exerciseId = $this->mainView->getExerciseIdFromUrl();
         $this->sessionModel->setExerciseSession($exerciseId);
         
@@ -130,6 +133,7 @@ class MainController {
     }
     
     public function checkIfEditResult() {
+        //Saves a selected result-id in session to be referenced to when managing results.
         $resultId = $this->mainView->getResultIdFromUrl();
         $this->sessionModel->setResultSession($resultId);
         

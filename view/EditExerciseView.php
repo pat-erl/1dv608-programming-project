@@ -3,7 +3,7 @@
 class EditExerciseView {
     
     /*
-    
+    	Handles the content for editing exercises.
     */
     
     private static $messageId = 'EditExerciseView::Message';

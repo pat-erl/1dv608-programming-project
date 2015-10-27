@@ -3,7 +3,7 @@
 class EditResultView {
 	
 	/*
-    
+    	Handles the content for editing results.
     */
     
     private static $editResultPage = 'editresultpage';

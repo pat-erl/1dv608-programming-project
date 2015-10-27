@@ -3,7 +3,7 @@
 class SummaryView {
     
     /*
-    
+        Handles the content for showing summary.
     */
     
     private static $addResultPage = 'addresultpage';
