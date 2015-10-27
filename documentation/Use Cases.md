@@ -36,7 +36,7 @@ User could not be authenticated due to invalid input.
 
 **Preconditions**
 
-* A user is authenticated. UC2.
+* A user is authenticated. UC 2.
 
 **Main scenario**
 
@@ -56,7 +56,7 @@ Exercise could not be created due to invalid input.
 
 **Preconditions**
 
-* A user is authenticated. UC2.
+* An exercise is added. UC 3.
 
 **Main scenario**
 
@@ -76,7 +76,7 @@ Result could not be created due to invalid input.
 
 **Preconditions**
 
-* A user is authenticated. UC2.
+* An exercise is added. UC 3.
 * The user has clicked on an exercise in the collection of created exercises.
 
 **Main scenario**
@@ -97,8 +97,7 @@ Exercise could not be edited due to invalid input.
 
 **Preconditions**
 
-* A user is authenticated. UC2.
-* The user has clicked on an exercise in the collection of created exercises.
+* A result is added. UC 4.
 
 **Main scenario**
 
@@ -118,7 +117,7 @@ Result could not be edited due to invalid input.
 
 **Preconditions**
 
-* A user is authenticated. UC2.
+* An exercise is added. UC 3.
 * The user has clicked on an exercise in the collection of created exercises.
 
 **Main scenario**
@@ -128,18 +127,11 @@ Result could not be edited due to invalid input.
 * User confirms delete.
 * System deletes the exercise and presents the users collection of created exercises.
 
-**Alternate scenarios**
-
-User clicks on other link intead of confirming.
-
-* System presents content based on which other link was clicked.
-
 ### UC 8 - Delete Result
 
 **Preconditions**
 
-* A user is authenticated. UC2.
-* The user has clicked on an exercise in the collection of created exercises.
+* A result is added. UC 4.
 
 **Main scenario**
 
@@ -148,17 +140,11 @@ User clicks on other link intead of confirming.
 * User confirms delete.
 * System deletes the result and presents the current exercise with all logged results.
 
-**Alternate scenarios**
-
-User clicks on other link intead of confirming.
-
-* System presents content based on which other link was clicked.
-
 ### UC 9 - Logout
 
 **Preconditions**
 
-* A user is authenticated. UC2.
+* A user is authenticated. UC 2.
 
 **Main scenario**
 
